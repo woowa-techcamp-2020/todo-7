@@ -1,5 +1,12 @@
 @import './reset.css';
 
+:root {
+    --black: #24292e;
+    --gray: #eff1f3;
+    --white: #ffffff;
+    --small-device-width: 544px;
+  }
+  
 * {
     box-sizing: border-box;
 }
@@ -16,7 +23,8 @@ body {
 
 .header{
     height: 58px;
-    background-color: #24292e;
+    background-color: var(--black);
+
     overflow: auto;
 }
 
@@ -32,7 +40,8 @@ body {
     min-width: 330px;
     border-radius: 6px;
     padding: 8px;
-    background-color: #eff1f3;
+    background-color: var(--gray);
+    ;
     margin-right: 16px;
 }
 
@@ -45,10 +54,10 @@ body {
     min-height: 104px;
     border-radius: 4px;
     padding: 3px 0px 8px;
-    background-color: white;
+    background-color: var(--white);
 }
 
-@media (max-width: 544px) {
+@media (max-width: 544px){
     .task-columns {
         flex-direction: column;
     }
