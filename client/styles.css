@@ -1,0 +1,69 @@
+@import './reset.css';
+
+:root {
+    --black: #24292e;
+    --gray: #eff1f3;
+    --white: #ffffff;
+    --small-device-width: 544px;
+  }
+  
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.header{
+    height: 58px;
+    background-color: var(--black);
+
+    overflow: auto;
+}
+
+.task-columns {
+    display: flex;
+    height: 100%;
+    padding: 16px;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.task-column {
+    min-width: 330px;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: var(--gray);
+    ;
+    margin-right: 16px;
+}
+
+.task-column-header {
+    min-height: 38px;
+    padding: 16px 0px 16px;
+}
+
+.task-column-card {
+    min-height: 104px;
+    border-radius: 4px;
+    padding: 3px 0px 8px;
+    background-color: var(--white);
+}
+
+@media (max-width: 544px){
+    .task-columns {
+        flex-direction: column;
+    }
+
+    .task-column {
+        margin-right: 0px;
+        margin-bottom: 16px;
+    }
+}
