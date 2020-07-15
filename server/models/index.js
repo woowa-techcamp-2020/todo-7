@@ -12,6 +12,7 @@ const pool = mysql.createPool({
 
 pool.query(`select * from USER`, function(err, rows, fields) {
     rows.forEach(row => console.log(row.ID));
-})
+});
+
 
 module.exports = pool;
