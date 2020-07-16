@@ -37,9 +37,10 @@ module.exports = {
       filename: '[name].css'
     })
   ],
-  // optimization: {
-  //   minimizer: [
-  //     new OptimizeCSSAssetsPlugin(),
-  //   ]
-  // }
+  optimization: {
+    usedExports: true,
+    minimizer: [
+      new OptimizeCssAssetsPlugin(),
+    ]
+  }
 };
