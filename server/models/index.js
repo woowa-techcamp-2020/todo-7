@@ -1,17 +1,17 @@
-const mysql = require('mysql2');
- 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+const fs = require("fs");
+const path = require("path");
 
-pool.query(`select * from USER`, function(err, rows, fields) {
-    rows.forEach(row => console.log(row.ID));
-})
+function init() {
+    fs.readdirSync(__dirname)
+    .filter(file => {
+        return (
+        file.indexOf(".") !== 0 &&
+        file !== 'index.js' && 
+        file !== 'model.js' &&
+        file.slice(-3) === ".js"
+        );
+    })
+    .forEach(file => require(path.join(__dirname, file)).init());
+}
 
-module.exports = pool;
+module.exports = { init };
