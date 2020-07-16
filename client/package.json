@@ -4,7 +4,9 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "development": "npm run build -- --env.mode=development",
+    "production": "npm run build -- --env.mode=production"
   },
   "keywords": [],
   "author": "",
