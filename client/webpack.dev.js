@@ -1,10 +1,29 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const path = require('path');
+const webpack = require('webpack');
+const banner = require('./banner');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = merge(common, {
+module.exports = {
   mode: 'development',
+  entry: {
+    main: './src/main.js',
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve('./dist'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
   plugins: [
+    new webpack.BannerPlugin(banner), 
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       templateParameters: {
@@ -16,5 +35,6 @@ module.exports = merge(common, {
   devtool: 'eval-cheap-source-map',
   devServer: {
     overlay: true,
+    hot: true,
   },
-});
+};

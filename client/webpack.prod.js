@@ -1,10 +1,31 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const path = require('path');
+const webpack = require('webpack');
+const banner = require('./banner');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = merge(common, {
+module.exports = {
   mode: 'production',
+  entry: {
+    main: './src/main.js',
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve('./dist'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+    ],
+  },
   plugins: [
+    new webpack.BannerPlugin(banner), 
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       templateParameters: {
@@ -12,5 +33,13 @@ module.exports = merge(common, {
       },
       hash: true,
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })
   ],
-});
+  // optimization: {
+  //   minimizer: [
+  //     new OptimizeCSSAssetsPlugin(),
+  //   ]
+  // }
+};
