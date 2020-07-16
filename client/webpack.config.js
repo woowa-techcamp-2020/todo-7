@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const banner = require('./banner');
 
 module.exports = {
   mode: 'development',
@@ -21,6 +23,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
-    })
+    }),
+    new webpack.BannerPlugin(banner)
   ]
 };
