@@ -13,4 +13,8 @@ module.exports = merge(common, {
       hash: true,
     }),
   ],
+  devtool: 'eval-cheap-source-map',
+  devServer: {
+    overlay: true,
+  },
 });
