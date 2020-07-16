@@ -28,6 +28,7 @@ module.exports = env => {
         templateParameters: {
           env: env.mode === 'development' ? '(개발용)' : '', 
         },
+        hash: true
       }),
       new webpack.BannerPlugin(banner),
       new CleanWebpackPlugin()
