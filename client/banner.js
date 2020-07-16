@@ -5,5 +5,7 @@ module.exports = function banner() {
   const user = childProcess.execSync('git config user.name');
   const date = new Date().toLocaleString();
 
-  return `commitVersion: ${commit}` + `Build Date: ${date}\n` + `Author: ${user}`;
+  return (
+    `commitVersion: ${commit}` + `Build Date: ${date}\n` + `Author: ${user}`
+  );
 };

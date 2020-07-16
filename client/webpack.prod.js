@@ -30,7 +30,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.BannerPlugin(banner), 
+    new webpack.BannerPlugin(banner),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
@@ -40,13 +40,11 @@ module.exports = {
       hash: true,
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css'
-    })
+      filename: '[name].css',
+    }),
   ],
   optimization: {
     usedExports: true,
-    minimizer: [
-      new OptimizeCssAssetsPlugin(),
-    ]
-  }
+    minimizer: [new OptimizeCssAssetsPlugin()],
+  },
 };

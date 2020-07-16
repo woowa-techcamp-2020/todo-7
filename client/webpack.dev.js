@@ -28,7 +28,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.BannerPlugin(banner), 
+    new webpack.BannerPlugin(banner),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
