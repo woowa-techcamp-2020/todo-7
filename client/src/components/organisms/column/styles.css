@@ -1,0 +1,8 @@
+.project-column {
+    min-width: 330px;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: var(--gray);
+    ;
+    margin-right: 16px;
+}

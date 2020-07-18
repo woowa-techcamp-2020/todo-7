@@ -4,7 +4,6 @@
     --black: #24292e;
     --gray: #eff1f3;
     --white: #ffffff;
-    --small-device-width: 544px;
   }
   
 * {
@@ -25,55 +24,6 @@ body {
     width: 100%;
     height: 100%;
 }
-
-.home {
-    width: 100%;
-    height: 100%;
-}
  
-.page-header{
-    height: 58px;
-    background-color: var(--black);
 
-    overflow: auto;
-}
 
-.note-columns {
-    display: flex;
-    height: 100%;
-    padding: 16px;
-    flex-direction: row;
-    overflow: auto;
-}
-
-.note-column {
-    min-width: 330px;
-    border-radius: 6px;
-    padding: 8px;
-    background-color: var(--gray);
-    ;
-    margin-right: 16px;
-}
-
-.note-column-header {
-    min-height: 38px;
-    padding: 16px 0px 16px;
-}
-
-.note-card {
-    min-height: 104px;
-    border-radius: 4px;
-    padding: 3px 0px 8px;
-    background-color: var(--white);
-}
-
-@media (max-width: 544px){
-    .note-columns {
-        flex-direction: column;
-    }
-
-    .note-column {
-        margin-right: 0px;
-        margin-bottom: 16px;
-    }
-}

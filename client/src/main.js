@@ -1,13 +1,10 @@
 import './reset.css';
 import './styles.css';
-import Home from "./components/pages/home.js";
-import Login from "./components/pages/login.js";
+import Home from "./components/pages/home/index.js";
 const root = document.querySelector('#App');
 const pages = {
   // hash: url
   '': Home,
-  'login': Login
-
 };
 
 const project = {
@@ -38,11 +35,11 @@ const project = {
 
 const render = async () => {
   try {
+    console.log('hello')
     // url의 hash를 취득
     const hash = location.hash.replace('#', '');
-    const page = new pages[hash](project);
-    console.log(page.getHtml());
-    root.innerHTML = page.getHtml();
+    const page = pages[hash](project);
+    root.innerHTML = page;
   } catch (err) {
     console.error(err);
   }
