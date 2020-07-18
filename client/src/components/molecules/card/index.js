@@ -1,4 +1,7 @@
-import Element from "../../element.js";
-import "./styles.css";
+import element from "../../element.js";
 
-export default (type) => Element(`${type}-card`);
+import "./styles.css";
+import button from "../../atoms/button/index.js";
+
+export default (type) => element(`${type}-card`,`
+`);

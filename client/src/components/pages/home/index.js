@@ -1,13 +1,13 @@
 
-import Header from '../../organisms/header/index.js';
-import Column from '../../organisms/column/index.js';
-import Element from '../../element.js';
+import header from '../../organisms/header/index.js';
+import column from '../../organisms/column/index.js';
+import element from '../../element.js';
 import './template.css';
 
-export default (project) => Element('home', `
-    ${Header()}
-    ${Element(
+export default (project) => element('home', `
+    ${header()}
+    ${element(
         'project-columns', 
-        project.groups.reduce((columns, column) => (columns + Column('project', column.title, column.notes)), '')
+        project.groups.reduce((columns, group) => (columns + column('project', group.title, group.notes)), '')
     )}
 `);

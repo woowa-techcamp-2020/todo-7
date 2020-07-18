@@ -1,6 +1,6 @@
-import Element from "../element.js";
+import element from "../element.js";
 
-export default class Login extends Element{
+export default class Login extends element{
     constructor() {
         super('login');
     }

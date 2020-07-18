@@ -1,6 +1,6 @@
-import Element from "../../element.js";
+import element from "../../element.js";
 import "./styles.css";
 
-export default () => Element('header');
+export default () => element('header');
 
 
