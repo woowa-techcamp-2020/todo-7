@@ -1,4 +1,6 @@
-import "./styles.css";
-import element from "../../element";
-export default (type = 'primary') => element('icon', `<i class="${type}"></i>
-`);
+import './styles.css';
+import element from '../../../utils/element';
+export default ({ className = 'default', type = 'primary' }) => element({
+    className: `${className} icon`, 
+    child: `<i class='${type}'></i>`
+});

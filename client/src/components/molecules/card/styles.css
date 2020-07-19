@@ -47,18 +47,18 @@
     color: var(--black);
 }
 
-.project-column-new-card {
+.project-column-form-card {
     margin: 3px 0px 8px; 
     display: none;
 }
 
-.project-column-new-card-footer {
+.project-column-form-card-footer {
     margin-top: 8px;
     display: flex;
     flex-direction: row;
     width: 100%;
 }
 
-.project-column-new-card-footer button{
+.project-column-form-card-footer button{
     flex: 1;
 }

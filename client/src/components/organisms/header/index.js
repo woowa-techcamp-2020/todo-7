@@ -1,6 +1,6 @@
-import "./styles.css";
-import element from "../../element";
+import './styles.css';
+import element from '../../../utils/element';
 
-export default () => element('header');
+export default () => element({ className: 'header' });
 
 

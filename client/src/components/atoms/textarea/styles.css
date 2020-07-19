@@ -13,7 +13,7 @@
 }
 
 .textarea[contenteditable]:empty::before {
-    content: "Enter a note";  
+    content: 'Enter a note';  
     color: gray;
 }
 

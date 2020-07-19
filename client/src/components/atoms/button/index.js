@@ -1,2 +1,6 @@
-import "./styles.css";
-export default (type = 'primary', text, disabled = false) => `<button class=${type} disabled=${disabled}>${text}</button>`;
+import './styles.css';
+export default ({ className = 'primary', text, disabled = false }) => `
+    <button 
+        class='${className}'
+        ${disabled ? 'disabled=true' : ''}
+    >${text}</button>`;

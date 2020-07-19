@@ -1,10 +1,10 @@
-import "./styles.css";
+import './styles.css';
 
-export default (parent, name) =>  `
+export default ({ className, name }) =>  `
   <div 
-    class="${parent}-textarea textarea"
-    name="${name}"
-    role="textbox" 
+    class='${className} textarea'
+    name='${name}'
+    role='textbox' 
     contenteditable>
   </div>
 `;
