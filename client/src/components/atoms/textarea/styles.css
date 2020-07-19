@@ -1,10 +1,10 @@
 .textarea {
     width: 100%;
-    height: auto;
     padding: 8px 12px;
     min-height: 58px;
-    max-height: 322px;
     min-width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
     outline: none;
     font-size: 14px;
     border-radius: 6px;
