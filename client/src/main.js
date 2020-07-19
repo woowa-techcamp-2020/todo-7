@@ -1,45 +1,17 @@
 import './reset.css';
 import './styles.css';
-import Home from "./components/pages/home/index.js";
-const root = document.querySelector('#App');
-const pages = {
-  // hash: url
-  '': Home,
-};
-
-const project = {
-  id: 1,
-  name: 'Jinhyeok',
-  groups: [
-    {
-      id: 1,
-      title: '📗todo',  
-      notes: [
-        {
-          id: 1,
-        }
-      ],
-    },
-    {
-      id: 2,
-      title: '📒doing',  
-      notes: [],
-    },
-    {
-      id: 3,
-      title: '📕done',  
-      notes: [],
-    }
-  ]
-}
+import projectView from "./components/pages/project/view";
+import ProjectController from "./components/pages/project/controller";
+import ProjectModel from './components/pages/project/model';
+// const pages = {
+//   // hash: url
+//   '': projectView,
+// };
 
 const render = async () => {
   try {
-    console.log('hello')
-    // url의 hash를 취득
-    const hash = location.hash.replace('#', '');
-    const page = pages[hash](project);
-    root.innerHTML = page;
+    const projectModel = await new ProjectModel(1);
+    new ProjectController(projectModel, projectView)
   } catch (err) {
     console.error(err);
   }

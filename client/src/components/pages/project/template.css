@@ -1,0 +1,23 @@
+.project {
+    width: 100%;
+    height: 100%;
+}
+
+.project-columns {
+    display: flex;
+    height: 100%;
+    padding: 16px;
+    flex-direction: row;
+    overflow: auto;
+}
+
+@media (max-width: 544px){
+    .project-columns {
+        flex-direction: column;
+    }
+
+    .project-column {
+        margin-right: 0px;
+        margin-bottom: 16px;
+    }
+}
