@@ -39,6 +39,11 @@ class Model {
         case 'text':
           validatedInput[name] = `'${value}'`;
           break;
+        case 'enum':
+          if (typeof value === 'number' || Number(value).toString() === value) {
+            validatedInput[name] = value;
+          } else throw this.validationError;
+          break;
         default:
           throw this.validationError;
       }
