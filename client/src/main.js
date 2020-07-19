@@ -1,26 +1,16 @@
 import './reset.css';
 import './styles.css';
-import ProjectController from "./components/pages/project/controller";
-import ProjectModel from "./components/pages/project/model";
-import ProjectView from "./components/pages/project/view";
-// const pages = {
-//   // hash: url
-//   '': projectView,
-// };
+import ProjectController from './pages/project/controller';
+import ProjectModel from './pages/project/model';
+import ProjectView from './pages/project/view';
 
 const render = async () => {
   try {
     const root = document.querySelector('#App');
-    const hash = location.hash.replace('#', '');
-    switch(hash) {
-      case '':
-      default:
-        const projectView = new ProjectView();
-        const projectModel = new ProjectModel();
-        const projectController = new ProjectController(projectModel, projectView);
-        await projectController.init(1, root);
-        break;
-    }
+    // const hash = location.hash.replace('#', '');
+    
+    const projectController = new ProjectController(new ProjectModel(), new ProjectView());
+    await projectController.init(1, root);
   } catch (err) {
     console.error(err);
   }
