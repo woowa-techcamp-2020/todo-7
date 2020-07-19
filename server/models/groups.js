@@ -1,6 +1,7 @@
 const Model = require('./model');
 
 class Groups extends Model {
+  static defaultWhere = { isActive: 1 };
   static init() {
     return super.init({
       id: { dataType: 'int', required: false },
