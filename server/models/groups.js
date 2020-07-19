@@ -1,4 +1,5 @@
 const Model = require('./model');
+
 class Groups extends Model {
   static init() {
     return super.init({

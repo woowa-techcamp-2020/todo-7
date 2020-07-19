@@ -1,4 +1,5 @@
 const Model = require('./model');
+
 class Events extends Model {
   static init() {
     return super.init({

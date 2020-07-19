@@ -1,4 +1,5 @@
 const Model = require('./model');
+
 class Notes extends Model {
   static defaultWhere = { isActive: 1 };
   static init() {

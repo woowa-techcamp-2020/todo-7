@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const Users = require('../models/users');
+
 exports.create = async (req, res) => {
   const input = req.body;
   const salt = await bcrypt.genSalt(+process.env.SALTROUNDS);
