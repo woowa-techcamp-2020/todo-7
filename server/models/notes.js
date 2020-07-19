@@ -5,7 +5,7 @@ class Notes extends Model {
   static init() {
     return super.init({
       id: { dataType: 'int', required: false },
-      groupId: { dataType: 'int', required: false },
+      groupId: { dataType: 'int', required: true },
       title: { dataType: 'varchar', required: true },
       description: { dataType: 'text', required: false },
       order: { dataType: 'int', required: false },
