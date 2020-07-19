@@ -49,17 +49,17 @@ class Model {
   static createFindQueryStmt = function (isOne, attributes = '*', where = {}) {
     const validatedWhere = this.validate({ ...where, ...this.defaultWhere });
     const queryStmt = `
-        SELECT ${attributes} 
-            FROM ${this.name}
-            ${
-              !isEmpty(validatedWhere)
-                ? `WHERE ${Object.entries(validatedWhere)
-                    .map((o) => `${o[0]}=${o[1]}`)
-                    .join(' AND ')}`
-                : ''
-            }
-            ${isOne ? 'LIMIT 1' : ''}
-        `;
+      SELECT ${attributes} 
+        FROM ${this.name}
+        ${
+          !isEmpty(validatedWhere)
+            ? `WHERE ${Object.entries(validatedWhere)
+                .map((o) => `${o[0]}=${o[1]}`)
+                .join(' AND ')}`
+            : ''
+        }
+        ${isOne ? 'LIMIT 1' : ''}
+      `;
     return queryStmt;
   };
 
@@ -76,10 +76,10 @@ class Model {
   static create = async function (input) {
     const validatedInput = this.validate(input);
     const queryStmt = `
-            INSERT INTO ${this.name}
-            (${Object.keys(validatedInput)})
-            VALUES (${Object.values(validatedInput)})
-        `;
+        INSERT INTO ${this.name}
+        (${Object.keys(validatedInput)})
+        VALUES (${Object.values(validatedInput)})
+      `;
     return {
       id: (await this.pool.query(queryStmt))[0].insertId,
       ...input,
@@ -90,22 +90,22 @@ class Model {
     if (!input.id) throw this.validationError;
     const validatedInput = this.validate(input);
     const queryStmt = `
-            UPDATE ${this.name}
-            SET ${Object.entries(validatedInput)
-              .map((o) => `${o[0]}=${o[1]}`)
-              .join(', ')}
-            WHERE id = ${validatedInput.id}
-        `;
+        UPDATE ${this.name}
+        SET ${Object.entries(validatedInput)
+          .map((o) => `${o[0]}=${o[1]}`)
+          .join(', ')}
+        WHERE id = ${validatedInput.id}
+      `;
     return await this.pool.query(queryStmt);
   };
 
   static delete = async function (id) {
     if (!id) throw this.validationError;
     return await this.pool.query(`
-            UPDATE ${this.name}
-            SET isActive = 0
-            WHERE id = ${id}
-        `);
+      UPDATE ${this.name}
+      SET isActive = 0
+      WHERE id = ${id}
+    `);
   };
 }
 
