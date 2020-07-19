@@ -4,7 +4,7 @@ class Groups extends Model {
   static init() {
     return super.init({
       id: { dataType: 'int', required: false },
-      projectId: { dataType: 'int', required: false },
+      projectId: { dataType: 'int', required: true },
       name: { dataType: 'varchar', required: true },
       order: { dataType: 'int', required: false },
       isActive: { dataType: 'tinyint', required: false },
