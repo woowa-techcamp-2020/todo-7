@@ -6,9 +6,9 @@ class UserProjectRelations extends Model {
       id: { dataType: 'int', required: false },
       userId: { dataType: 'int', required: true },
       projectId: { dataType: 'int', required: true },
-      authority: { datatype: 'enum', required: false },
+      authority: { dataType: 'enum', required: false },
     });
   }
 }
 
-module.exports = Users;
+module.exports = UserProjectRelations;
