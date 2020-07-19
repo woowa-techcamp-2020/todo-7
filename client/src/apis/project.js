@@ -1,6 +1,6 @@
 import { get } from ".";
 
-export const getProject = (id) => ({
+export const getProject = async (id) => ({
     id: 1,
     name: 'Jinhyeok',
     groups: [

@@ -1,9 +1,13 @@
 export default class ProjectController {
     constructor(model, view) {
-        const root = document.querySelector('#App');
         this.model = model;
         this.view = view;
-        root.innerHTML = view(model.store);
+    }
+
+    async init(id, root) {
+        await this.model.init(id);
+
+        this.view.init(this.model.getProject(), root);
         this.handleEvents();
     }
 

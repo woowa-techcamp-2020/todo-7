@@ -4,10 +4,24 @@ import column from '../../organisms/column';
 import element from '../../element';
 import './template.css';
 
-export default (project) => element('project', `
-    ${header()}
-    ${element(
-        'project-columns', 
-        project.groups.reduce((columns, group) => (columns + column('project', group.title, group.notes)), '')
-    )}
-`);
+export default class ProjectView { 
+    constructor(project){
+        this.project = project;
+    }
+
+    init(project, app) {
+        this.project = project;
+        app.innerHTML = this.render();
+    }
+    
+    render(){
+        return element('project', `
+            ${header()}
+            ${element(
+                'project-columns', 
+                this.project.groups.reduce((columns, group) => (columns + column('project', group.title, group.notes)), '')
+            )}
+        `);
+    } 
+    
+}
