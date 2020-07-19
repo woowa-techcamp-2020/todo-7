@@ -1,5 +1,5 @@
-import element from "../../element.js";
 import "./styles.css";
+import element from "../../element";
 
 export default () => element('header');
 
