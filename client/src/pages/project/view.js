@@ -1,6 +1,7 @@
 import Event from '../../utils/event';
 import projectPage from '../../components/templates/project'
 import card from '../../components/molecules/card';
+import dragAndDrop from '../../utils/dragndrop';
 
 export default class ProjectView { 
     init(project, app) {
@@ -20,6 +21,7 @@ export default class ProjectView {
     }
 
     addUserEventListener(){
+        new dragAndDrop(this.app.querySelector('.project'), '.project-column-card');
         const columns = document.querySelectorAll('.project-column');
         columns.forEach(column => {
             column.addEventListener('click', (event) => this.onClickHandler(event, this));
