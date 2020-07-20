@@ -5,3 +5,7 @@
     background-color: var(--grey);
     margin-right: 16px;
 }
+
+.project-column-body {
+    height: 100%;
+}
