@@ -24,6 +24,7 @@ class Projects extends Model {
       WHERE ${Object.entries(validatedWhere)
         .map((o) => `${this.name}.${o[0]}=${o[1]}`)
         .join(' AND ')}
+      ORDER BY Groups.id, Notes.id
     `;
     return (await this.pool.query(queryStmt))[0];
   }
