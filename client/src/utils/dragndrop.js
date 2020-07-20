@@ -1,60 +1,87 @@
-import './styles.css';
+export default class DragAndDrop {
+    constructor(container, parentSelector, childSelector) {
+        this.container = container;
+        this.parentSelector = parentSelector;
+        this.childSelector = childSelector;
+        this.addEventListener();
+    }
 
-export default class dragAndDrop {
-    constructor(element, querySelector) {
-        this.element = element;
-        this.querySelector = querySelector;
+    addEventListener() {
         const self = this;
-        this.element.addEventListener('mousedown', event => self.onMouseDown(event))
-        this.element.addEventListener('mouseup', event => self.onMouseUp(event))
-        this.element.addEventListener('mousemove', event => self.onMouseMove(event))
+        this.container.addEventListener('mousedown', event => self.onMouseDown(event))
+        this.container.addEventListener('mouseup', event => self.onMouseUp(event))
+        this.container.addEventListener('mousemove', event => self.onMouseMove(event))
     }
-
-    setClientXY(clientX, clientY){
-        this.clientX = clientX;
-        this.clientY = clientY;
-    }
-
+    
     onMouseDown(event) {
-        this.mouseDown = true;
-        const original = event.target.closest(this.querySelector);
-        if(original) {
-            console.log(original);
-            this.copy = original.cloneNode(true);
-            console.log(original.getBoundingClientRect());
-            const { top, left, width, height } = original.getBoundingClientRect();
-            this.setClientXY(event.clientX, event.clientY);
-            this.left = left;
-            this.top = top;
-            // console.log(event.clientX, event.clientY);
-            original.classList.add('blur');
-            this.copy.classList.add('dragging');
-            this.copy.style.left = left + 'px';
-            this.copy.style.top = top + 'px';
-            this.copy.style.width = width + 'px';
-            this.copy.style.height = height + 'px';
-            this.element.appendChild(this.copy);
+        const target = event.target.closest(this.childSelector);
+        if(target) {
+            this.dragging = true;
+            this.oldNode = target;
+            const sizeData = this.oldNode.getBoundingClientRect();
+            this.initialize(target, event, sizeData);
+            this.instantiate(sizeData);       
         }
     }
 
+    onMouseMove(event) {
+        if(this.dragging) {
+            this.updateNewNodePosition(event);
+            this.updateOldNodePosition(event);
+        }
+    }
 
     onMouseUp(event) {
-        this.mouseDown = false;
+        document.body.onselectstart = () => true;
+        this.dragging = false;
+        this.oldNode.style.filter = 'none';
+        this.newNode.remove();
+    }
+
+    createNewNode(oldNode, sizeData){
+        const newNode = oldNode.cloneNode(true);
+        newNode.classList.add('dragging');
+        newNode.style.left = sizeData.left + 'px';
+        newNode.style.top = sizeData.top + 'px';
+        newNode.style.width = sizeData.width + 'px';
+        newNode.style.height = sizeData.height + 'px';
+        newNode.style.pointerEvents = 'none';
+        newNode.style.position = 'absolute';
+        return newNode;
+    }
+
+    instantiate(sizeData) {
+        this.newNode = this.createNewNode(this.oldNode, sizeData);
+        this.oldNode.style.filter = 'blur(5px)';
+        this.container.appendChild(this.newNode);
+    }
+
+    initialize(element, event, sizeData){
+        document.body.onselectstart = () => false;
+        this.clientX = event.clientX;
+        this.clientY = event.clientY; 
+        this.element = element;
+        this.left = sizeData.left;
+        this.top = sizeData.top;
     }
 
     getNewLeft(clientX) {
-        console.log(this.clientX, clientX);
         return (clientX - this.clientX + this.left) + 'px';
     }
+    
     getNewTop(clientY) {
         return (clientY - this.clientY + this.top) + 'px';
     }
 
-    onMouseMove(event) {
-        if(this.mouseDown) {
-            this.copy.style.left = this.getNewLeft(event.clientX);
-            this.copy.style.top = this.getNewTop(event.clientY);
-        }
+    updateNewNodePosition(event) {
+        this.newNode.style.left = this.getNewLeft(event.clientX);
+        this.newNode.style.top = this.getNewTop(event.clientY);
+    }
+
+    updateOldNodePosition(event) {
+        const parentElement = event.target.closest(this.parentSelector);
+        const childElement = event.target.closest(this.childSelector);
+        if(parentElement) parentElement.insertBefore(this.oldNode, childElement)
     }
 }
 
