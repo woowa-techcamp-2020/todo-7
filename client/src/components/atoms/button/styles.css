@@ -7,12 +7,12 @@ button {
 }
 
 button.primary {
-    background-color: #2ea44f;
+    background-color: var(--green);
     color: white;
 }
 
 button.primary:disabled {
-    background-color: #94d3a2;
+    background-color: var(--light-green);
 }
 
 button.dismiss {
