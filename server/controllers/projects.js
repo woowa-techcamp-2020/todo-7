@@ -1,4 +1,5 @@
 const Projects = require('../models/projects');
+const Events = require('../models/events');
 
 exports.create = async (req, res) => {
   const project = await Projects.create(req.body);
@@ -8,7 +9,11 @@ exports.create = async (req, res) => {
 exports.get = async (req, res) => {
   const project = await Projects.findById({ id: req.params.id });
   if (!project) res.status(404).send('project not found');
-  else res.send(project);
+  else {
+    const events = await Events.getByProjectId({ id: req.params.id });
+    project.events = events;
+    res.send(project);
+  }
 };
 
 exports.update = async (req, res) => {
