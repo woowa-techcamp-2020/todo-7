@@ -65,7 +65,7 @@
 
 ### Endpoint
 
-`GET` `/project/:id`
+`GET` `/projects/:id`
 
 ### Params
 
@@ -133,7 +133,7 @@
 
 ### Endpoint
 
-`POST` `/project`
+`POST` `/projects`
 
 ### Body
 
@@ -187,7 +187,7 @@
 
 ### Endpoint
 
-`DELETE` `/project/:id`
+`DELETE` `/projects/:id`
 
 ### Params
 
@@ -205,7 +205,7 @@ status code
 
 ### Endpoint
 
-`PUT` `/project`
+`PUT` `/projects`
 
 ### Body
 
@@ -279,9 +279,10 @@ status code
 
 ### Params
 
-| Property | Type  | Description    |
-| -------- | ----- | -------------- |
-| `id`     | `int` | 그룹 고유 번호 |
+| Property    | Type  | Description        |
+| ----------- | ----- | ------------------ |
+| `projectId` | `int` | 프로젝트 고유 번호 |
+| `id`        | `int` | 그룹 고유 번호     |
 
 ## Response
 
@@ -310,11 +311,12 @@ status code
 
 ### Body
 
-| Property           | Type     | Description    |
-| ------------------ | -------- | -------------- |
-| `id`               | `int`    | 그룹 고유 번호 |
-| `title`            | `string` | 그룹 이름      |
-| `order` (optional) | `int`    | 그룹 순서      |
+| Property           | Type     | Description        |
+| ------------------ | -------- | ------------------ |
+| `projectId`        | `int`    | 프로젝트 고유 번호 |
+| `id`               | `int`    | 그룹 고유 번호     |
+| `title`            | `string` | 그룹 이름          |
+| `order` (optional) | `int`    | 그룹 순서          |
 
 ## Response
 
@@ -343,10 +345,11 @@ status code
 
 ### Body
 
-| Property | Type  | Description    |
-| -------- | ----- | -------------- |
-| `id`     | `int` | 그룹 고유 번호 |
-| `order`  | `int` | 그룹 순서      |
+| Property    | Type  | Description        |
+| ----------- | ----- | ------------------ |
+| `projectId` | `int` | 프로젝트 고유 번호 |
+| `id`        | `int` | 그룹 고유 번호     |
+| `order`     | `int` | 그룹 순서          |
 
 ## Response
 
@@ -375,10 +378,11 @@ status code
 
 ### Body
 
-| Property  | Type     | Description    |
-| --------- | -------- | -------------- |
-| `groupId` | `int`    | 그룹 고유 번호 |
-| `title`   | `string` | 노트 이름      |
+| Property    | Type     | Description        |
+| ----------- | -------- | ------------------ |
+| `projectId` | `int`    | 프로젝트 고유 번호 |
+| `groupId`   | `int`    | 그룹 고유 번호     |
+| `title`     | `string` | 노트 이름          |
 
 ## Response
 
@@ -412,9 +416,10 @@ status code
 
 ### Params
 
-| Property | Type  | Description    |
-| -------- | ----- | -------------- |
-| `id`     | `int` | 노트 고유 번호 |
+| Property    | Type  | Description        |
+| ----------- | ----- | ------------------ |
+| `projectId` | `int` | 프로젝트 고유 번호 |
+| `id`        | `int` | 노트 고유 번호     |
 
 ## Response
 
@@ -443,10 +448,11 @@ status code
 
 ### Body
 
-| Property           | Type     | Description |
-| ------------------ | -------- | ----------- |
-| `title`            | `string` | 그룹 이름   |
-| `order` (optional) | `int`    | 그룹 순서   |
+| Property           | Type     | Description        |
+| ------------------ | -------- | ------------------ |
+| `projectId`        | `int`    | 프로젝트 고유 번호 |
+| `title`            | `string` | 그룹 이름          |
+| `order` (optional) | `int`    | 그룹 순서          |
 
 ## Response
 
@@ -475,11 +481,12 @@ status code
 
 ### Body
 
-| Property           | Type  | Description    |
-| ------------------ | ----- | -------------- |
-| `id`               | `int` | 노트 고유 번호 |
-| `groupId`          | `int` | 그룹 아이디    |
-| `order` (optional) | `int` | 그룹 순서      |
+| Property           | Type  | Description        |
+| ------------------ | ----- | ------------------ |
+| `projectId`        | `int` | 프로젝트 고유 번호 |
+| `id`               | `int` | 노트 고유 번호     |
+| `groupId`          | `int` | 그룹 아이디        |
+| `order` (optional) | `int` | 그룹 순서          |
 
 ## Response
 
