@@ -15,9 +15,9 @@ class Projects extends Model {
   static async findById(where) {
     const validatedWhere = this.validate({ ...where, ...this.defaultWhere });
     const queryStmt = `
-      SELECT Projects.id AS 'projectId', Projects.title AS 'projectTitle', Projects.description AS 'projectDescription', 
-             Groups.id AS 'groupId', Groups.title AS 'groupTitle', 
-             Notes.id AS 'noteId', Notes.title AS 'noteTitle', Notes.description AS 'noteDescription'
+      SELECT Projects.id AS 'id', Projects.title AS 'title', Projects.description AS 'description', 
+             Groups.id AS 'group.id', Groups.title AS 'group.title', 
+             Notes.id AS 'group.note.id', Notes.title AS 'group.note.title', Notes.description AS 'group.note.description'
       FROM Projects 
       INNER JOIN Groups ON Groups.projectId = Projects.id
       INNER JOIN Notes ON Notes.groupId = Groups.id
@@ -27,50 +27,24 @@ class Projects extends Model {
       ORDER BY Groups.id, Notes.id
     `;
     const result = (await this.pool.query(queryStmt))[0];
-    return this.parseData(result);
+
+    return this.parseData(result, 'group.id', 'note.id');
   }
 
-  static parseData(data) {
-    const project = {};
-    let prevGroupId;
-    let prevGroupTitle;
-    let prevGroupNotes = [];
+  static findUnique(inputArr, key) {
+    return inputArr.reduce(
+      (a, b) => (a.includes(b[key]) ? a : [...a, b[key]]),
+      [],
+    );
+  }
 
-    data.map((obj, idx, arr) => {
-      if (idx === 0) {
-        project.id = obj.projectId;
-        project.title = obj.projectTitle;
-        project.description = obj.projectDescription;
-        project.groups = [];
-        prevGroupId = obj.groupId;
-        prevGroupTitle = obj.groupTitle;
-      }
-      if (prevGroupId !== obj.groupId) {
-        project.groups.push({
-          id: prevGroupId,
-          title: prevGroupTitle,
-          notes: prevGroupNotes.slice(0),
-        });
-        prevGroupId = obj.groupId;
-        prevGroupTitle = obj.groupTitle;
-        prevGroupNotes = [];
-      }
-      prevGroupNotes.push({
-        id: obj.noteId,
-        title: obj.noteTitle,
-        description: obj.noteDescription,
-      });
-      if (arr.length === idx + 1) {
-        project.groups.push({
-          id: prevGroupId,
-          title: prevGroupTitle,
-          notes: prevGroupNotes.slice(0),
-        });
-      }
-    });
-
-    return project;
+  static parseData(data, key) {
+    const result = this.findUnique(data, key).map((value) =>
+      data.filter((row) => row[key] === value),
+    );
+    if (arguments[2]) {
+      return this.parseData(result, Array.prototype.slice(2).call(arguments));
+    }
+    return result;
   }
 }
-
-module.exports = Projects;
