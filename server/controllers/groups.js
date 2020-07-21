@@ -1,4 +1,5 @@
 const Groups = require('../models/groups');
+const Events = require('../models/events');
 
 exports.create = async (req, res) => {
   const group = await Groups.create(req.body);
@@ -13,7 +14,8 @@ exports.findById = async (req, res) => {
 
 exports.update = async (req, res) => {
   await Groups.update(req.body);
-  res.send('successfully updated');
+  const event = await Events.create({ projectId: req.body.projectId, description: 'updated Group' });
+  res.send(event);
 };
 
 exports.delete = async (req, res) => {
