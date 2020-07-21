@@ -21,24 +21,41 @@ export default class ProjectView {
     }
 
     addUserEventListener(){
+        this.app.addEventListener('click', (event) => this.onAppClickHandler(event, this));
         new DragAndDrop(this.app.querySelector('.project'), '.project-column-body', '.project-column-card');
         new DragAndDrop(this.app.querySelector('.project'), '.project-columns', '.project-column');
         const columns = document.querySelectorAll('.project-column');
         columns.forEach(column => {
-            column.addEventListener('click', (event) => this.onClickHandler(event, this));
+            column.addEventListener('mousedown', (event) => this.onColumnClickHandler(event, this));
             column.addEventListener('keyup', (event) => this.onFormCardTypeHandler(event, this));
         });
     }
 
-    onClickHandler(event, self) {
+    onAppClickHandler(event, self) {
         const classList = event.target.classList;
+        if(classList.contains('project-header-menu-icon')) {
+            self.onEventColumnToggler(event, true);
+        } else if(classList.contains('project-event-column-close-icon')) {
+            self.onEventColumnToggler(event, false);
+        }
+    }
+
+    onColumnClickHandler(event, self) {
+        let foundHandler = true;
+        const classList = event.target.classList;
+        
         if(classList.contains('project-column-header-add-icon')) {
-            self.onNoteAddIconCickHander(event); 
+            self.onNoteAddIconCickHandler(event); 
         } else if(classList.contains('project-column-form-card-add-button')) {
             self.onFormCardButtonClickHandler(event, true);
         } else if(classList.contains('project-column-form-card-cancel-button')) {
             self.onFormCardButtonClickHandler(event, false);
-        }
+        } else { 
+            foundHandler = false;
+        } 
+
+        if(foundHandler) event.stopImmediatePropagation();
+
     }
 
     render(){
@@ -74,10 +91,17 @@ export default class ProjectView {
         if(clear) formCard.firstElementChild.innerHTML = '';   
     }
 
-    onNoteAddIconCickHander(event) {
+    onEventColumnToggler(event, open) {
+        const eventColumn = event.currentTarget.querySelector('.project-event-column');
+        if(open) eventColumn.style.transform = 'translateX(-360px)';
+        else eventColumn.style.transform = 'translateX(360px)';        
+    }
+
+    onNoteAddIconCickHandler(event) {
         const formCard = event.currentTarget.querySelector('.project-column-form-card');
         this.toggleFormCard(formCard);
     }
+
 
     onFormCardButtonClickHandler(event, isAdd) {
         const formCard = event.currentTarget.querySelector('.project-column-form-card');
