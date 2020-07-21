@@ -5,7 +5,7 @@ class Projects extends Model {
   static init() {
     return super.init({
       id: { dataType: 'int', required: false },
-      name: { dataType: 'varchar', required: true },
+      title: { dataType: 'varchar', required: true },
       description: { dataType: 'text', required: false },
       isActive: { dataType: 'tinyint', required: false },
       createdAt: { dataType: 'datetime', required: false },
