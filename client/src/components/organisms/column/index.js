@@ -12,12 +12,18 @@ export default ({ className, data}) => element({
             title: data.title, 
             count: data.notes.length,
         }),
-        card({
-            className: `${className}-form-card`,
-        }),
-        ...data.notes.map(note => card({
-            className: `${className}-card`,
-            data: note,
-        }))
+        element({
+            className: `${className}-body`,
+            child:[
+                card({
+                    className: `${className}-form-card`,
+                }),
+                ...data.notes.map(note => card({
+                    className: `${className}-card`,
+                    data: note,
+                }))
+            ]
+        })
+        
     ]
 });
