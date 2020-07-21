@@ -3,7 +3,8 @@ const Events = require('../models/events');
 
 exports.create = async (req, res) => {
   const note = await Notes.create(req.body);
-  res.send(note);
+  const event = await Events.create({ projectId: req.body.projectId, description: 'created Note' });
+  res.send({ note, event });
 };
 
 exports.findById = async (req, res) => {
