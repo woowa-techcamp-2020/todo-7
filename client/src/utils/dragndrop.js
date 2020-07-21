@@ -3,14 +3,13 @@ export default class DragAndDrop {
         this.container = container;
         this.parentSelector = parentSelector;
         this.childSelector = childSelector;
-        this.addEventListener();
+        this.addEventListeners();
     }
 
-    addEventListener() {
-        const self = this;
-        this.container.addEventListener('mousedown', event => self.onMouseDown(event))
-        this.container.addEventListener('mouseup', event => self.onMouseUp(event))
-        this.container.addEventListener('mousemove', event => self.onMouseMove(event))
+    addEventListeners() {
+        this.container.addEventListener('mousedown', event => this.onMouseDown(event))
+        this.container.addEventListener('mouseup', event => this.onMouseUp(event))
+        this.container.addEventListener('mousemove', event => this.onMouseMove(event))
     }
     
     onMouseDown(event) {
@@ -34,8 +33,10 @@ export default class DragAndDrop {
     onMouseUp(event) {
         document.body.onselectstart = () => true;
         this.dragging = false;
-        this.oldNode.style.filter = 'none';
-        this.newNode.remove();
+        if(this.oldNode){
+            this.oldNode.style.filter = 'none';
+            this.newNode.remove();
+        }
     }
 
     createNewNode(oldNode, sizeData){
