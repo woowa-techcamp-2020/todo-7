@@ -1,0 +1,21 @@
+button {
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: var(--btn-border);
+    width: 100%;
+    height: 32px;
+}
+
+button.primary {
+    background-color: var(--green);
+    color: white;
+}
+
+button.primary:disabled {
+    background-color: var(--light-green);
+}
+
+button.dismiss {
+    background-color: var(--white);
+    color: var(--black);
+}

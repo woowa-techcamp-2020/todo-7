@@ -1,0 +1,23 @@
+.project-column-header {
+    display: flex;
+    flex-direction: row;
+    min-height: 38px;
+    font-weight: 600;
+    width: 100%;
+    padding: 16px 0px 16px;
+
+}
+
+.project-column-header-counter{
+    flex: none;
+    margin-right: 10px;
+}
+
+.project-column-header-title {
+    flex: none;
+    vertical-align: middle;
+}
+
+.project-column-header-actions {
+    margin-left: auto;
+}

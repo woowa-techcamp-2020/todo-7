@@ -1,0 +1,12 @@
+.counter {
+    display: table-cell;
+    border-radius: 50%;
+    background-color: var(--light-grey);
+    color: var(--dark-grey);
+    width: 20px;
+    height: 20px;
+    text-align: center;  
+    font-size: 12px;
+    line-height: 1em;
+    padding-top: 0.4em;
+}

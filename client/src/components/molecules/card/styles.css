@@ -1,0 +1,64 @@
+.project-column-card {
+    min-height: 80px;
+    border-radius: 4px;
+    margin: 3px 0px 8px; 
+    padding: 8px 8px 8px 32px;
+    background-color: var(--white);
+    
+}
+
+.project-column-card-header {
+    flex: none;
+    padding-left: auto;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.project-column-card-header-text {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--blue);
+}
+.project-column-card-header > .icon {
+    width: 20px;
+    height: 20px;
+    background-color: rosybrown;
+    margin-left: auto;
+}
+
+.project-column-card-body {
+    flex: none;
+    font-weight: 600;
+    font-size: 90%;
+    margin-bottom: 10px
+}
+
+.project-column-card-footer {
+    margin-top: auto;
+    display: block;
+    color: darkgrey;
+    font-weight: 500;
+    font-size: 90%;
+}
+
+.project-column-card-footer-writer {
+    display: inline-block;
+    color: var(--black);
+}
+
+.project-column-form-card {
+    margin: 3px 0px 8px; 
+    display: none;
+}
+
+.project-column-form-card-footer {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.project-column-form-card-footer button{
+    flex: 1;
+}

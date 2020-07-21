@@ -1,0 +1,6 @@
+.header{
+    height: 58px;
+    background-color: var(--black);
+
+    overflow: auto;
+}
