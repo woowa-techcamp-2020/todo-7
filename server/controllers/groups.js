@@ -19,6 +19,6 @@ exports.update = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  await Groups.delete(req.params.id);
-  res.send('successfully deleted');
+  const event = await Events.create({ projectId: req.body.projectId, description: 'deleted Group' });
+  res.send(event);
 };
