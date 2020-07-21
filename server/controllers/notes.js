@@ -17,6 +17,11 @@ exports.update = async (req, res) => {
   const event = await Events.create({ projectId: req.body.projectId, description: 'updated Note' });
   res.send(event);
 };
+
+exports.move = async (req, res) => {
+  await Notes.update(req.body);
+  const event = await Events.create({ projectId: req.body.projectId, description: 'moved Note' });
+  res.send(event);
 };
 
 exports.delete = async (req, res) => {
