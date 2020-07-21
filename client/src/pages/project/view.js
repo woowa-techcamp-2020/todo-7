@@ -22,7 +22,7 @@ export default class ProjectView {
 
     addUserEventListener(){
         new DragAndDrop(this.app.querySelector('.project'), '.project-column-body', '.project-column-card');
-        // new dragAndDrop(this.app.querySelector('.project'), '.project-columns', '.project-column');
+        new DragAndDrop(this.app.querySelector('.project'), '.project-columns', '.project-column');
         const columns = document.querySelectorAll('.project-column');
         columns.forEach(column => {
             column.addEventListener('click', (event) => this.onClickHandler(event, this));
