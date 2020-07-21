@@ -1,6 +1,6 @@
 const createHttpError = require('http-errors');
 const mysql = require('mysql2/promise');
-const { isEmpty } = require('../utils/helper');
+const { isEmpty, wrapBacktick } = require('../utils/helper');
 
 class Model {
   static pool = mysql.createPool({
@@ -55,7 +55,7 @@ class Model {
   static createFindQueryStmt = function (isOne, attributes = '*', where = {}) {
     const validatedWhere = this.validate({ ...where, ...this.defaultWhere });
     const queryStmt = `
-      SELECT ${attributes} 
+      SELECT ${attributes === '*' ? '*' : wrapBacktick(attributes)} 
         FROM ${this.name}
         ${
           !isEmpty(validatedWhere)
@@ -83,7 +83,7 @@ class Model {
     const validatedInput = this.validate(input);
     const queryStmt = `
         INSERT INTO ${this.name}
-        (${Object.keys(validatedInput)})
+        (${wrapBacktick(Object.keys(validatedInput))})
         VALUES (${Object.values(validatedInput)})
       `;
     return {
@@ -98,7 +98,7 @@ class Model {
     const queryStmt = `
         UPDATE ${this.name}
         SET ${Object.entries(validatedInput)
-          .map((o) => `${o[0]}=${o[1]}`)
+          .map((o) => `\`${o[0]}\`=${o[1]}`)
           .join(', ')}
         WHERE id = ${validatedInput.id}
       `;
