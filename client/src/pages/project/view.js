@@ -46,9 +46,8 @@ export default class ProjectView {
     }
 
     createCard(data){
-        this.app.querySelector(`.project-column`)
+        this.app.querySelector(`.project-column-body`)
         .firstElementChild
-        .nextElementSibling
         .insertAdjacentHTML('afterend', card({
             className: `project-column-card`, 
             data: data.note
@@ -76,12 +75,12 @@ export default class ProjectView {
     }
 
     onNoteAddIconCickHander(event) {
-        const formCard = event.currentTarget.firstElementChild.nextElementSibling;
+        const formCard = event.currentTarget.querySelector('.project-column-form-card');
         this.toggleFormCard(formCard);
     }
 
     onFormCardButtonClickHandler(event, isAdd) {
-        const formCard = event.target.closest('.project-column-form-card');
+        const formCard = event.currentTarget.querySelector('.project-column-form-card');
         if(isAdd) {
             this.createNoteEvent.trigger({ 
                 title : formCard.firstElementChild.innerHTML, 
@@ -92,9 +91,9 @@ export default class ProjectView {
     }
     
     onFormCardTypeHandler(event) {
-        const target = event.target;
+        const { target, currentTarget }= event;
         if(target.className == 'project-column-form-card-textarea textarea'){
-            const addButton = target.nextElementSibling.firstElementChild;
+            const addButton = currentTarget.querySelector('.project-column-form-card-add-button');
             addButton.disabled = target.innerHTML.length == 0;
         }
     }
