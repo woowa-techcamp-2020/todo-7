@@ -1,4 +1,5 @@
 const Notes = require('../models/notes');
+const Events = require('../models/events');
 
 exports.create = async (req, res) => {
   const note = await Notes.create(req.body);
@@ -13,7 +14,9 @@ exports.findById = async (req, res) => {
 
 exports.update = async (req, res) => {
   await Notes.update(req.body);
-  res.send('successfully updated');
+  const event = await Events.create({ projectId: req.body.projectId, description: 'updated Note' });
+  res.send(event);
+};
 };
 
 exports.delete = async (req, res) => {
