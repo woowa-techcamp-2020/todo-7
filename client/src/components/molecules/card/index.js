@@ -1,48 +1,30 @@
-import './styles.css';
 import element from '../../../utils/element';
 import button from '../../atoms/button';
 import textarea from '../../atoms/textarea';
 import icon from '../../atoms/icon';
-const addButton = (className) => button({
-    className,
-    text: 'Add', 
-    disabled: true,
-});
+import header from '../header';
 
-const cancelButton = (className) => button({
-    className,
-    text: 'Cancel', 
-});
-
-const cardButtonBar = (className) => [ 
-    addButton(`${className}-add-button primary`),
-    cancelButton(`${className}-cancel-button dismiss`),
-];
-
-const deleteIcon = () => icon({});
-
-const header = (className, text) => element({
-    className, 
-    child:[
-        element({ className: `${className}-text`, child: text }),
-        deleteIcon()
-    ],
-});
-
-const writer = (className, text) => element({
-    className: `${className}-footer-writer`,
-    child: text,
-})
+import './styles.css';
 
 const projectColumnCard = (className, data) => [
-    header(`${className}-header`, data.title),
+    header({
+        className: `${className}-header card-header`, 
+        leading: element({ className: `${className}-header-text` , child: data.title }),
+        actions: icon({})
+    }),
     element({
-        className: `${className}-body`, 
+        className: `${className}-body card-body`, 
         child: data.description,
     }),
     element({
-        className: `${className}-footer`, 
-        child: `Added by ${writer(className, data.writer)}`
+        className: `${className}-footer card-footer`, 
+        child: [
+            `Added by`,
+            element({
+                className: `${className}-footer-writer`,
+                child: data.writer,
+            })
+        ],
     })
 ]
 
@@ -52,10 +34,31 @@ const projectColumnNewCard = (className) => [
         name: 'note'
     }),
     element({ 
-        className: `${className}-footer`, 
-        child: cardButtonBar(className)
+        className: `${className}-footer card-footer`, 
+        child: [
+            button({
+                className: `${className}-add-button primary`,
+                text: 'Add', 
+                disabled: true,
+            }),
+            button({
+                className: `${className}-cancel-button dismiss`,
+                text: 'Cancel', 
+            })
+        ]
     })
 ];
+
+const projectEventColumnCard = (className, data) => [
+    header({
+        className: `${className}-header card-header`, 
+        leading: element({ className: `${className}-header-text` , child: data.title }),
+    }),
+    element({
+        className: `${className}-footer card-footer`, 
+        child: `5 hours ago`
+    })
+]
 
 const getCardByClassName = (className, data) => {
     switch(className){
@@ -63,11 +66,13 @@ const getCardByClassName = (className, data) => {
             return projectColumnNewCard(className)
         case 'project-column-card' :
             return projectColumnCard(className, data);
+        case 'project-event-column-card' :
+            return projectEventColumnCard(className, data);
     }
 }
 
 export default ({ className, data }) => element({
-    className, 
+    className: `${className} card`, 
     id: data?.id,
     child: getCardByClassName(className, data)
 });
