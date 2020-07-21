@@ -18,6 +18,12 @@ exports.update = async (req, res) => {
   res.send(event);
 };
 
+exports.move = async (req, res) => {
+  await Groups.update(req.body);
+  const event = await Events.create({ projectId: req.body.projectId, description: 'moved Group' });
+  res.send(event);
+};
+
 exports.delete = async (req, res) => {
   const event = await Events.create({ projectId: req.body.projectId, description: 'deleted Group' });
   res.send(event);
