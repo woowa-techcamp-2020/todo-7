@@ -15,6 +15,7 @@ export default class DragAndDrop {
     onMouseDown(event) {
         const target = event.target.closest(this.childSelector);
         if(target) {
+            event.stopImmediatePropagation();
             this.dragging = true;
             this.oldNode = target;
             const sizeData = this.oldNode.getBoundingClientRect();
@@ -25,15 +26,17 @@ export default class DragAndDrop {
 
     onMouseMove(event) {
         if(this.dragging) {
+            event.stopImmediatePropagation();
             this.updateNewNodePosition(event);
             this.updateOldNodePosition(event);
         }
     }
 
     onMouseUp(event) {
-        document.body.onselectstart = () => true;
-        this.dragging = false;
-        if(this.oldNode){
+        if(this.dragging){
+            document.body.onselectstart = () => true;
+            event.stopImmediatePropagation();
+            this.dragging = false;
             this.oldNode.style.filter = 'none';
             this.newNode.remove();
         }
@@ -54,6 +57,7 @@ export default class DragAndDrop {
     instantiate(sizeData) {
         this.newNode = this.createNewNode(this.oldNode, sizeData);
         this.oldNode.style.filter = 'blur(5px)';
+        this.newNode.style.boxShadow = '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)';
         this.container.appendChild(this.newNode);
     }
 
