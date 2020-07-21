@@ -82,10 +82,15 @@ class Model {
   static create = async function (input) {
     const validatedInput = this.validate(input);
     const queryStmt = `
-        INSERT INTO ${this.name}
-        (${wrapBacktick(Object.keys(validatedInput))})
-        VALUES (${Object.values(validatedInput)})
-      `;
+      INSERT INTO ${this.name}
+      (${wrapBacktick(Object.keys(validatedInput))} 
+      ${!this.attributes.order ? '' : ', `order`'})
+      VALUES (${Object.values(validatedInput)}
+      ${!this.attributes.order ? '' 
+        : `${this.name === 'Notes' 
+        ? `, (SELECT COUNT(*) FROM Notes t WHERE t.groupId = ${validatedInput.groupId})` 
+        : `, (SELECT COUNT(*) FROM Groups t WHERE t.projectId = ${validatedInput.projectId})`}`
+      })`;
     return {
       id: (await this.pool.query(queryStmt))[0].insertId,
       ...input,
