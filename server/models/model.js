@@ -36,6 +36,7 @@ class Model {
           } else throw this.validationError;
           break;
         case 'varchar':
+          validatedInput[name] = `'${value}'`;
         case 'text':
           validatedInput[name] = `'${value}'`;
           break;
