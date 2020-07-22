@@ -20,7 +20,7 @@ exports.update = async (req, res) => {
 };
 
 exports.move = async (req, res) => {
-  await Groups.update(req.body);
+  await Groups.move(req.body);
   const event = await Events.create({ projectId: req.body.projectId, title: 'moved Group' });
   res.send(event);
 };
