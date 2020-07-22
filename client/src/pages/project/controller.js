@@ -6,7 +6,7 @@ export default class ProjectController {
 
     async init(id, root) {
         await this.model.init(id);
-        this.view.init(this.model.getProject(), root);
+        this.view.init(this.model.getProject(1), root);
         this.addEventListener();
     }
 
