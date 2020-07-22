@@ -1,7 +1,6 @@
 const createHttpError = require('http-errors');
 const mysql = require('mysql2/promise');
 const { isEmpty, wrapBacktick } = require('../utils/helper');
-const { generateOrderSubQueryStmt: getOrderSubQuery } = require('./events');
 
 class Model {
   static pool = mysql.createPool({
@@ -70,7 +69,7 @@ class Model {
     return queryStmt;
   };
 
-  static generateCreateQueryStmt = function(input) {
+  static generateCreateQueryStmt = function (input) {
     return `
       INSERT INTO ${this.name} (
         ${wrapBacktick(Object.keys(input))} 
@@ -83,7 +82,6 @@ class Model {
   };
 
   static generateOrderSubQueryStmt = (data) => '';
-
 
   static findOne = async function (attributes, where) {
     const queryStmt = this.generateFindQueryStmt(true, attributes, where);
