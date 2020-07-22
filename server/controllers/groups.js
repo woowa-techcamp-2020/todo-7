@@ -26,7 +26,8 @@ exports.move = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  await Groups.delete(req.query.id);
-  const event = await Events.create({ projectId: req.query.projectId, title: 'deleted Group' });
+  const group = await Groups.findOne('title', { id: parseInt(req.query.id) });
+  await Groups.delete(parseInt(req.query.id));
+  const event = await Events.create({ projectId: parseInt(req.query.projectId), title: `deleted ${group.title}` });
   res.send(event);
 };
