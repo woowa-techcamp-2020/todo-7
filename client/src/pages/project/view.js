@@ -50,6 +50,8 @@ export default class ProjectView {
             self.onFormCardButtonClickHandler(event, true);
         } else if(classList.contains('project-column-form-card-cancel-button')) {
             self.onFormCardButtonClickHandler(event, false);
+        } else if(classList.contains('project-column-form-card-textarea')) {
+            //found handler
         } else { 
             foundHandler = false;
         } 
