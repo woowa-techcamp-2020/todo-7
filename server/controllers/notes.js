@@ -20,8 +20,7 @@ exports.update = async (req, res) => {
 };
 
 exports.move = async (req, res) => {
-  const newNote = await Notes.move(req.body);
-  await Notes.update(newNote);
+  await Notes.move(req.body);
   const event = await Events.create({ projectId: req.body.projectId, title: 'moved Note' });
   res.send(event);
 };
