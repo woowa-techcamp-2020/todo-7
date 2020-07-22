@@ -5,14 +5,14 @@ class Events extends Model {
     return super.init({
       id: { dataType: 'int', required: false },
       projectId: { dataType: 'int', required: true },
-      description: { dataType: 'text', required: true },
+      title: { dataType: 'text', required: true },
       createdAt: { dataType: 'datetime', required: false },
       updatedAt: { dataType: 'datetime', required: false },
     });
   }
   static async getByProjectId(where) {
     const queryStmt = `
-      SELECT Events.id, Events.description
+      SELECT Events.id, Events.title
       FROM Events
       INNER JOIN Projects
       ON projectId = Projects.id
