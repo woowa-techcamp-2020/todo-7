@@ -8,6 +8,6 @@ router.post('/', wrapAsync(groupsController.create));
 router.get('/:id', wrapAsync(groupsController.findById));
 router.put('/', wrapAsync(groupsController.update));
 router.put('/move', wrapAsync(groupsController.move));
-router.delete('/:id', wrapAsync(groupsController.delete));
+router.delete('/', wrapAsync(groupsController.delete));
 
 module.exports = router;
