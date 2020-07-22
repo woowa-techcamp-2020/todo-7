@@ -26,7 +26,7 @@ exports.move = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  await Notes.delete(req.params.id);
-  const event = await Events.create({ projectId: req.body.projectId, description: 'deleted Note' });
+  await Notes.delete(req.query.id);
+  const event = await Events.create({ projectId: req.query.projectId, description: 'deleted Note' });
   res.send(event);
 };
