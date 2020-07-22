@@ -1,4 +1,4 @@
-import { GET } from ".";
+import { GET, POST } from ".";
 
 export const getProject = async (id) => await GET(`/projects/${id}`);
-export const login = async (loginData) => await post('/users/login', loginData);
+export const createCard = async (notes) => await POST(`/notes`, notes);
