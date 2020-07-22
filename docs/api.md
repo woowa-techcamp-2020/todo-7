@@ -25,7 +25,7 @@
 
 ### Endpoint
 
-`GET` `/projects/:id`
+`GET` `/projects/users/:id`
 
 ### Params
 
