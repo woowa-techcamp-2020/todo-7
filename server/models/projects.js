@@ -19,8 +19,8 @@ class Projects extends Model {
              Groups.id AS 'groupId', Groups.title AS 'groupTitle', 
              Notes.id AS 'noteId', Notes.title AS 'noteTitle', Notes.description AS 'noteDescription'
       FROM Projects 
-      INNER JOIN Groups ON Groups.projectId = Projects.id
-      INNER JOIN Notes ON Notes.groupId = Groups.id
+      LEFT JOIN Groups ON Groups.projectId = Projects.id
+      LEFT JOIN Notes ON Notes.groupId = Groups.id
       WHERE ${Object.entries(validatedWhere)
         .map((o) => `${this.name}.${o[0]}=${o[1]}`)
         .join(' AND ')}
