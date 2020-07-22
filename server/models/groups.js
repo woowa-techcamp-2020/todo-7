@@ -13,6 +13,7 @@ class Groups extends Model {
       updatedAt: { dataType: 'datetime', required: false },
     });
   }
+  static generateOrderSubQueryStmt = (data) => `, (SELECT COUNT(*) FROM Groups t WHERE t.projectId = ${data.projectId})`;
 }
 
 module.exports = Groups;

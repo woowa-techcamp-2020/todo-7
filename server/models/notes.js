@@ -14,6 +14,7 @@ class Notes extends Model {
       updatedAt: { dataType: 'datetime', required: false },
     });
   }
+  static generateOrderSubQueryStmt = (data) => `, (SELECT COUNT(*) FROM Notes t WHERE t.groupId = ${data.groupId})`
 }
 
 module.exports = Notes;

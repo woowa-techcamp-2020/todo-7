@@ -1,6 +1,7 @@
 const createHttpError = require('http-errors');
 const mysql = require('mysql2/promise');
 const { isEmpty, wrapBacktick } = require('../utils/helper');
+const { generateOrderSubQueryStmt: getOrderSubQuery } = require('./events');
 
 class Model {
   static pool = mysql.createPool({
@@ -52,7 +53,7 @@ class Model {
     return validatedInput;
   };
 
-  static createFindQueryStmt = function (isOne, attributes = '*', where = {}) {
+  static generateFindQueryStmt = function (isOne, attributes = '*', where = {}) {
     const validatedWhere = this.validate({ ...where, ...this.defaultWhere });
     const queryStmt = `
       SELECT ${attributes === '*' ? '*' : wrapBacktick(attributes)} 
@@ -69,28 +70,34 @@ class Model {
     return queryStmt;
   };
 
+  static generateCreateQueryStmt = function(input) {
+    return `
+      INSERT INTO ${this.name} (
+        ${wrapBacktick(Object.keys(input))} 
+        ${!this.attributes.order ? '' : ', `order`'}
+      )
+      VALUES (
+        ${Object.values(input)}
+        ${this.attributes.order ? this.generateOrderSubQueryStmt(input) : ''}
+      )`;
+  };
+
+  static generateOrderSubQueryStmt = (data) => '';
+
+
   static findOne = async function (attributes, where) {
-    const queryStmt = this.createFindQueryStmt(true, attributes, where);
+    const queryStmt = this.generateFindQueryStmt(true, attributes, where);
     return (await this.pool.query(queryStmt))[0][0];
   };
 
   static findAll = async function (attributes, where) {
-    const queryStmt = this.createFindQueryStmt(false, attributes, where);
+    const queryStmt = this.generateFindQueryStmt(false, attributes, where);
     return (await this.pool.query(queryStmt))[0];
   };
 
   static create = async function (input) {
     const validatedInput = this.validate(input);
-    const queryStmt = `
-      INSERT INTO ${this.name}
-      (${wrapBacktick(Object.keys(validatedInput))} 
-      ${!this.attributes.order ? '' : ', `order`'})
-      VALUES (${Object.values(validatedInput)}
-      ${!this.attributes.order ? '' 
-        : `${this.name === 'Notes' 
-        ? `, (SELECT COUNT(*) FROM Notes t WHERE t.groupId = ${validatedInput.groupId})` 
-        : `, (SELECT COUNT(*) FROM Groups t WHERE t.projectId = ${validatedInput.projectId})`}`
-      })`;
+    const queryStmt = this.generateCreateQueryStmt(validatedInput);
     return {
       id: (await this.pool.query(queryStmt))[0].insertId,
       ...input,
@@ -101,12 +108,12 @@ class Model {
     if (!input.id) throw this.validationError;
     const validatedInput = this.validate(input);
     const queryStmt = `
-        UPDATE ${this.name}
-        SET ${Object.entries(validatedInput)
-          .map((o) => `\`${o[0]}\`=${o[1]}`)
-          .join(', ')}
-        WHERE id = ${validatedInput.id}
-      `;
+      UPDATE ${this.name}
+      SET ${Object.entries(validatedInput)
+        .map((o) => `\`${o[0]}\`=${o[1]}`)
+        .join(', ')}
+      WHERE id = ${validatedInput.id}
+    `;
     return await this.pool.query(queryStmt);
   };
 
