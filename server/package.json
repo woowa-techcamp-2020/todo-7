@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www.js"
+    "start": "nodemon ./bin/www.js"
   },
-  
   "dependencies": {
     "bcrypt": "^5.0.0",
     "debug": "2.6.9",
@@ -17,5 +16,8 @@
     "mysql2": "^2.1.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

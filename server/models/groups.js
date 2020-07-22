@@ -1,16 +1,19 @@
-const Model = require("./model");
+const Model = require('./model');
+
 class Groups extends Model {
-    static init() {
-        return super.init({
-            id: { dataType: 'int', required: false },
-            projectId: { dataType: 'int', required: false },
-            name: { dataType: 'varchar', required: true },
-            order: { dataType: 'int', required: false },
-            isActive: { dataType: 'tinyint', required: false },
-            createdAt: { dataType: 'datetime', required: false },
-            updatedAt: { dataType: 'datetime', required: false }
-        });
-    }
+  static defaultWhere = { isActive: 1 };
+  static init() {
+    return super.init({
+      id: { dataType: 'int', required: false },
+      projectId: { dataType: 'int', required: true },
+      title: { dataType: 'varchar', required: true },
+      order: { dataType: 'int', required: false },
+      isActive: { dataType: 'tinyint', required: false },
+      createdAt: { dataType: 'datetime', required: false },
+      updatedAt: { dataType: 'datetime', required: false },
+    });
+  }
+  static generateOrderSubQueryStmt = (data) => `, (SELECT COUNT(*) FROM Groups t WHERE t.projectId = ${data.projectId})`;
 }
 
 module.exports = Groups;

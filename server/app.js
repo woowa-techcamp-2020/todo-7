@@ -13,17 +13,18 @@ const router = require('./routes');
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '../client/src/dist'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  resave : false,
-  saveUninitialized : false, 
-  secret: process.env.SESSION_SECRET,
-}));
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESSION_SECRET,
+  }),
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -38,9 +39,9 @@ app.use((err, req, res, next) => {
   console.log(err);
   console.log(err.message);
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {}; 
-  
-  if(err.message.includes('undefined')) err.status = 400;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  if (err.message.includes('undefined')) err.status = 400;
 
   res.status(err.status || 500);
   res.send(err.message);
