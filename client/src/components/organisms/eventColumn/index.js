@@ -1,8 +1,7 @@
 import element from '../../../utils/element';
 import card from '../../molecules/card';
-import header from '../../molecules/header';
-import counter from '../../atoms/counter';
 import icon from '../../atoms/icon';
+import header from '../../molecules/header';
 
 import './styles.css';
 
@@ -12,25 +11,24 @@ export default ({ className, data}) => element({
     child: [ 
         header({
             className: `${className}-header`, 
-            leading: counter({
-                className: `${className}-header-counter`, 
-                count: data.notes.length
-            }),
+            leading: icon({ className: `${className}-header-icon` }),
             title: element({
                 className: `${className}-header-title`,
-                child: data.title
+                child: 'Menu'
             }),
-            actions: element({
-                className: `${className}-header-actions`,
-                child: icon({ className: `${className}-header-add-icon` })
-            })
+            actions: icon({ className: `${className}-close-icon` })
+        }),
+        header({
+            className: `${className}-header`, 
+            leading: icon({ className: `${className}-header-activity-icon` }),
+            title: element({
+                className: `${className}-header-title`,
+                child: 'Activity'
+            }),
         }),
         element({
             className: `${className}-body`,
             child:[
-                card({
-                    className: `${className}-form-card`,
-                }),
                 ...data.notes.map(note => card({
                     className: `${className}-card`,
                     data: note,

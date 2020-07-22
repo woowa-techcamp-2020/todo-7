@@ -57,8 +57,10 @@ export default class DragAndDrop {
     instantiate(sizeData) {
         this.newNode = this.createNewNode(this.oldNode, sizeData);
         this.oldNode.style.filter = 'blur(5px)';
-        this.newNode.style.boxShadow = '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)';
+        this.newNode.style.transition = 'box-shadow 200ms ease';
         this.container.appendChild(this.newNode);
+        this.newNode.getBoundingClientRect();
+        this.newNode.style.boxShadow = '0 20px 60px rgba(0,0,0,0.4)';
     }
 
     initialize(element, event, sizeData){
