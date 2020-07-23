@@ -3,6 +3,7 @@ import button from '../../atoms/button';
 import textarea from '../../atoms/textarea';
 import icon from '../../atoms/icon';
 import input from '../../atoms/input';
+import label from '../../atoms/label';
 import header from '../header';
 import './styles.css';
 
@@ -24,13 +25,18 @@ const projectColumnEditModal = (className, data) => [
       element({
         className: `${className}-body modal-body`,
         child: [
-          `Column name`,
+          label({
+            className: 'modal-label',
+            f: 'column-name',
+            text: 'Column name',
+          }),
           input({
-            className: `${className}-body-input`,
+            className: `${className}-body-input modal-input`,
+            name: 'column-name',
             value: `${data.title}`,
           }),
           button({
-            className: `${className}-update-button primary`,
+            className: `${className}-update-button modal-button primary`,
             text: 'Update column',
           }),
         ],

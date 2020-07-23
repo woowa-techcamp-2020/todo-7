@@ -13,10 +13,13 @@
 
 .modal-content {
   background-color: #fefefe;
-  width: 50%;
-  margin: 15% auto;
+  border-radius: 6px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
   padding: 20px;
-  border: 1px solid #000000;
 }
 
 .modal-header {
@@ -28,4 +31,20 @@
   font-weight: 600;
   font-size: 90%;
   margin-bottom: 10px;
+}
+
+.modal-label {
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.modal-input {
+  height: 32px;
+  line-height: 32px;
+  padding: 5px 12px;
+  margin: 5px 0 15px;
+}
+
+.modal-button {
+  width: 120px;
 }
