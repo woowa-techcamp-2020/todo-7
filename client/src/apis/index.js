@@ -28,7 +28,7 @@ export const PUT = async (url = '', data) =>
   (
     await fetch(`${serverUrl}${url}`, {
       body: JSON.stringify(data),
-      ...defaultOptions('POST'),
+      ...defaultOptions('PUT'),
     })
   ).json();
 
