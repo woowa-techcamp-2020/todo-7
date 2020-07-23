@@ -32,7 +32,7 @@ export default (project) =>
       }),
       eventColumn({
         className: 'project-event-column',
-        data: project.groups[0],
+        data: project.events,
       }),
     ],
   });

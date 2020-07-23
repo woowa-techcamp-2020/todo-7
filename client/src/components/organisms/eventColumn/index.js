@@ -30,7 +30,7 @@ export default ({ className, data }) =>
       element({
         className: `${className}-body`,
         child: [
-          ...data.notes.map((note) =>
+          ...data.map((note) =>
             card({
               className: `${className}-card`,
               data: note,

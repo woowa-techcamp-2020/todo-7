@@ -68,7 +68,7 @@ const projectEventColumnCard = (className, data) => [
   }),
   element({
     className: `${className}-footer card-footer`,
-    child: `5 hours ago`,
+    child: data.createdAt,
   }),
 ];
 
