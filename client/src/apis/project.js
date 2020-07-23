@@ -5,5 +5,5 @@ export default {
   createNote: async (notes) => await POST(`/notes`, notes),
   moveNote: async (data) => await PUT(`/notes/move`, data),
   moveGroup: async (data) => await PUT(`/groups/move`, data),
-  updateColumn: async (groups) => await PUT(`/groups`, groups),
+  updateGroup: async (groups) => await PUT(`/groups`, groups),
 };

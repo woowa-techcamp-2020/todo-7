@@ -61,7 +61,7 @@ export default class ProjectModel {
   }
 
   async updateGroup({ id, title }) {
-    const event = await api.updateColumn({
+    const event = await api.updateGroup({
       projectId: this.project.id,
       id,
       title,
