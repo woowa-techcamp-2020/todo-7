@@ -50,6 +50,10 @@ export default class ProjectView {
       self.onModalCloseClickHandler(event);
     } else if (classList.contains('project-column-edit-modal')) {
       self.onModalCloseClickHandler(event);
+    } else if (classList.contains('project-column-edit-modal-update-button')) {
+      self.onModalUpdateClickHandler(event);
+    } else {
+      foundHandler = false;
     }
 
     if (foundHandler) event.stopImmediatePropagation();
@@ -114,6 +118,7 @@ export default class ProjectView {
 
   createColumn(data) {}
   deleteColumn(data) {}
+  updateColumn(data) {}
 
   toggleFormCard(formCard, clear = false) {
     formCard.style.display = formCard.style.display == 'block' ? null : 'block';
@@ -137,13 +142,22 @@ export default class ProjectView {
       'beforeend',
       modal({
         className: `project-column-edit-modal`,
-        data: { title: headerTitle.innerText },
+        data: { id: getNumber(event.currentTarget.id), title: headerTitle.innerText },
       }),
     );
   }
 
   onModalCloseClickHandler(event) {
     const modal = event.currentTarget.querySelector('.project-column-edit-modal');
+    modal.remove();
+  }
+
+  onModalUpdateClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.project-column-edit-modal');
+    this.updateGroupEvent.trigger({
+      id: getNumber(modal.id),
+      title: modal.querySelector('.project-column-edit-modal-body-input').value,
+    });
     modal.remove();
   }
 
