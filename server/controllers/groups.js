@@ -15,7 +15,7 @@ exports.findById = async (req, res) => {
 
 exports.update = async (req, res) => {
   await Groups.update(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'updated Group' });
+  const event = await Events.create({ projectId: req.body.projectId, title: `updated ${req.body.title}` });
   res.send(event);
 };
 
