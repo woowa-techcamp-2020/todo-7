@@ -1,9 +1,9 @@
 import Event from '../../utils/event';
-import api from '../../apis/user';
+import apis from '../../apis';
 
 export default class MyPageModel {
   async init() {
-    const res = await api.getProjects();
+    const res = await apis.getProjects();
     if (res.status == 200) {
       const { projects, nickname } = await res.json();
       this.projects = projects;

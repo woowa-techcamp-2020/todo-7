@@ -39,6 +39,7 @@ export default (data) => {
           button({
             className: 'create-project-button primary',
             text: 'Create Project',
+            disabled: true,
           }),
         ],
       }),
