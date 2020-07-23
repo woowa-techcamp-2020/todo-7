@@ -32,6 +32,7 @@ export const PUT = async (url = '', data) =>
     })
   ).json();
 
-export const GET = async (url = '', data) => (await fetch(`${serverUrl}${url}${createQuery(data)}`, defaultOptions('GET'))).json();
+export const GET = async (url = '', data) =>
+  (await fetch(`${serverUrl}${url}${createQuery(data)}`, defaultOptions('GET'))).json();
 
 export const DELETE = async (url = '') => (await fetch(`${serverUrl}${url}`, defaultOptions('DELETE'))).json();
