@@ -12,6 +12,12 @@ export default class ProjectController {
 
   addEventListener() {
     this.view.createNoteEvent.addListener((data) => this.model.createNote(data));
+    this.model.createNoteEvent.addListener((data) => [
+      this.view.createNoteCard(data.note),
+      this.view.createEventCard(data.event),
+      this.view.updateColumnCounter(data.note.groupId),
+    ]);
+
     this.view.updateNoteEvent.addListener((data) => this.model.updateNote(data));
     this.view.deleteNoteEvent.addListener((data) => this.model.deleteNote(data));
     this.view.moveNoteEvent.addListener((data) => this.model.moveNote(data));
@@ -20,8 +26,11 @@ export default class ProjectController {
     this.view.deleteGroupEvent.addListener((data) => this.model.deleteGroup(data));
     this.view.moveGroupEvent.addListener((data) => this.model.moveGroup(data));
 
-    this.model.createNoteEvent.addListener((data) => [this.view.createNoteCard(data.note), this.view.createEventCard(data.event), this.view.updateColumnCounter(data.note.groupId)]);
-    this.model.moveNoteEvent.addListener((data) => [this.view.createEventCard(data.event), this.view.updateColumnCounter(data.beforeColumnId), this.view.updateColumnCounter(data.afterColumnId)]);
+    this.model.moveNoteEvent.addListener((data) => [
+      this.view.createEventCard(data.event),
+      this.view.updateColumnCounter(data.beforeColumnId),
+      this.view.updateColumnCounter(data.afterColumnId),
+    ]);
     this.model.deleteNoteEvent.addListener((data) => this.view.deleteCard(data));
     this.model.createGroupEvent.addListener((data) => this.view.createColumn(data));
     this.model.deleteGroupEvent.addListener((data) => this.view.deleteColumn(data));

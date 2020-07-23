@@ -1,9 +1,9 @@
 import Event from '../../utils/event';
-import { getProject, createCard, moveCard } from '../../apis/project';
+import api from '../../apis/project';
 
 export default class ProjectModel {
   async init(id) {
-    this.project = await getProject(id);
+    this.project = await api.getProject(id);
     this.createEvents();
   }
 
@@ -22,16 +22,29 @@ export default class ProjectModel {
   }
 
   async createNote({ title, groupId }) {
-    const { note, event } = await createCard({ projectId: this.project.id, groupId, title });
+    const { note, event } = await api.createNote({
+      projectId: this.project.id,
+      groupId,
+      title,
+    });
     this.project.groups.find((group) => group.id === groupId).notes.push(note);
     this.createNoteEvent.trigger({ note, event });
+  }
+
+  async moveGroup({ id, targetId }) {
+    const { event } = await api.moveGroup({
+      id,
+      targetId,
+      projectId: this.project.id,
+    });
+    this.moveGroupEvent.trigger(event);
   }
 
   async moveNote({ id, targetId, groupId }) {
     const beforeGroup = this.findGroupByNote(id);
     const afterGroup = this.project.groups.find((group) => group.id === groupId);
 
-    const event = await moveCard({
+    const event = await api.moveNote({
       id,
       targetId,
       projectId: this.project.id,

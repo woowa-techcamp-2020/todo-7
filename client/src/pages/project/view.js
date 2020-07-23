@@ -42,7 +42,7 @@ export default class ProjectView {
       container: this.app.querySelector('.project'),
       parentSelector: '.project-columns',
       childSelector: '.project-column',
-      onDragEnd: (card) => self.onColumnDragEndHandler(card),
+      onDragEnd: (column) => self.onColumnDragEndHandler(column),
     });
 
     const columns = document.querySelectorAll('.project-column');
@@ -87,7 +87,12 @@ export default class ProjectView {
     });
   }
 
-  onColumnDragEndHandler(column) {}
+  onColumnDragEndHandler(column) {
+    this.moveGroupEvent.trigger({
+      id: getNumber(column.id),
+      targetId: getNumber(column.previousElementSibling?.id) ?? 0,
+    });
+  }
 
   render() {
     this.app.innerHTML = projectPage(this.project);
