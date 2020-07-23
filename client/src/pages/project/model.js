@@ -32,6 +32,15 @@ export default class ProjectModel {
     this.createNoteEvent.trigger({ note, event });
   }
 
+  async createGroup({ title }) {
+    const { group, event } = await api.createGroup({
+      projectId: this.project.id,
+      title,
+    });
+    this.project.groups.unshift(group);
+    this.createGroupEvent.trigger({ group, event });
+  }
+
   async moveGroup({ id, targetId }) {
     const { event } = await api.moveGroup({
       id,

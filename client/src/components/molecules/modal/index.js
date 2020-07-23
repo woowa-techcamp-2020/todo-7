@@ -112,6 +112,43 @@ const deleteConfirmModal = (className, data) => [
   }),
 ];
 
+const projectColumnCreateModal = (className) => [
+  element({
+    className: `${className} modal-content`,
+    child: [
+      header({
+        className: `${className}-header modal-header`,
+        leading: element({
+          className: `${className}-header-text`,
+          child: `Create column`,
+        }),
+        actions: element({
+          className: `${className}-header-actions`,
+          child: [icon({ className: `${className}-header-icon modal-close` })],
+        }),
+      }),
+      element({
+        className: `${className}-body modal-body`,
+        child: [
+          label({
+            className: 'modal-label',
+            f: 'column-name',
+            text: 'Column name',
+          }),
+          input({
+            className: `${className}-body-input modal-input`,
+            name: 'column-name',
+          }),
+          button({
+            className: `${className}-create-button modal-button primary`,
+            text: 'Create column',
+          }),
+        ],
+      }),
+    ],
+  }),
+];
+
 const getModalByClassName = (className, data) => {
   switch (className) {
     case 'project-column-edit-modal':
@@ -120,6 +157,8 @@ const getModalByClassName = (className, data) => {
       return deleteConfirmModal(className, data);
     case 'project-column-card-edit-modal':
       return projectColumnCardEditModal(className, data);
+    case 'project-column-create-modal':
+      return projectColumnCreateModal(className);
   }
 };
 

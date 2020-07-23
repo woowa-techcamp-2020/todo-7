@@ -2,6 +2,7 @@ import Event from '../../utils/event';
 import projectPage from '../../components/templates/project';
 import card from '../../components/molecules/card';
 import modal from '../../components/molecules/modal';
+import column from '../../components/organisms/column';
 import DragAndDrop from '../../utils/dragndrop';
 import { getNumber } from '../../utils/helper';
 
@@ -66,6 +67,10 @@ export default class ProjectView {
       self.onModalCloseClickHandler(event);
     } else if (classList.contains('modal')) {
       self.onModalCloseClickHandler(event);
+    } else if (classList.contains('project-column-create-card')) {
+      self.onCreateColumnCardClickHandler(event);
+    } else if (classList.contains('project-column-create-modal-create-button')) {
+      self.onCreateColumnModalButtonClickHandler(event);
     } else if (classList.contains('project-column-edit-modal-update-button')) {
       self.onEditColumnModalUpdateClickHandler(event);
     } else if (classList.contains('project-column-card-edit-modal-update-button')) {
@@ -166,7 +171,16 @@ export default class ProjectView {
     this.createEventCard(event);
   }
 
-  createColumn(data) {}
+  createColumn({ group, event }) {
+    this.app.querySelector(`.project-column-create-card`).insertAdjacentHTML(
+      'beforebegin',
+      column({
+        className: 'project-column',
+        data: group,
+      }),
+    );
+    this.createEventCard(event);
+  }
 
   updateColumn({ id, title, event }) {
     this.app.querySelector(`#project-column-${id}`).querySelector(`.project-column-header-title`).innerText = title;
@@ -244,6 +258,22 @@ export default class ProjectView {
     modal.remove();
   }
 
+  onCreateColumnCardClickHandler(event) {
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-column-create-modal`,
+      }),
+    );
+  }
+
+  onCreateColumnModalButtonClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
+    this.createGroupEvent.trigger({
+      title: modal.querySelector('.modal-input').value,
+    });
+    modal.remove();
+  }
   onEditColumnModalUpdateClickHandler(event) {
     const modal = event.currentTarget.querySelector('.modal');
     this.updateGroupEvent.trigger({
