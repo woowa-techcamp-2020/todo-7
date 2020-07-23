@@ -3,7 +3,7 @@ const Events = require('../models/events');
 
 exports.create = async (req, res) => {
   const group = await Groups.create(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'created Group' });
+  const event = await Events.create({ projectId: req.body.projectId, title: `created ${req.body.title}` });
   res.send({ group, event });
 };
 
