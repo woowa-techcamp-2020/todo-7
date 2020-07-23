@@ -405,7 +405,7 @@ status code
   },
   "event": {
     "id": 1,
-    "title": "Jinhyeok moved Group 이름",
+    "title": "Jinhyeok created 노트 이름",
     "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
@@ -454,10 +454,11 @@ status code
 
 ### Body
 
-| Property    | Type     | Description        |
-| ----------- | -------- | ------------------ |
-| `projectId` | `int`    | 프로젝트 고유 번호 |
-| `title`     | `string` | 그룹 이름          |
+| Property    | Type     | Description            |
+| ----------- | -------- | ---------------------- |
+| `projectId` | `int`    | 프로젝트 고유 번호         |
+| `id`        | `int`    | 노트 고유 번호            |
+| `title`     | `string` | 노트 이름 (변경 시 새 이름) |
 
 ## Response
 
@@ -471,7 +472,7 @@ status code
 {
   "event": {
     "id": 1,
-    "title": "Jinhyeok updated Note 이름",
+    "title": "Jinhyeok updated 노트 이름",
     "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
