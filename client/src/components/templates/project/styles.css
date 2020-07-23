@@ -1,12 +1,12 @@
 .project {
     width: 100%;
     height: 100%;
-    overflow: auto;
 }
 
 .project-columns {
     display: flex;
-    height: 100%;
+    height: 1200px;
+
     padding: 16px;
     flex-direction: row;
 }
@@ -26,6 +26,7 @@
 
 @media (max-width: 544px){
     .project-columns {
+        height: 100%;
         flex-direction: column;
     }
     
@@ -36,8 +37,26 @@
     .project-event-column {
         display: none;
     }
+
     .project-column {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
         margin-right: 0px;
         margin-bottom: 16px;
     }
+    
+    .project-column-header {
+        flex: none;
+        margin-right: 0px;
+        margin-bottom: 16px;
+    }
+
+    .project-column-body {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;  
+    }
+    
 }

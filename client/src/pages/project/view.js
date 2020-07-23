@@ -2,6 +2,7 @@ import Event from '../../utils/event';
 import projectPage from '../../components/templates/project'
 import card from '../../components/molecules/card';
 import DragAndDrop from '../../utils/dragndrop';
+import { getNumber } from '../../utils/helper';
 
 export default class ProjectView { 
     init(project, app) {
@@ -64,14 +65,31 @@ export default class ProjectView {
         this.app.innerHTML = projectPage(this.project);
     }
 
-    createCard(data){
-        this.app.querySelector(`.project-column-body`)
+    createNoteCard(note){
+        this.app.querySelector(`#project-column-${note.groupId}`)
+        .querySelector(`.project-column-body`)
         .firstElementChild
         .insertAdjacentHTML('afterend', card({
             className: `project-column-card`, 
-            data: data.note
+            data: note
         }));
     }
+
+    createEventCard(event){
+        console.log(event);
+        this.app.querySelector(`.project-event-column-body`)
+        .insertAdjacentHTML('afterbegin', card({
+            className: `project-event-column-card`, 
+            data: event
+        }));
+    }
+
+    updateColumnCounter({ note, noteCount}){
+        const columnId = note.groupId;
+        const column = this.app.querySelector(`#project-column-${columnId}`);
+        column.querySelector('.project-column-header-counter').innerHTML =  noteCount;
+    }
+
 
     updateCard(data){
 
@@ -82,11 +100,7 @@ export default class ProjectView {
     }
     deleteColumn(data){
 
-    }
-
-    createEventCard(data){
-
-    }    
+    } 
     
     toggleFormCard(formCard, clear = false) {
         formCard.style.display = formCard.style.display == 'block' ? null : 'block';
@@ -110,7 +124,7 @@ export default class ProjectView {
         if(isAdd) {
             this.createNoteEvent.trigger({ 
                 title : formCard.firstElementChild.innerHTML, 
-                columnId : +formCard.closest('.project-column').id
+                groupId : getNumber(formCard.closest('.project-column').id)
             });
         }
         this.toggleFormCard(formCard, isAdd);

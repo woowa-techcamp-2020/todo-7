@@ -1,28 +1,41 @@
-const defaultOptions = {
-    mode: 'cors', // no-cors, cors, *same-origin
+const defaultOptions = (method) => ({
+    method,
     headers: {
         'Content-Type': 'application/json',
-    },
-}
+    }
+});
 
-const createQuery = (data) => Object.keys(data)
+const serverUrl = 'http://localhost:3000';
+
+const createQuery = (data) => {
+    return data ? '?' + Object.keys(data)
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-    .join('&');
-
-export const post = async (url = '', data = {}) => {
-    const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        ...defaultOptions,
-    });
-    return await response.json();
-}  
-
-export const get = async (url = '', data = {}) => {
-    const response = await fetch(`${url}?${createQuery(data)}`, {
-        method: 'GET',
-        body: JSON.stringify(data),
-    });
-    return await response.json();
+    .join('&') : ''; 
 }
+
+export const POST = async (url = '', data) => (await fetch(
+    `${serverUrl}${url}`, 
+    {
+        body: JSON.stringify(data),
+        ...defaultOptions('POST'),
+    }
+)).json();
+
+export const PUT = async (url = '', data) => (await fetch(
+    `${serverUrl}${url}`, 
+    {
+        body: JSON.stringify(data),
+        ...defaultOptions('POST'),
+    }
+)).json();
+
+export const GET = async (url = '', data) => (await fetch(
+    `${serverUrl}${url}${createQuery(data)}`,
+    defaultOptions('GET'),
+)).json();
+
+export const DELETE = async (url = '') => (await fetch(
+    `${serverUrl}${url}`, defaultOptions('DELETE')
+)).json();
+
       

@@ -6,7 +6,7 @@ export default class ProjectController {
 
     async init(id, root) {
         await this.model.init(id);
-        this.view.init(this.model.getProject(), root);
+        this.view.init(this.model.getProject(1), root);
         this.addEventListener();
     }
 
@@ -17,7 +17,11 @@ export default class ProjectController {
         this.view.createGroupEvent.addListener(data => this.model.createGroup(data));
         this.view.deleteGroupEvent.addListener(data => this.model.deleteGroup(data));
 
-        this.model.createNoteEvent.addListener(data => this.view.createCard(data));
+        this.model.createNoteEvent.addListener(data => [
+            this.view.createNoteCard(data.note),
+            this.view.createEventCard(data.event),
+            this.view.updateColumnCounter(data),
+        ]);
         this.model.updateNoteEvent.addListener(data => this.view.updateCard(data));
         this.model.deleteNoteEvent.addListener(data => this.view.deleteCard(data));
         this.model.createGroupEvent.addListener(data => this.view.createColumn(data));
