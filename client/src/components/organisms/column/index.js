@@ -23,7 +23,7 @@ export default ({ className, data }) =>
         }),
         actions: element({
           className: `${className}-header-actions`,
-          child: icon({ className: `${className}-header-add-icon` }),
+          child: [icon({ className: `${className}-header-edit-icon` }), icon({ className: `${className}-header-add-icon` }), icon({ className: `${className}-header-delete-icon` })],
         }),
       }),
       element({

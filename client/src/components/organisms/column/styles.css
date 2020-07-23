@@ -17,6 +17,18 @@
   display: flex;
 }
 
+.project-column-header-edit-icon {
+  background-color: yellowgreen;
+}
+
+.project-column-header-add-icon {
+  background-color: darkgoldenrod;
+}
+
+.project-column-header-delete-icon {
+  background-color: darkred;
+}
+
 .project-column-body {
   height: 96%;
 
