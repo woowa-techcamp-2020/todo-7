@@ -1,5 +1,5 @@
 import Event from '../../utils/event';
-import { getProject, createCard } from '../../apis/project';
+import { getProject, createCard, moveCard } from '../../apis/project';
 
 export default class ProjectModel {
   async init(id) {
@@ -13,6 +13,8 @@ export default class ProjectModel {
     this.deleteNoteEvent = new Event();
     this.createGroupEvent = new Event();
     this.deleteGroupEvent = new Event();
+    this.moveNoteEvent = new Event();
+    this.moveGroupEvent = new Event();
   }
 
   getProject() {
@@ -20,17 +22,37 @@ export default class ProjectModel {
   }
 
   async createNote({ title, groupId }) {
-    const { note, event } = await createCard({
+    const { note, event } = await createCard({ projectId: this.project.id, groupId, title });
+    this.project.groups.find((group) => group.id === groupId).notes.push(note);
+    this.createNoteEvent.trigger({ note, event });
+  }
+
+  async moveNote({ id, targetId, groupId }) {
+    const beforeGroup = this.findGroupByNote(id);
+    const afterGroup = this.project.groups.find((group) => group.id === groupId);
+
+    const event = await moveCard({
+      id,
+      targetId,
       projectId: this.project.id,
-      groupId,
-      title,
+      groupId: afterGroup.id,
+      groupTitle: afterGroup.title,
     });
-    const groupArrIdx = this.project.groups.findIndex((group) => group.id === groupId);
-    this.project.groups[groupArrIdx].notes.unshift(note);
-    this.createNoteEvent.trigger({
-      note,
+
+    this.moveNoteEvent.trigger({
       event,
-      noteCount: this.project.groups[groupArrIdx].notes.length,
+      beforeColumnId: beforeGroup.id,
+      afterColumnId: afterGroup.id,
     });
+  }
+
+  findGroupByNote(id) {
+    let _group;
+    this.project.groups.forEach((group) =>
+      group.notes.forEach((note) => {
+        if (note.id == id) return (_group = group);
+      }),
+    );
+    return _group;
   }
 }
