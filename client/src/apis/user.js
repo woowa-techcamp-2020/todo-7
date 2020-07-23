@@ -1,4 +1,7 @@
-import { post } from '.';
+import { POST, GET } from '.';
 
-export const createUser = async (userData) => await post('/users', userData);
-export const login = async (loginData) => await post('/users/login', loginData);
+export default {
+  createUser: async (data) => await POST('/users', data),
+  login: async (data) => (await POST('/users/login', data)).status,
+  loginCheck: async () => (await GET('/users')).status,
+};

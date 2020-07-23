@@ -13,11 +13,14 @@ const router = require('./routes');
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, '../client/src/dist'));
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+app.set('views', path.join(__dirname, '../client/dist'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(
   session({
     resave: false,
@@ -27,6 +30,10 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  console.log(req.user);
+  next();
+});
 
 app.use('/', router);
 

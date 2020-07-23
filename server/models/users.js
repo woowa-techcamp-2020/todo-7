@@ -14,6 +14,17 @@ class Users extends Model {
       updatedAt: { dataType: 'datetime', required: false },
     });
   }
+
+  static findProjects = async (id) => {
+    const queryStmt = `
+      SELECT Projects.*
+      FROM Projects
+      INNER JOIN UserProjectRelations
+      ON Projects.id = UserProjectRelations.projectId
+      WHERE UserProjectRelations.userId = ${id};
+    `;
+    return (await this.pool.query(queryStmt))[0];
+  };
 }
 
 module.exports = Users;

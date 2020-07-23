@@ -10,6 +10,13 @@
   margin: 5px 0 15px;
 }
 
+.login-failure-label {
+  display: none;
+  font-size: 11px;
+  color: var(--red);
+  margin: 0 0 15px;
+}
+
 .login-column {
   border-radius: 6px;
   border: 1px solid #e1e4e8;

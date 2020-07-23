@@ -8,17 +8,14 @@ const render = async () => {
   try {
     const root = document.querySelector('#App');
     const hash = location.hash.replace('#', '');
-    console.log(hash);
     switch (hash) {
       case 'login':
         const loginController = new LoginController(new LoginModel(), new LoginView());
         await loginController.init(root);
         break;
-
-      case 'project':
+      default:
         const projectController = new ProjectController(new ProjectModel(), new ProjectView());
         await projectController.init(1, root);
-        break;
     }
   } catch (err) {
     console.error(err);

@@ -3,8 +3,12 @@ import api from '../../apis/project';
 
 export default class ProjectModel {
   async init(id) {
-    this.project = await api.getProject(id);
-    this.createEvents();
+    const res = await api.getProject(id);
+    if (res.status == 200) {
+      this.project = await res.json();
+      this.createEvents();
+    }
+    return res.status;
   }
 
   createEvents() {
