@@ -2,8 +2,9 @@ import Event from '../../utils/event';
 import api from '../../apis/user';
 
 export default class LoginModel {
-  init() {
+  async init() {
     this.createEvents();
+    return await api.loginCheck();
   }
 
   createEvents() {
