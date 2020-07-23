@@ -8,4 +8,5 @@ export default {
   updateGroup: async (groups) => await PUT(`/groups`, groups),
   updateNote: async (notes) => await PUT(`/notes`, notes),
   deleteGroup: async (data) => await DELETE(`/groups?id=${data.id}&projectId=${data.projectId}`),
+  deleteNote: async (data) => await DELETE(`/notes?id=${data.id}&projectId=${data.projectId}`),
 };

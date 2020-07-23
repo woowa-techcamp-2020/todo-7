@@ -97,6 +97,8 @@ export default class ProjectView {
       //found handler
     } else if (classList.contains('project-column-card-header-edit-icon')) {
       self.onNoteEditIconClickHandler(event);
+    } else if (classList.contains('project-column-card-header-delete-icon')) {
+      self.onNoteDeleteIconClickHandler(event);
     } else {
       foundHandler = false;
     }
@@ -159,6 +161,11 @@ export default class ProjectView {
     this.createEventCard(event);
   }
 
+  deleteCard({ id, event }) {
+    this.app.querySelector(`#project-column-card-${id}`).remove();
+    this.createEventCard(event);
+  }
+
   createColumn(data) {}
 
   updateColumn({ id, title, event }) {
@@ -196,6 +203,17 @@ export default class ProjectView {
       modal({
         className: `project-column-card-edit-modal`,
         data: { id: getNumber(card.id), title: cardTitle, groupId: getNumber(groupId) },
+      }),
+    );
+  }
+
+  onNoteDeleteIconClickHandler(event) {
+    const card = event.target.closest('.project-column-card');
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-delete-modal`,
+        data: { id: getNumber(card.id), type: 'Note' },
       }),
     );
   }
@@ -249,6 +267,10 @@ export default class ProjectView {
     const type = modal.querySelector('.modal-description > b').innerText;
     if (type === 'Column') {
       this.deleteGroupEvent.trigger({
+        id: getNumber(modal.id),
+      });
+    } else if (type === 'Note') {
+      this.deleteNoteEvent.trigger({
         id: getNumber(modal.id),
       });
     }
