@@ -1,0 +1,30 @@
+.mypage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mypage-body {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 112px 20px 112px;
+  justify-content: center;
+}
+
+.mypage-body-header {
+  height: 32px;
+  margin-bottom: 20px;
+}
+
+.mypage-body-header button {
+  width: 110px;
+  font-size: 14px;
+}
+
+.mypage-column-card {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px;
+  border-top: none;
+}
