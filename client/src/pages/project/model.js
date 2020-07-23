@@ -1,9 +1,9 @@
 import Event from '../../utils/event';
-import { getProject } from '../../apis/project';
+import { getProject, createCard } from '../../apis/project';
 
 export default class ProjectModel {
     async init(id) {
-        this.store = await getProject(id);
+        this.project = await getProject(id);
         this.createEvents();
     }
     
@@ -16,14 +16,22 @@ export default class ProjectModel {
     }
 
     getProject() {
-        return this.store;
+        return this.project;
     }
 
-    async createNote({title, columnId}){
+    async createNote({ title, groupId }){
         
-        // const { card, event } = await apis.createCard(data);\
-        const note = { id : 2, title : title };
-        this.store.groups.find(group => group.id === columnId).notes.unshift(note);
-        this.createNoteEvent.trigger({ note, columnId });
+        const { note, event } = await createCard({
+            projectId : this.project.id,
+            groupId,
+            title,
+        });
+        const groupArrIdx = this.project.groups.findIndex(group => group.id === groupId)
+        this.project.groups[groupArrIdx].notes.unshift(note);
+        this.createNoteEvent.trigger({ 
+            note, 
+            event,
+            noteCount : this.project.groups[groupArrIdx].notes.length,
+        });
     }
 }

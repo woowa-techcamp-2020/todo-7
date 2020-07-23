@@ -4,7 +4,8 @@ export default class Event {
   }
   
   addListener(listener) {
-    this.listeners.push(listener);
+    if(Array.isArray(listener))this.listeners = listener;
+    else this.listeners.push(listener);
   }
   
   trigger(params) {

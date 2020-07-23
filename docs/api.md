@@ -117,11 +117,13 @@
   "events": [
     {
       "id": 1,
-      "description": "Jinhyeok updated Project Name "
+      "title": "Jinhyeok updated column 해야할 일",
+      "createdAt": "2020-07-22T06:03:44.000Z"
     },
     {
       "id": 2,
-      "description": "younho9 moved github 공부하기 from 해야할 일 to 하는 중"
+      "title": "younho9 moved github 공부하기 from 해야할 일 to 하는 중",
+      "createdAt": "2020-07-22T06:03:44.000Z"
     }
   ]
 }
@@ -264,7 +266,8 @@ status code
   },
   "event": {
     "id": 1,
-    "description": "Jinhyeok created 새 Group 이름 "
+    "title": "Jinhyeok created column 새 그룹 이름 ",
+    "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
 ```
@@ -275,7 +278,7 @@ status code
 
 ### Endpoint
 
-`DELETE` `/groups/:id`
+`DELETE` `/groups?id={id}&projectId={projectId}`
 
 ### Params
 
@@ -296,7 +299,7 @@ status code
 {
   "event": {
     "id": 1,
-    "description": "Jinhyeok deleted Group 이름"
+    "description": "Jinhyeok deleted column 그룹 이름"
   }
 }
 ```
@@ -311,12 +314,11 @@ status code
 
 ### Body
 
-| Property           | Type     | Description        |
-| ------------------ | -------- | ------------------ |
-| `projectId`        | `int`    | 프로젝트 고유 번호 |
-| `id`               | `int`    | 그룹 고유 번호     |
-| `title`            | `string` | 그룹 이름          |
-| `order` (optional) | `int`    | 그룹 순서          |
+| Property    | Type     | Description        |
+| ----------- | -------- | ------------------ |
+| `projectId` | `int`    | 프로젝트 고유 번호 |
+| `id`        | `int`    | 그룹 고유 번호     |
+| `title`     | `string` | 그룹 이름          |
 
 ## Response
 
@@ -330,7 +332,8 @@ status code
 {
   "event": {
     "id": 1,
-    "description": "Jinhyeok updated Group 이름"
+    "title": "Jinhyeok updated column 그룹 이름",
+    "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
 ```
@@ -345,11 +348,11 @@ status code
 
 ### Body
 
-| Property    | Type  | Description        |
-| ----------- | ----- | ------------------ |
-| `projectId` | `int` | 프로젝트 고유 번호 |
-| `id`        | `int` | 그룹 고유 번호     |
-| `order`     | `int` | 그룹 순서          |
+| Property    | Type  | Description                              |
+| ----------- | ----- | ---------------------------------------- |
+| `projectId` | `int` | 프로젝트 고유 번호                       |
+| `id`        | `int` | 그룹 고유 번호                           |
+| `targetId`  | `int` | 그룹이 이동할 위치의 앞 그룹의 고유 번호 |
 
 ## Response
 
@@ -363,7 +366,8 @@ status code
 {
   "event": {
     "id": 1,
-    "description": "Jinhyeok moved Group 이름"
+    "title": "Jinhyeok moved column 그룹 이름",
+    "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
 ```
@@ -401,7 +405,8 @@ status code
   },
   "event": {
     "id": 1,
-    "description": "Jinhyeok moved Group 이름"
+    "title": "Jinhyeok created card 노트 이름",
+    "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
 ```
@@ -412,7 +417,7 @@ status code
 
 ### Endpoint
 
-`DELETE` `/notes/:id`
+`DELETE` `/notes?id={id}&projectId={projectId}`
 
 ### Params
 
@@ -433,7 +438,8 @@ status code
 {
   "event": {
     "id": 1,
-    "description": "Jinhyeok deleted Note 이름"
+    "title": "Jinhyeok deleted card 노트 이름",
+    "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
 ```
@@ -448,11 +454,11 @@ status code
 
 ### Body
 
-| Property           | Type     | Description        |
-| ------------------ | -------- | ------------------ |
-| `projectId`        | `int`    | 프로젝트 고유 번호 |
-| `title`            | `string` | 그룹 이름          |
-| `order` (optional) | `int`    | 그룹 순서          |
+| Property    | Type     | Description                 |
+| ----------- | -------- | --------------------------- |
+| `projectId` | `int`    | 프로젝트 고유 번호          |
+| `id`        | `int`    | 노트 고유 번호              |
+| `title`     | `string` | 노트 이름 (변경 시 새 이름) |
 
 ## Response
 
@@ -466,7 +472,8 @@ status code
 {
   "event": {
     "id": 1,
-    "description": "Jinhyeok updated Note 이름"
+    "title": "Jinhyeok updated card 노트 이름",
+    "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
 ```
@@ -481,12 +488,13 @@ status code
 
 ### Body
 
-| Property           | Type  | Description        |
-| ------------------ | ----- | ------------------ |
-| `projectId`        | `int` | 프로젝트 고유 번호 |
-| `id`               | `int` | 노트 고유 번호     |
-| `groupId`          | `int` | 그룹 아이디        |
-| `order` (optional) | `int` | 그룹 순서          |
+| Property     | Type     | Description                                  |
+| ------------ | -------- | -------------------------------------------- |
+| `projectId`  | `int`    | 프로젝트 고유 번호                           |
+| `id`         | `int`    | 노트 고유 번호                               |
+| `targetId`   | `int`    | 노트가 이동할 위치의 앞 노트의 고유 번호     |
+| `groupId`    | `int`    | 그룹 아이디 (이동했다면 이동 후 그룹 아이디) |
+| `groupTitle` | `string` | 그룹 타이틀 (이동했다면 이동 후 그룹 타이틀) |
 
 ## Response
 
@@ -496,11 +504,14 @@ status code
 
 ## Example Response
 
+> 노트 이동 시 그룹이 변경된 경우에만 이벤트를 생성합니다.
+
 ```json
 {
   "event": {
     "id": 1,
-    "description": "Jinhyeok moved Note 이름"
+    "title": "Jinhyeok moved 노트 이름 from 이전 그룹 이름 to 이후 그룹 이름",
+    "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
 ```

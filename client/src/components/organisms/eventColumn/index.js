@@ -7,7 +7,7 @@ import './styles.css';
 
 export default ({ className, data}) => element({
     className,
-    id: data.id, 
+    id: `${className}-${data?.id}`,
     child: [ 
         header({
             className: `${className}-header`, 

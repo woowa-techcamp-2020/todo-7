@@ -73,6 +73,6 @@ const getCardByClassName = (className, data) => {
 
 export default ({ className, data }) => element({
     className: `${className} card`, 
-    id: data?.id,
+    id: `${className}-${data?.id}`,
     child: getCardByClassName(className, data)
 });
