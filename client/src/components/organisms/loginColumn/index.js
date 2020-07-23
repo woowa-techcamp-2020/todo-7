@@ -7,6 +7,7 @@ import './styles.css';
 
 export default () =>
   element({
+    tag: 'form',
     className: 'login-column',
     child: [
       label({
@@ -27,6 +28,10 @@ export default () =>
         className: 'login-input',
         type: 'password',
         name: 'password',
+      }),
+      label({
+        className: 'login-failure-label',
+        text: '로그인에 실패하였습니다.',
       }),
       button({
         className: 'login-button primary',
