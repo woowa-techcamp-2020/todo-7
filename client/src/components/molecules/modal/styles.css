@@ -45,6 +45,15 @@
   margin: 5px 0 15px;
 }
 
+.modal-textarea {
+  padding: 5px 12px;
+  margin: 5px 0 15px;
+}
+
 .modal-button {
   width: 120px;
+}
+
+.modal-close-icon {
+  background-color: darkred;
 }

@@ -19,7 +19,7 @@ const projectColumnEditModal = (className, data) => [
         }),
         actions: element({
           className: `${className}-header-actions`,
-          child: [icon({ className: `${className}-header-delete-icon` })],
+          child: [icon({ className: `${className}-header-icon modal-close-icon` })],
         }),
       }),
       element({
@@ -47,7 +47,7 @@ const projectColumnEditModal = (className, data) => [
 
 const projectColumnCardEditModal = (className, data) => [
   element({
-    className: `${className}-modal-content`,
+    className: `${className} modal-content`,
     child: [
       header({
         className: `${className}-header modal-header`,
@@ -55,18 +55,25 @@ const projectColumnCardEditModal = (className, data) => [
           className: `${className}-header-text`,
           child: `Edit note`,
         }),
-        actions: icon({ className: `${className}-header-delete-icon` }),
+        actions: element({
+          className: `${className}-header-actions`,
+          child: [icon({ className: `${className}-header-icon modal-close-icon` })],
+        }),
       }),
       element({
         className: `${className}-body modal-body`,
         child: [
-          `Note`,
+          label({
+            className: 'modal-label',
+            f: 'Note',
+            text: 'Note',
+          }),
           textarea({
-            className: `${className}-body-textarea`,
+            className: `${className}-body-textarea modal-textarea`,
             value: `${data.title}`,
           }),
           button({
-            className: `${className}-update-button primary`,
+            className: `${className}-update-button modal-button primary`,
             text: 'Save note',
           }),
         ],
