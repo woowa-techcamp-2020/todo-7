@@ -148,7 +148,11 @@ export default class ProjectView {
 
   createColumn(data) {}
   deleteColumn(data) {}
-  updateColumn(data) {}
+
+  updateColumn({ id, title, event }) {
+    this.app.querySelector(`#project-column-${id}`).querySelector(`.project-column-header-title`).innerText = title;
+    this.createEventCard(event);
+  }
 
   toggleFormCard(formCard, clear = false) {
     formCard.style.display = formCard.style.display == 'block' ? null : 'block';
