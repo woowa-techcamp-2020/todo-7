@@ -35,6 +35,15 @@ class Notes extends Model {
       `;
     return await this.pool.query(queryStmt);
   }
+
+  static async findTitleAndGroupTitleById(id) {
+    const queryStmt = `
+      SELECT Notes.title AS title, Groups.title AS groupTitle 
+      FROM Notes INNER JOIN Groups ON Notes.groupId = Groups.id 
+      WHERE Notes.id = ${id};
+    `;
+    return (await this.pool.query(queryStmt))[0][0];
+  }
 }
 
 module.exports = Notes;
