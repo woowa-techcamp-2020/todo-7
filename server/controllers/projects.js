@@ -8,7 +8,7 @@ exports.create = async (req, res) => {
   await Groups.create({ title: 'To do', projectId: project.id });
   await Groups.create({ title: 'Doing', projectId: project.id });
   await Groups.create({ title: 'Done', projectId: project.id });
-  await UserProjectRelations.create(req.body.users, project.id);
+  await UserProjectRelations.bulkCreate(req.body.users, project.id);
   res.send({ id: project.id });
 };
 
