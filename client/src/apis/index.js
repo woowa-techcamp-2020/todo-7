@@ -17,22 +17,18 @@ const createQuery = (data) => {
 };
 
 export const POST = async (url = '', data) =>
-  (
-    await fetch(`${serverUrl}${url}`, {
-      body: JSON.stringify(data),
-      ...defaultOptions('POST'),
-    })
-  ).json();
+  await fetch(`${serverUrl}${url}`, {
+    body: JSON.stringify(data),
+    ...defaultOptions('POST'),
+  });
 
 export const PUT = async (url = '', data) =>
-  (
-    await fetch(`${serverUrl}${url}`, {
-      body: JSON.stringify(data),
-      ...defaultOptions('PUT'),
-    })
-  ).json();
+  await fetch(`${serverUrl}${url}`, {
+    body: JSON.stringify(data),
+    ...defaultOptions('PUT'),
+  });
 
 export const GET = async (url = '', data) =>
-  (await fetch(`${serverUrl}${url}${createQuery(data)}`, defaultOptions('GET'))).json();
+  await fetch(`${serverUrl}${url}${createQuery(data)}`, defaultOptions('GET'));
 
-export const DELETE = async (url = '') => (await fetch(`${serverUrl}${url}`, defaultOptions('DELETE'))).json();
+export const DELETE = async (url = '') => await fetch(`${serverUrl}${url}`, defaultOptions('DELETE'));
