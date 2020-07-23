@@ -19,16 +19,32 @@ export default class ProjectView {
     this.deleteNoteEvent = new Event();
     this.createGroupEvent = new Event();
     this.deleteGroupEvent = new Event();
+    this.moveNoteEvent = new Event();
+    this.moveGroupEvent = new Event();
   }
 
   addUserEventListener() {
+    const self = this;
     this.app.addEventListener('contextmenu', (event) => {
       event.preventDefault();
       return false;
     });
     this.app.addEventListener('click', (event) => this.onAppClickHandler(event, this));
-    new DragAndDrop(this.app.querySelector('.project'), '.project-column-body', '.project-column-card');
-    new DragAndDrop(this.app.querySelector('.project'), '.project-columns', '.project-column');
+
+    new DragAndDrop({
+      container: this.app.querySelector('.project'),
+      parentSelector: '.project-column-body',
+      childSelector: '.project-column-card',
+      onDragEnd: (card) => self.onCardDragEndHandler(card),
+    });
+
+    new DragAndDrop({
+      container: this.app.querySelector('.project'),
+      parentSelector: '.project-columns',
+      childSelector: '.project-column',
+      onDragEnd: (column) => self.onColumnDragEndHandler(column),
+    });
+
     const columns = document.querySelectorAll('.project-column');
     columns.forEach((column) => {
       column.addEventListener('mousedown', (event) => this.onColumnClickHandler(event, this));
@@ -63,6 +79,20 @@ export default class ProjectView {
 
     if (foundHandler) event.stopImmediatePropagation();
   }
+  onCardDragEndHandler(card) {
+    this.moveNoteEvent.trigger({
+      id: getNumber(card.id),
+      targetId: getNumber(card.previousElementSibling.id),
+      groupId: getNumber(card.closest('.project-column').id),
+    });
+  }
+
+  onColumnDragEndHandler(column) {
+    this.moveGroupEvent.trigger({
+      id: getNumber(column.id),
+      targetId: getNumber(column.previousElementSibling?.id) ?? 0,
+    });
+  }
 
   render() {
     this.app.innerHTML = projectPage(this.project);
@@ -92,10 +122,10 @@ export default class ProjectView {
     );
   }
 
-  updateColumnCounter({ note, noteCount }) {
-    const columnId = note.groupId;
+  updateColumnCounter(columnId) {
     const column = this.app.querySelector(`#project-column-${columnId}`);
-    column.querySelector('.project-column-header-counter').innerHTML = noteCount;
+    const count = column.querySelector('.project-column-body').childElementCount;
+    column.querySelector('.project-column-header-counter').innerHTML = count - 1;
   }
 
   updateCard(data) {}

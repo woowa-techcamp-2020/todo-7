@@ -1,8 +1,9 @@
 export default class DragAndDrop {
-  constructor(container, parentSelector, childSelector) {
+  constructor({ container, parentSelector, childSelector, onDragStart, onDragEnd }) {
     this.container = container;
     this.parentSelector = parentSelector;
     this.childSelector = childSelector;
+    this.onDragEnd = onDragEnd;
     this.addEventListeners();
   }
 
@@ -39,6 +40,7 @@ export default class DragAndDrop {
       this.dragging = false;
       this.oldNode.style.filter = 'none';
       this.newNode.remove();
+      this.onDragEnd(this.oldNode);
     }
   }
 

@@ -28,10 +28,11 @@ export const PUT = async (url = '', data) =>
   (
     await fetch(`${serverUrl}${url}`, {
       body: JSON.stringify(data),
-      ...defaultOptions('POST'),
+      ...defaultOptions('PUT'),
     })
   ).json();
 
-export const GET = async (url = '', data) => (await fetch(`${serverUrl}${url}${createQuery(data)}`, defaultOptions('GET'))).json();
+export const GET = async (url = '', data) =>
+  (await fetch(`${serverUrl}${url}${createQuery(data)}`, defaultOptions('GET'))).json();
 
 export const DELETE = async (url = '') => (await fetch(`${serverUrl}${url}`, defaultOptions('DELETE'))).json();
