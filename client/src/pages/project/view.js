@@ -22,6 +22,7 @@ export default class ProjectView {
     }
 
     addUserEventListener(){
+        this.app.addEventListener('contextmenu', (event) => { event.preventDefault(); return false; } )
         this.app.addEventListener('click', (event) => this.onAppClickHandler(event, this));
         new DragAndDrop(this.app.querySelector('.project'), '.project-column-body', '.project-column-card');
         new DragAndDrop(this.app.querySelector('.project'), '.project-columns', '.project-column');
