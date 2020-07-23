@@ -22,10 +22,11 @@ exports.findById = async (req, res) => {
 };
 
 exports.findProjects = async (req, res) => {
-  const user = await Users.findProjects('id, username, nickname', {
-    id: req.user.id,
+  const projects = await Users.findProjects(req.user.id);
+  res.send({
+    projects,
+    nickname: req.user.nickname,
   });
-  res.send(user);
 };
 
 exports.loginCheck = async (req, res) => res.sendStatus(req.isAuthenticated() ? 200 : 401);

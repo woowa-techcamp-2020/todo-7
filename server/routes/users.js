@@ -3,9 +3,9 @@ const router = express.Router();
 
 const usersController = require('../controllers/users');
 const { wrapAsync } = require('../utils/helper');
-const { authenticate } = require('../utils/auth');
+const { authenticate, isAuthenticated } = require('../utils/auth');
 
-router.get('/projects', usersController.findProjects);
+router.get('/projects', isAuthenticated, usersController.findProjects);
 router.get('/', usersController.loginCheck);
 router.post('/login', authenticate(), wrapAsync(usersController.findById));
 router.post('/', wrapAsync(usersController.create));
