@@ -1,6 +1,7 @@
 import Event from '../../utils/event';
 import projectPage from '../../components/templates/project';
 import card from '../../components/molecules/card';
+import modal from '../../components/molecules/modal';
 import DragAndDrop from '../../utils/dragndrop';
 import { getNumber } from '../../utils/helper';
 
@@ -19,6 +20,7 @@ export default class ProjectView {
     this.deleteNoteEvent = new Event();
     this.createGroupEvent = new Event();
     this.deleteGroupEvent = new Event();
+    this.updateGroupEvent = new Event();
   }
 
   addUserEventListener() {
@@ -37,12 +39,20 @@ export default class ProjectView {
   }
 
   onAppClickHandler(event, self) {
+    let foundHandler = true;
     const classList = event.target.classList;
+
     if (classList.contains('project-header-menu-icon')) {
       self.onEventColumnToggler(event, true);
     } else if (classList.contains('project-event-column-close-icon')) {
       self.onEventColumnToggler(event, false);
+    } else if (classList.contains('project-column-edit-modal-header-delete-icon')) {
+      self.onModalCloseClickHandler(event);
+    } else if (classList.contains('project-column-edit-modal')) {
+      self.onModalCloseClickHandler(event);
     }
+
+    if (foundHandler) event.stopImmediatePropagation();
   }
 
   onColumnClickHandler(event, self) {
@@ -51,6 +61,8 @@ export default class ProjectView {
 
     if (classList.contains('project-column-header-add-icon')) {
       self.onNoteAddIconCickHandler(event);
+    } else if (classList.contains('project-column-header-edit-icon')) {
+      self.onGroupEditIconClickHandler(event);
     } else if (classList.contains('project-column-form-card-add-button')) {
       self.onFormCardButtonClickHandler(event, true);
     } else if (classList.contains('project-column-form-card-cancel-button')) {
@@ -117,6 +129,22 @@ export default class ProjectView {
   onNoteAddIconCickHandler(event) {
     const formCard = event.currentTarget.querySelector('.project-column-form-card');
     this.toggleFormCard(formCard);
+  }
+
+  onGroupEditIconClickHandler(event) {
+    const headerTitle = event.currentTarget.querySelector('.project-column-header-title');
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-column-edit-modal`,
+        data: { title: headerTitle.innerText },
+      }),
+    );
+  }
+
+  onModalCloseClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.project-column-edit-modal');
+    modal.remove();
   }
 
   onFormCardButtonClickHandler(event, isAdd) {
