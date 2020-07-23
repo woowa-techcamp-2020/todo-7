@@ -1,5 +1,5 @@
 import Event from '../../utils/event';
-import { getProject, createCard } from '../../apis/project';
+import { getProject, createCard, updateGroup } from '../../apis/project';
 
 export default class ProjectModel {
   async init(id) {
@@ -13,6 +13,7 @@ export default class ProjectModel {
     this.deleteNoteEvent = new Event();
     this.createGroupEvent = new Event();
     this.deleteGroupEvent = new Event();
+    this.updateGroupEvent = new Event();
   }
 
   getProject() {
@@ -31,6 +32,19 @@ export default class ProjectModel {
       note,
       event,
       noteCount: this.project.groups[groupArrIdx].notes.length,
+    });
+  }
+
+  async updateGroup({ id, title }) {
+    const { event } = await updateGroup({
+      projectId: this.project.id,
+      id,
+      title,
+    });
+    const groupArrIdx = this.project.groups.findIndex((group) => group.id === id);
+    this.project.groups[groupArrIdx].title = title;
+    this.updateGroupEvent.trigger({
+      event,
     });
   }
 }
