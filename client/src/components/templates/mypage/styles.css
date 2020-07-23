@@ -5,15 +5,6 @@
   flex-direction: column;
 }
 
-.mypage-header {
-  height: 58px;
-  line-height: 58px;
-  color: var(--white);
-  font-size: 20px;
-  padding: 0 16px 0 16px;
-  background-color: var(--black);
-}
-
 .mypage-body {
   display: flex;
   flex-direction: column;
@@ -29,4 +20,11 @@
 .mypage-body-header button {
   width: 110px;
   font-size: 14px;
+}
+
+.mypage-column-card {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px;
+  border-top: none;
 }

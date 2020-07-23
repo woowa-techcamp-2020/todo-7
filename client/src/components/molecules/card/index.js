@@ -5,6 +5,8 @@ import icon from '../../atoms/icon';
 import header from '../header';
 
 import './styles.css';
+import select from '../../atoms/select';
+import label from '../../atoms/label';
 
 const projectColumnCard = (className, data) => [
   header({
@@ -66,24 +68,54 @@ const projectEventColumnCard = (className, data) => [
   }),
 ];
 
-const mypageColumnCard = (className, data) => [
-  header({
-    className: `${className}-header card-header`,
-    leading: element({
-      className: `${className}-header-text`,
-      child: data.title,
+const mypageColumnCard = (className, data) => {
+  console.log(data);
+  return [
+    header({
+      className: `${className}-header card-header`,
+      leading: element({
+        className: `${className}-header-text`,
+        child: data.title,
+      }),
     }),
-  }),
-  element({
-    className: `${className}-footer card-footer`,
-    child: `5 hours ago`,
-  }),
-];
+    element({
+      className: `${className}-footer card-footer`,
+      child: `5 hours ago`,
+    }),
+  ];
+};
+
+const userColumnCard = (className, data) => {
+  console.log(data);
+  return [
+    header({
+      className: `${className}-header card-header`,
+      leading: element({
+        className: `${className}-header-text`,
+        child: data.nickname,
+      }),
+    }),
+    label({
+      className: `${className}-select`,
+      text: 'Role',
+    }),
+    select({
+      className: `${className}-select`,
+      name: 'authority',
+      options: ['admin', 'read-only'],
+    }),
+    icon({
+      className: `${className}-delete-icon`,
+    }),
+  ];
+};
 
 const getCardByClassName = (className, data) => {
   switch (className) {
     case 'mypage-column-card':
       return mypageColumnCard(className, data);
+    case 'create-page-column-card':
+      return userColumnCard(className, data);
     case 'project-column-form-card':
       return projectColumnNewCard(className);
     case 'project-column-card':

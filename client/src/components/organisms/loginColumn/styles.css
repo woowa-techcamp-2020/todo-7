@@ -1,9 +1,9 @@
-.login-label {
+.login-label-input .label {
   font-weight: 600;
   margin-bottom: 7px;
 }
 
-.login-input {
+.login-label-input .input {
   height: 32px;
   line-height: 32px;
   padding: 5px 12px;

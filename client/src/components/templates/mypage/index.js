@@ -1,7 +1,7 @@
 import element from '../../../utils/element';
 import button from '../../atoms/button';
 import header from '../../molecules/header';
-import mypageColumn from '../../organisms/mypageColumn';
+import column from '../../organisms/column';
 
 import './styles.css';
 
@@ -11,8 +11,8 @@ export default (data) => {
     className: 'mypage',
     child: [
       element({
-        className: 'mypage-header',
-        child: `${data.nickname}'s TODO`,
+        className: 'mypage-header page-header',
+        child: `${data.nickname}'s Projects`,
       }),
       element({
         className: 'mypage-body',
@@ -24,9 +24,10 @@ export default (data) => {
               text: 'New project',
             }),
           }),
-          ...mypageColumn({
+          column({
             className: 'mypage-column',
             data: data.projects,
+            title: 'Projects',
           }),
         ],
       }),

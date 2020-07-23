@@ -13,15 +13,6 @@
   overflow: scroll;
 }
 
-.project-header {
-  height: 58px;
-  line-height: 58px;
-  color: var(--white);
-  font-size: 20px;
-  padding: 0 16px 0 16px;
-  background-color: var(--black);
-}
-
 .project-header-menu-icon {
   margin-left: auto;
 }
