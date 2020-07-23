@@ -1,22 +1,21 @@
 .header {
-    display: flex;
-    font-weight: 600;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+  display: flex;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-leading {
-    flex: none;
-    margin-right: 10px;
+  flex: none;
+  margin-right: 10px;
 }
 
 .header-title {
-    flex: none;
+  flex: none;
 }
 
 .header-actions {
-    margin-left: auto;
+  margin-left: auto;
 }

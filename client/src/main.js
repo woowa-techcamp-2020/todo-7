@@ -9,7 +9,7 @@ const render = async () => {
     const root = document.querySelector('#App');
     const hash = location.hash.replace('#', '');
     console.log(hash);
-    switch(hash) {
+    switch (hash) {
       case 'login':
         const loginController = new LoginController(new LoginModel(), new LoginView());
         await loginController.init(root);
@@ -19,7 +19,6 @@ const render = async () => {
         const projectController = new ProjectController(new ProjectModel(), new ProjectView());
         await projectController.init(1, root);
         break;
-
     }
   } catch (err) {
     console.error(err);
@@ -36,4 +35,3 @@ window.addEventListener('hashchange', render);
 // 새로고침이 클릭되었을 때, 웹페이지가 처음 로딩되었을 때, 현 페이지(예를 들어 loclahost:5003/#service)를 요청하므로
 // index.html이 다시 로드되고 DOMContentLoaded 이벤트가 발생하여 render가 호출된다.
 window.addEventListener('DOMContentLoaded', render);
-

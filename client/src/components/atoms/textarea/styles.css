@@ -1,23 +1,23 @@
 .textarea {
-    width: 100%;
-    padding: 8px 12px;
-    min-height: 58px;
-    min-width: 100%;
-    max-height: 200px;
-    overflow-y: scroll;
-    outline: none;
-    font-size: 14px;
-    border-radius: 6px;
-    border: 1px solid #e1e4e8;
-    background-color: var(--white);
+  width: 100%;
+  padding: 8px 12px;
+  min-height: 58px;
+  min-width: 100%;
+  max-height: 200px;
+  overflow-y: scroll;
+  outline: none;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  background-color: var(--white);
 }
 
 .textarea[contenteditable]:empty::before {
-    content: 'Enter a note';  
-    color: gray;
+  content: 'Enter a note';
+  color: gray;
 }
 
 .textarea:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(3, 102, 214, .3)
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
 }

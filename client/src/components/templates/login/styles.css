@@ -1,17 +1,16 @@
 .login {
-    width: 308px;
-    display: grid;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height:normal;
+  width: 308px;
+  display: grid;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: normal;
 }
 
 .login-header {
-    margin-bottom: 16px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 300;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 300;
 }
-

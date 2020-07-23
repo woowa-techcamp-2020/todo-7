@@ -9,8 +9,7 @@ exports.findById = async (req, res) => {
   const userProjectRelation = await UserProjectRelations.findOne('*', {
     id: req.params.id,
   });
-  if (!userProjectRelation)
-    res.status(404).send('user project relation not found');
+  if (!userProjectRelation) res.status(404).send('user project relation not found');
   else res.send(userProjectRelation);
 };
 

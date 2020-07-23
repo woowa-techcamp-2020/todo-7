@@ -3,7 +3,10 @@ const Events = require('../models/events');
 
 exports.create = async (req, res) => {
   const note = await Notes.create(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: `created card ${req.body.title}` });
+  const event = await Events.create({
+    projectId: req.body.projectId,
+    title: `created card ${req.body.title}`,
+  });
   res.send({ note, event });
 };
 
@@ -15,7 +18,10 @@ exports.findById = async (req, res) => {
 
 exports.update = async (req, res) => {
   await Notes.update(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: `updated card ${req.body.title}` });
+  const event = await Events.create({
+    projectId: req.body.projectId,
+    title: `updated card ${req.body.title}`,
+  });
   res.send(event);
 };
 
@@ -25,7 +31,10 @@ exports.move = async (req, res) => {
   if (note.groupTitle === req.body.groupTitle) {
     res.send('successfully moved');
   } else {
-    const event = await Events.create({ projectId: req.body.projectId, title: `moved card ${note.title} from ${note.groupTitle} to ${req.body.groupTitle}` });
+    const event = await Events.create({
+      projectId: req.body.projectId,
+      title: `moved card ${note.title} from ${note.groupTitle} to ${req.body.groupTitle}`,
+    });
     res.send(event);
   }
 };
@@ -33,6 +42,9 @@ exports.move = async (req, res) => {
 exports.delete = async (req, res) => {
   const note = await Notes.findOne('title', { id: parseInt(req.query.id) });
   await Notes.delete(parseInt(req.query.id));
-  const event = await Events.create({ projectId: parseInt(req.query.projectId), title: `deleted card ${note.title}` });
+  const event = await Events.create({
+    projectId: parseInt(req.query.projectId),
+    title: `deleted card ${note.title}`,
+  });
   res.send(event);
 };

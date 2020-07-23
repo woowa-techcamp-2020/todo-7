@@ -1,35 +1,30 @@
 .project-event-column {
-    position: fixed;
-    top: 0;
-    right: -360px;
-    width: 360px;
-    height: 100%;
-    background: var(--white);
-    transition: .5s;
-    border: 1px solid #e1e4e8;
-
+  position: fixed;
+  top: 0;
+  right: -360px;
+  width: 360px;
+  height: 100%;
+  background: var(--white);
+  transition: 0.5s;
+  border: 1px solid #e1e4e8;
 }
 
 .project-event-column-header {
-    border-bottom: 1px solid #e1e4e8;
-    padding: 0 16px 0 16px;
-    background-color: var(--grey);
-    height: 45px;    
-    line-height: 45px;
+  border-bottom: 1px solid #e1e4e8;
+  padding: 0 16px 0 16px;
+  background-color: var(--grey);
+  height: 45px;
+  line-height: 45px;
 }
 
 .project-event-column-body {
-    height: 100%;
-    overflow: auto;
+  height: 100%;
+  overflow: auto;
 }
 
 .project-event-column-card {
-    height: 86px;
-    border: none;
-    border-bottom: 1px solid #e1e4e8;
-    padding: 16px;
-
-
+  height: 86px;
+  border: none;
+  border-bottom: 1px solid #e1e4e8;
+  padding: 16px;
 }
-
-
