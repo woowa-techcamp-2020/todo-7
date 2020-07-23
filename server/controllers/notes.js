@@ -23,7 +23,7 @@ exports.move = async (req, res) => {
   const note = await Notes.findTitleAndGroupTitleById(req.body.id);
   await Notes.move(req.body);
   if (note.groupTitle === req.body.groupTitle) {
-    res.send(200);
+    res.send('successfully moved');
   } else {
     const event = await Events.create({ projectId: req.body.projectId, title: `moved card ${note.title} from ${note.groupTitle} to ${req.body.groupTitle}` });
     res.send(event);
