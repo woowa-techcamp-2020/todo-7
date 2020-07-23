@@ -13,7 +13,13 @@ const projectColumnCard = (className, data) => [
       className: `${className}-header-text`,
       child: data.title,
     }),
-    actions: icon({}),
+    actions: element({
+      className: `${className}-header-actions`,
+      child: [
+        icon({ className: `${className}-header-edit-icon` }),
+        icon({ className: `${className}-header-delete-icon` }),
+      ],
+    }),
   }),
   element({
     className: `${className}-body card-body`,

@@ -46,11 +46,16 @@
   color: var(--blue);
 }
 
-.project-column-card-header .icon {
-  width: 20px;
-  height: 20px;
-  background-color: rosybrown;
-  margin-left: auto;
+.project-column-card-header-actions {
+  display: flex;
+}
+
+.project-column-card-header-edit-icon {
+  background-color: yellowgreen;
+}
+
+.project-column-card-header-delete-icon {
+  background-color: darkred;
 }
 
 .project-column-card-footer-writer {
