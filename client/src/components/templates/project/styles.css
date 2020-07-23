@@ -26,6 +26,25 @@
   margin-left: auto;
 }
 
+.project-column-create-card {
+  min-width: 330px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  border: 1px dashed var(--black);
+  background-color: var(--white);
+}
+
+.project-column-create-card-container {
+  display: flex;
+}
+
+.project-column-create-card-header-add-icon {
+  margin-right: 8px;
+}
+
 @media (max-width: 544px) {
   .project-columns {
     height: 100%;

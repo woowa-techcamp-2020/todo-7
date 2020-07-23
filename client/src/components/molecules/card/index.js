@@ -72,6 +72,19 @@ const projectEventColumnCard = (className, data) => [
   }),
 ];
 
+const projectColumnCreateCard = (className) => [
+  element({
+    className: `${className}-container`,
+    child: [
+      icon({ className: `${className}-header-add-icon` }),
+      element({
+        className: `${className}-body`,
+        child: [`Add new column`],
+      }),
+    ],
+  }),
+];
+
 const getCardByClassName = (className, data) => {
   switch (className) {
     case 'project-column-form-card':
@@ -80,6 +93,8 @@ const getCardByClassName = (className, data) => {
       return projectColumnCard(className, data);
     case 'project-event-column-card':
       return projectEventColumnCard(className, data);
+    case 'project-column-create-card':
+      return projectColumnCreateCard(className);
   }
 };
 
