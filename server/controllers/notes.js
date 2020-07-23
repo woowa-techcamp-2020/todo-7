@@ -20,7 +20,7 @@ exports.update = async (req, res) => {
 };
 
 exports.move = async (req, res) => {
-  const note = await Notes.findTitleAndGroupTitleById(parseInt(req.body.id));
+  const note = await Notes.findTitleAndGroupTitleById(req.body.id);
   await Notes.move(req.body);
   if (note.groupTitle === req.body.groupTitle) {
     res.send(200);
