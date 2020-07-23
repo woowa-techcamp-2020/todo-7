@@ -18,7 +18,7 @@ class Projects extends Model {
     const queryStmt = `
       SELECT Projects.id AS 'projectId', Projects.title AS 'projectTitle', Projects.description AS 'projectDescription', 
              Groups.id AS 'groupId', Groups.title AS 'groupTitle', 
-             Notes.id AS 'noteId', Notes.title AS 'noteTitle', Notes.description AS 'noteDescription'
+             Notes.id AS 'noteId', Notes.title AS 'noteTitle', Notes.description AS 'noteDescription', Notes.isActive AS 'noteIsActive'
       FROM Projects 
       LEFT JOIN Groups ON Groups.projectId = Projects.id
       LEFT JOIN Notes ON Notes.groupId = Groups.id
@@ -39,28 +39,8 @@ class Projects extends Model {
     return { id: obj.groupId, title: obj.groupTitle, notes: notes ? notes : [] };
   }
 
-  static deleteKeys(obj, keys, prefix) {
-    keys.forEach((key) => {
-      let newKey = prefix ? prefix + this.capitalizeFirstLetter(key) : key;
-      delete obj[`${newKey}`];
-    });
-    return obj;
-  }
-
-  static capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
   static findUnique(inputArr, key) {
     return inputArr.reduce((a, b) => (a.includes(b[key]) ? a : [...a, b[key]]), []);
-  }
-
-  static noteNullCheck(groups) {
-    return groups.some((group) => {
-      if (!group.noteId) {
-        return true;
-      }
-    });
   }
 
   static parseData(data) {
@@ -69,31 +49,21 @@ class Projects extends Model {
     }
     const project = this.getProjectInfo(data[0]);
 
-    const newData = data.map((obj) => {
-      return this.deleteKeys(obj, Object.keys(project), 'project');
-    });
-
-    const dataByGroup = this.findUnique(newData, 'groupId').map((value) =>
-      data.filter((row) => row['groupId'] === value),
-    );
+    const dataByGroup = this.findUnique(data, 'groupId').map((value) => data.filter((row) => row['groupId'] === value));
 
     const groups = [];
+    dataByGroup.forEach((group) => groups.push(this.getGroupInfo(group[0])));
 
-    for (let i = 0; i < dataByGroup.length; i++) {
-      let group = dataByGroup[i];
-      let noteIsNull = this.noteNullCheck(group);
-      if (noteIsNull) {
-        groups.push(this.getGroupInfo(group.pop()));
-        continue;
-      }
-
-      let notes = [];
-
-      dataByGroup[i].forEach((note) => {
-        notes.push({ id: note.noteId, title: note.noteTitle, description: note.noteDescription });
+    for (let i = 0; i < groups.length; i++) {
+      data.forEach((note) => {
+        if (note.groupId === groups[i].id && note.noteIsActive) {
+          groups[i].notes.push({
+            id: note.noteId,
+            title: note.noteTitle,
+            description: note.noteDescription,
+          });
+        }
       });
-
-      groups.push(this.getGroupInfo(dataByGroup[i].pop(), notes));
     }
     project.groups = groups;
 
