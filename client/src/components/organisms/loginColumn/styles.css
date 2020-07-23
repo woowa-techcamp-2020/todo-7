@@ -1,0 +1,18 @@
+.login-label {
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.login-input {
+    height: 32px;
+    line-height: 32px; 
+    padding: 5px 12px;
+    margin: 5px 0 15px;
+}
+
+.login-column {
+    border-radius: 6px;
+    border: 1px solid #e1e4e8;
+    padding: 20px;
+}
+
