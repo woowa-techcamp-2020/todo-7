@@ -3,7 +3,7 @@ const Events = require('../models/events');
 
 exports.create = async (req, res) => {
   const note = await Notes.create(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'created Note' });
+  const event = await Events.create({ projectId: req.body.projectId, title: `created card ${req.body.title}` });
   res.send({ note, event });
 };
 
@@ -15,18 +15,24 @@ exports.findById = async (req, res) => {
 
 exports.update = async (req, res) => {
   await Notes.update(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'updated Note' });
+  const event = await Events.create({ projectId: req.body.projectId, title: `updated card ${req.body.title}` });
   res.send(event);
 };
 
 exports.move = async (req, res) => {
-  await Notes.update(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'moved Note' });
-  res.send(event);
+  const note = await Notes.findTitleAndGroupTitleById(req.body.id);
+  await Notes.move(req.body);
+  if (note.groupTitle === req.body.groupTitle) {
+    res.send('successfully moved');
+  } else {
+    const event = await Events.create({ projectId: req.body.projectId, title: `moved card ${note.title} from ${note.groupTitle} to ${req.body.groupTitle}` });
+    res.send(event);
+  }
 };
 
 exports.delete = async (req, res) => {
-  await Notes.delete(req.params.id);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'deleted Note' });
+  const note = await Notes.findOne('title', { id: parseInt(req.query.id) });
+  await Notes.delete(parseInt(req.query.id));
+  const event = await Events.create({ projectId: parseInt(req.query.projectId), title: `deleted card ${note.title}` });
   res.send(event);
 };

@@ -12,7 +12,7 @@ class Events extends Model {
   }
   static async getByProjectId(where) {
     const queryStmt = `
-      SELECT Events.id, Events.title
+      SELECT Events.id, Events.title, Events.createdAt
       FROM Events
       INNER JOIN Projects
       ON projectId = Projects.id
@@ -24,6 +24,12 @@ class Events extends Model {
     const result = (await this.pool.query(queryStmt))[0];
     return result;
   }
+
+  static create = async function (input) {
+    const validatedInput = this.validate(input);
+    const queryStmt = this.generateCreateQueryStmt(validatedInput);
+    return this.findOne('id, title, createdAt', { id: (await this.pool.query(queryStmt))[0].insertId });
+  };
 }
 
 module.exports = Events;

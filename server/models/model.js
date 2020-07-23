@@ -1,7 +1,6 @@
 const createHttpError = require('http-errors');
 const mysql = require('mysql2/promise');
 const { isEmpty, wrapBacktick } = require('../utils/helper');
-const { generateOrderSubQueryStmt: getOrderSubQuery } = require('./events');
 
 class Model {
   static pool = mysql.createPool({
@@ -57,21 +56,21 @@ class Model {
     const validatedWhere = this.validate({ ...where, ...this.defaultWhere });
     const queryStmt = `
       SELECT ${attributes === '*' ? '*' : wrapBacktick(attributes)} 
-        FROM ${this.name}
-        ${
-          !isEmpty(validatedWhere)
-            ? `WHERE ${Object.entries(validatedWhere)
-                .map((o) => `${o[0]}=${o[1]}`)
-                .join(' AND ')}`
-            : ''
-        }
-        ${isOne ? 'LIMIT 1' : ''}
-      `;
+      FROM ${this.name}
+      ${
+        !isEmpty(validatedWhere)
+          ? `WHERE ${Object.entries(validatedWhere)
+              .map((o) => `${o[0]}=${o[1]}`)
+              .join(' AND ')}`
+          : ''
+      }
+      ${isOne ? 'LIMIT 1' : ''}
+    `;
     return queryStmt;
   };
 
-  static generateCreateQueryStmt = function(input) {
-    return `
+  static generateCreateQueryStmt = function (input) {
+    const queryStmt = `
       INSERT INTO ${this.name} (
         ${wrapBacktick(Object.keys(input))} 
         ${!this.attributes.order ? '' : ', `order`'}
@@ -79,11 +78,34 @@ class Model {
       VALUES (
         ${Object.values(input)}
         ${this.attributes.order ? this.generateOrderSubQueryStmt(input) : ''}
-      )`;
+      )
+    `;
+    return queryStmt;
   };
 
-  static generateOrderSubQueryStmt = (data) => '';
+  static generateOrderSubQueryStmt = function (data) {
+    return '';
+  };
 
+  static generateUpdateQueryStmt = function (input) {
+    const queryStmt = `
+      UPDATE ${this.name}
+      SET ${Object.entries(input)
+        .map((o) => `\`${o[0]}\`=${o[1]}`)
+        .join(', ')}
+      WHERE id = ${input.id}
+    `;
+    return queryStmt;
+  };
+
+  static generateDeleteQueryStmt = function (id) {
+    const queryStmt = `
+      UPDATE ${this.name}
+      SET isActive = 0
+      WHERE id = ${id}
+    `;
+    return queryStmt;
+  };
 
   static findOne = async function (attributes, where) {
     const queryStmt = this.generateFindQueryStmt(true, attributes, where);
@@ -107,23 +129,14 @@ class Model {
   static update = async function (input) {
     if (!input.id) throw this.validationError;
     const validatedInput = this.validate(input);
-    const queryStmt = `
-      UPDATE ${this.name}
-      SET ${Object.entries(validatedInput)
-        .map((o) => `\`${o[0]}\`=${o[1]}`)
-        .join(', ')}
-      WHERE id = ${validatedInput.id}
-    `;
+    const queryStmt = this.generateUpdateQueryStmt(validatedInput);
     return await this.pool.query(queryStmt);
   };
 
   static delete = async function (id) {
     if (!id) throw this.validationError;
-    return await this.pool.query(`
-      UPDATE ${this.name}
-      SET isActive = 0
-      WHERE id = ${id}
-    `);
+    const queryStmt = this.generateDeleteQueryStmt(id);
+    return await this.pool.query(queryStmt);
   };
 }
 
