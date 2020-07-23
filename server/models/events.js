@@ -28,7 +28,9 @@ class Events extends Model {
   static create = async function (input) {
     const validatedInput = this.validate(input);
     const queryStmt = this.generateCreateQueryStmt(validatedInput);
-    return this.findOne('id, title, createdAt', { id: (await this.pool.query(queryStmt))[0].insertId });
+    return this.findOne('id, title, createdAt', {
+      id: (await this.pool.query(queryStmt))[0].insertId,
+    });
   };
 }
 

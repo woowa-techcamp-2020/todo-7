@@ -6,30 +6,33 @@ import header from '../../molecules/header';
 
 import './styles.css';
 
-export default (project) => element({
-    className: 'project', 
+export default (project) =>
+  element({
+    className: 'project',
     id: project.id,
-    child: [ 
-        header({
-            className: 'project-header',
-            title: element({
-                className: 'project-header-title',
-                child: 'Todo-7', 
-            }),
-            actions: icon({ 
-                className: 'project-header-menu-icon',
-            }),
+    child: [
+      header({
+        className: 'project-header',
+        title: element({
+          className: 'project-header-title',
+          child: 'Todo-7',
         }),
-        element({
-            className: 'project-columns', 
-            child: project.groups.map(group => column({
-                className: 'project-column', 
-                data: group
-            }))
+        actions: icon({
+          className: 'project-header-menu-icon',
         }),
-        eventColumn({
-            className: 'project-event-column', 
-            data: project.groups[0],
-        })
-    ]  
-});
+      }),
+      element({
+        className: 'project-columns',
+        child: project.groups.map((group) =>
+          column({
+            className: 'project-column',
+            data: group,
+          }),
+        ),
+      }),
+      eventColumn({
+        className: 'project-event-column',
+        data: project.groups[0],
+      }),
+    ],
+  });
