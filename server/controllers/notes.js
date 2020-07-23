@@ -15,7 +15,7 @@ exports.findById = async (req, res) => {
 
 exports.update = async (req, res) => {
   await Notes.update(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'updated Note' });
+  const event = await Events.create({ projectId: req.body.projectId, title: `updated ${req.body.title}` });
   res.send(event);
 };
 
