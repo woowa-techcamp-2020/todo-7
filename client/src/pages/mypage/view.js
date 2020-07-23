@@ -7,16 +7,25 @@ export default class MyPageView {
     this.app = app;
     this.render(data);
     this.createEvents();
-    const projectCards = app.querySelectorAll('.mypage-column-card');
+    this.addEventListeners();
+  }
+
+  createEvents() {
+    this.projectCardClickEvent = new Event();
+    this.newProjectButtonClickEvent = new Event();
+  }
+
+  addEventListeners() {
+    const projectCards = this.app.querySelectorAll('.mypage-column-card');
     projectCards.forEach((card) =>
       card.addEventListener('click', (event) => {
         this.projectCardClickEvent.trigger(getNumber(card.id));
       }),
     );
-  }
-
-  createEvents() {
-    this.projectCardClickEvent = new Event();
+    const createButton = this.app.querySelector('.mypage-project-create-button');
+    createButton.addEventListener('click', (event) => {
+      this.newProjectButtonClickEvent.trigger();
+    });
   }
 
   render(data) {
