@@ -1,6 +1,7 @@
 import { LoginModel, LoginView, LoginController } from './pages/login';
 import { MyPageModel, MyPageView, MyPageController } from './pages/mypage';
 import { ProjectModel, ProjectView, ProjectController } from './pages/project';
+import { CreatePageModel, CreatePageView, CreatePageController } from './pages/create';
 
 import './reset.css';
 import './styles.css';
@@ -19,6 +20,10 @@ const render = async () => {
       case 'mypage':
         const myPageController = new MyPageController(new MyPageModel(), new MyPageView());
         await myPageController.init(root);
+        break;
+      case 'create':
+        const createPageController = new CreatePageController(new CreatePageModel(), new CreatePageView());
+        await createPageController.init(root);
         break;
       default:
         const loginController = new LoginController(new LoginModel(), new LoginView());
