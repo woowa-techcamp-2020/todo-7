@@ -6,9 +6,9 @@
 .project-columns {
   display: flex;
   height: 1200px;
-
   padding: 16px;
   flex-direction: row;
+  overflow: scroll;
 }
 
 .project-header {
