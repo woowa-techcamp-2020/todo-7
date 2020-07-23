@@ -19,13 +19,15 @@ export default class ProjectController {
     this.view.deleteNoteEvent.addListener((data) => this.model.deleteNote(data));
 
     this.view.createGroupEvent.addListener((data) => this.model.createGroup(data));
-    this.view.deleteGroupEvent.addListener((data) => this.model.deleteGroup(data));
     this.view.updateGroupEvent.addListener((data) => this.model.updateGroup(data));
+    this.view.deleteGroupEvent.addListener((data) => this.model.deleteGroup(data));
 
+    this.model.updateNoteEvent.addListener((data) => this.view.updateCard(data));
     this.model.deleteNoteEvent.addListener((data) => this.view.deleteCard(data));
+
     this.model.createGroupEvent.addListener((data) => this.view.createColumn(data));
-    this.model.deleteGroupEvent.addListener((data) => this.view.deleteColumn(data));
     this.model.updateGroupEvent.addListener((data) => this.view.updateColumn(data));
+    this.model.deleteGroupEvent.addListener((data) => this.view.deleteColumn(data));
   }
 
   createNoteHandler() {
