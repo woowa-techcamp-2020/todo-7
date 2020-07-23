@@ -1,9 +1,9 @@
 import Event from '../../utils/event';
-import { getProject, createCard, updateColumn } from '../../apis/project';
+import api from '../../apis/project';
 
 export default class ProjectModel {
   async init(id) {
-    this.project = await getProject(id);
+    this.project = await api.getProject(id);
     this.createEvents();
   }
 
@@ -14,6 +14,8 @@ export default class ProjectModel {
     this.createGroupEvent = new Event();
     this.deleteGroupEvent = new Event();
     this.updateGroupEvent = new Event();
+    this.moveNoteEvent = new Event();
+    this.moveGroupEvent = new Event();
   }
 
   getProject() {
@@ -21,22 +23,45 @@ export default class ProjectModel {
   }
 
   async createNote({ title, groupId }) {
-    const { note, event } = await createCard({
+    const { note, event } = await api.createNote({
       projectId: this.project.id,
       groupId,
       title,
     });
-    const groupArrIdx = this.project.groups.findIndex((group) => group.id === groupId);
-    this.project.groups[groupArrIdx].notes.unshift(note);
-    this.createNoteEvent.trigger({
-      note,
+    this.project.groups.find((group) => group.id === groupId).notes.push(note);
+    this.createNoteEvent.trigger({ note, event });
+  }
+
+  async moveGroup({ id, targetId }) {
+    const { event } = await api.moveGroup({
+      id,
+      targetId,
+      projectId: this.project.id,
+    });
+    this.moveGroupEvent.trigger(event);
+  }
+
+  async moveNote({ id, targetId, groupId }) {
+    const beforeGroup = this.findGroupByNote(id);
+    const afterGroup = this.project.groups.find((group) => group.id === groupId);
+
+    const event = await api.moveNote({
+      id,
+      targetId,
+      projectId: this.project.id,
+      groupId: afterGroup.id,
+      groupTitle: afterGroup.title,
+    });
+
+    this.moveNoteEvent.trigger({
       event,
-      noteCount: this.project.groups[groupArrIdx].notes.length,
+      beforeColumnId: beforeGroup.id,
+      afterColumnId: afterGroup.id,
     });
   }
 
   async updateGroup({ id, title }) {
-    const { event } = await updateColumn({
+    const { event } = await api.updateColumn({
       projectId: this.project.id,
       id,
       title,
@@ -48,5 +73,15 @@ export default class ProjectModel {
       title,
       event,
     });
+  }
+
+  findGroupByNote(id) {
+    let _group;
+    this.project.groups.forEach((group) =>
+      group.notes.forEach((note) => {
+        if (note.id == id) return (_group = group);
+      }),
+    );
+    return _group;
   }
 }
