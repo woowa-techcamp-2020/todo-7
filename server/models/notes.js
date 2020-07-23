@@ -17,8 +17,9 @@ class Notes extends Model {
   static generateOrderSubQueryStmt = (data) => `, (SELECT COALESCE(MAX(\`order\`),0) FROM Notes t WHERE t.groupId = ${data.groupId}) + 1`;
 
   static async move(notes) {
-    const queryStmt = notes.targetId
-      ? `
+    const queryStmt =
+      notes.targetId != 0
+        ? `
         UPDATE Notes AS note,
         (SELECT \`order\`, \`groupId\` FROM Notes WHERE id = ${notes.targetId}) as target
         SET note.\`order\` = CASE WHEN note.\`id\` = ${notes.id} THEN target.\`order\`
@@ -27,12 +28,13 @@ class Notes extends Model {
           note.\`groupId\` = CASE WHEN (note.\`id\` = ${notes.id}) THEN target.\`groupId\`
             ELSE note.\`groupId\` END;
       `
-      : `
+        : `
         UPDATE Notes AS note,
         (SELECT COALESCE(MAX(\`order\`),0) AS \`maxOrder\` FROM Notes WHERE groupId = ${notes.groupId}) AS a
-          SET \`groupId\` = 1, \`order\` = a.\`maxOrder\` + 1 
+          SET \`groupId\` = ${notes.groupId}, \`order\` = a.\`maxOrder\` + 1 
           WHERE \`id\` = ${notes.id}
       `;
+    console.log(queryStmt);
     return await this.pool.query(queryStmt);
   }
 
