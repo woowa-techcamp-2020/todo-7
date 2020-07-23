@@ -89,6 +89,19 @@ export default class ProjectModel {
     });
   }
 
+  async deleteGroup({ id }) {
+    const event = await api.deleteGroup({
+      projectId: this.project.id,
+      id,
+    });
+    const groupArrIdx = this.project.groups.findIndex((group) => group.id === id);
+    const title = this.project.groups[groupArrIdx].title;
+    this.deleteGroupEvent.trigger({
+      id,
+      event,
+    });
+  }
+
   findGroupByNote(id) {
     let _group;
     this.project.groups.forEach((group) =>

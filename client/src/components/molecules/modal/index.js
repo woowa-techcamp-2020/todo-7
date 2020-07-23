@@ -19,7 +19,7 @@ const projectColumnEditModal = (className, data) => [
         }),
         actions: element({
           className: `${className}-header-actions`,
-          child: [icon({ className: `${className}-header-icon modal-close-icon` })],
+          child: [icon({ className: `${className}-header-icon modal-close` })],
         }),
       }),
       element({
@@ -57,7 +57,7 @@ const projectColumnCardEditModal = (className, data) => [
         }),
         actions: element({
           className: `${className}-header-actions`,
-          child: [icon({ className: `${className}-header-icon modal-close-icon` })],
+          child: [icon({ className: `${className}-header-icon modal-close` })],
         }),
       }),
       element({
@@ -82,10 +82,42 @@ const projectColumnCardEditModal = (className, data) => [
   }),
 ];
 
+const deleteConfirmModal = (className, data) => [
+  element({
+    className: `${className} modal-content`,
+    child: [
+      element({
+        className: `${className}-body modal-body`,
+        child: [
+          element({
+            className: `${className} modal-description`,
+            child: `선택한 <b>${data.type}</b>을 삭제하시겠습니까?`,
+          }),
+          element({
+            className: `${className} modal-button-container`,
+            child: [
+              button({
+                className: `${className}-button modal-confirm modal-button primary`,
+                text: 'Confirm',
+              }),
+              button({
+                className: `${className}-button modal-close modal-button dismiss`,
+                text: 'Cancel',
+              }),
+            ],
+          }),
+        ],
+      }),
+    ],
+  }),
+];
+
 const getModalByClassName = (className, data) => {
   switch (className) {
     case 'project-column-edit-modal':
       return projectColumnEditModal(className, data);
+    case 'project-delete-modal':
+      return deleteConfirmModal(className, data);
     case 'project-column-card-edit-modal':
       return projectColumnCardEditModal(className, data);
   }

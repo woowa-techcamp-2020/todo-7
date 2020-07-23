@@ -30,7 +30,6 @@
   flex: none;
   font-weight: 600;
   font-size: 90%;
-  margin-bottom: 10px;
 }
 
 .modal-label {
@@ -50,10 +49,22 @@
   margin: 5px 0 15px;
 }
 
+.modal-description {
+  font-size: 120%;
+  padding: 5px;
+}
+
+.modal-button-container {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-around;
+  padding: 5px;
+}
+
 .modal-button {
   width: 120px;
 }
 
-.modal-close-icon {
+.modal-close {
   background-color: darkred;
 }

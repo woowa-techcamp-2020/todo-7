@@ -62,7 +62,7 @@ export default class ProjectView {
       self.onEventColumnToggler(event, true);
     } else if (classList.contains('project-event-column-close-icon')) {
       self.onEventColumnToggler(event, false);
-    } else if (classList.contains('modal-close-icon')) {
+    } else if (classList.contains('modal-close')) {
       self.onModalCloseClickHandler(event);
     } else if (classList.contains('modal')) {
       self.onModalCloseClickHandler(event);
@@ -70,6 +70,8 @@ export default class ProjectView {
       self.onEditColumnModalUpdateClickHandler(event);
     } else if (classList.contains('project-column-card-edit-modal-update-button')) {
       self.onEditCardModalUpdateClickHandler(event);
+    } else if (classList.contains('modal-confirm')) {
+      self.onDeleteModalConfirmClickHandler(event);
     } else {
       foundHandler = false;
     }
@@ -85,6 +87,8 @@ export default class ProjectView {
       self.onNoteAddIconCickHandler(event);
     } else if (classList.contains('project-column-header-edit-icon')) {
       self.onGroupEditIconClickHandler(event);
+    } else if (classList.contains('project-column-header-delete-icon')) {
+      self.onGroupDeleteIconClickHandler(event);
     } else if (classList.contains('project-column-form-card-add-button')) {
       self.onFormCardButtonClickHandler(event, true);
     } else if (classList.contains('project-column-form-card-cancel-button')) {
@@ -156,10 +160,14 @@ export default class ProjectView {
   }
 
   createColumn(data) {}
-  deleteColumn(data) {}
 
   updateColumn({ id, title, event }) {
     this.app.querySelector(`#project-column-${id}`).querySelector(`.project-column-header-title`).innerText = title;
+    this.createEventCard(event);
+  }
+
+  deleteColumn({ id, event }) {
+    this.app.querySelector(`#project-column-${id}`).remove();
     this.createEventCard(event);
   }
 
@@ -203,6 +211,16 @@ export default class ProjectView {
     );
   }
 
+  onGroupDeleteIconClickHandler(event) {
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-delete-modal`,
+        data: { id: getNumber(event.currentTarget.id), type: 'Column' },
+      }),
+    );
+  }
+
   onModalCloseClickHandler(event) {
     const modal = event.currentTarget.querySelector('.modal');
     modal.remove();
@@ -223,6 +241,17 @@ export default class ProjectView {
       id: getNumber(modal.id),
       title: modal.querySelector('.modal-textarea').innerText,
     });
+    modal.remove();
+  }
+
+  onDeleteModalConfirmClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
+    const type = modal.querySelector('.modal-description > b').innerText;
+    if (type === 'Column') {
+      this.deleteGroupEvent.trigger({
+        id: getNumber(modal.id),
+      });
+    }
     modal.remove();
   }
 
