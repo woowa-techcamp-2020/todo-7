@@ -1,9 +1,9 @@
 import Event from '../../utils/event';
-import api from '../../apis/user';
+import apis from '../../apis';
 
 export default class CreatePageModel {
   async init() {
-    const res = await api.getUsers();
+    const res = await apis.getUsers();
     if (res.status == 200) {
       const { users, nickname } = await res.json();
       this.users = users;
@@ -21,6 +21,11 @@ export default class CreatePageModel {
   }
 
   createEvents() {
-    this.loginEvent = new Event();
+    this.createProjectEvent = new Event();
+  }
+
+  async createProject(data) {
+    const { id } = await (await apis.createProject(data)).json();
+    this.createProjectEvent.trigger(id);
   }
 }

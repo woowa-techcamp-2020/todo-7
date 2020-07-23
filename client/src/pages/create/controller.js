@@ -12,6 +12,7 @@ export default class CreatePageController {
   }
 
   addEventHandlers() {
-    this.view.projectCardClickEvent.addListener((id) => (location.hash = `#project-${id}`));
+    this.view.createProjectEvent.addListener((data) => this.model.createProject(data));
+    this.model.createProjectEvent.addListener((id) => (location.hash = `#project-${id}`));
   }
 }
