@@ -20,9 +20,14 @@ exports.update = async (req, res) => {
 };
 
 exports.move = async (req, res) => {
+  const note = await Notes.findTitleAndGroupTitleById(parseInt(req.body.id));
   await Notes.move(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'moved Note' });
-  res.send(event);
+  if (note.groupTitle === req.body.groupTitle) {
+    res.send(200);
+  } else {
+    const event = await Events.create({ projectId: req.body.projectId, title: `moved ${note.title} from ${note.groupTitle} to ${req.body.groupTitle}` });
+    res.send(event);
+  }
 };
 
 exports.delete = async (req, res) => {
