@@ -20,8 +20,9 @@ exports.update = async (req, res) => {
 };
 
 exports.move = async (req, res) => {
+  const group = await Groups.findOne('title', { id: req.body.id });
   await Groups.move(req.body);
-  const event = await Events.create({ projectId: req.body.projectId, title: 'moved Group' });
+  const event = await Events.create({ projectId: req.body.projectId, title: `moved ${group.title}` });
   res.send(event);
 };
 
