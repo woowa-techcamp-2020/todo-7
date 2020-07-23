@@ -1,5 +1,5 @@
 import Event from '../../utils/event';
-import { getProject, createCard, updateGroup } from '../../apis/project';
+import { getProject, createCard, updateColumn } from '../../apis/project';
 
 export default class ProjectModel {
   async init(id) {
@@ -36,7 +36,7 @@ export default class ProjectModel {
   }
 
   async updateGroup({ id, title }) {
-    const { event } = await updateGroup({
+    const { event } = await updateColumn({
       projectId: this.project.id,
       id,
       title,
@@ -44,6 +44,8 @@ export default class ProjectModel {
     const groupArrIdx = this.project.groups.findIndex((group) => group.id === id);
     this.project.groups[groupArrIdx].title = title;
     this.updateGroupEvent.trigger({
+      id,
+      title,
       event,
     });
   }
