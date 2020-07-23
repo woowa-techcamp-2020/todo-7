@@ -60,6 +60,20 @@ export default class ProjectModel {
     });
   }
 
+  async updateNote({ id, title }) {
+    const event = await api.updateNote({
+      projectId: this.project.id,
+      id,
+      title,
+    });
+    // TODO: this.project 업데이트
+    this.updateNoteEvent.trigger({
+      id,
+      title,
+      event,
+    });
+  }
+
   async updateGroup({ id, title }) {
     const event = await api.updateGroup({
       projectId: this.project.id,

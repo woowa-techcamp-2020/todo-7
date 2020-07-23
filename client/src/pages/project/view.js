@@ -62,12 +62,14 @@ export default class ProjectView {
       self.onEventColumnToggler(event, true);
     } else if (classList.contains('project-event-column-close-icon')) {
       self.onEventColumnToggler(event, false);
-    } else if (classList.contains('project-column-edit-modal-header-delete-icon')) {
+    } else if (classList.contains('modal-close-icon')) {
       self.onModalCloseClickHandler(event);
-    } else if (classList.contains('project-column-edit-modal')) {
+    } else if (classList.contains('modal')) {
       self.onModalCloseClickHandler(event);
     } else if (classList.contains('project-column-edit-modal-update-button')) {
-      self.onModalUpdateClickHandler(event);
+      self.onEditColumnModalUpdateClickHandler(event);
+    } else if (classList.contains('project-column-card-edit-modal-update-button')) {
+      self.onEditCardModalUpdateClickHandler(event);
     } else {
       foundHandler = false;
     }
@@ -89,12 +91,15 @@ export default class ProjectView {
       self.onFormCardButtonClickHandler(event, false);
     } else if (classList.contains('project-column-form-card-textarea')) {
       //found handler
+    } else if (classList.contains('project-column-card-header-edit-icon')) {
+      self.onNoteEditIconClickHandler(event);
     } else {
       foundHandler = false;
     }
 
     if (foundHandler) event.stopImmediatePropagation();
   }
+
   onCardDragEndHandler(card) {
     this.moveNoteEvent.trigger({
       id: getNumber(card.id),
@@ -128,7 +133,6 @@ export default class ProjectView {
   }
 
   createEventCard(event) {
-    console.log(event);
     this.app.querySelector(`.project-event-column-body`).insertAdjacentHTML(
       'afterbegin',
       card({
@@ -144,7 +148,12 @@ export default class ProjectView {
     column.querySelector('.project-column-header-counter').innerHTML = count - 1;
   }
 
-  updateCard(data) {}
+  updateCard({ id, title, event }) {
+    this.app
+      .querySelector(`#project-column-card-${id}`)
+      .querySelector('.project-column-card-header-text').innerText = title;
+    this.createEventCard(event);
+  }
 
   createColumn(data) {}
   deleteColumn(data) {}
@@ -170,6 +179,19 @@ export default class ProjectView {
     this.toggleFormCard(formCard);
   }
 
+  onNoteEditIconClickHandler(event) {
+    const groupId = event.currentTarget.id;
+    const card = event.target.closest('.project-column-card');
+    const cardTitle = card.querySelector('.project-column-card-header-text').innerText;
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-column-card-edit-modal`,
+        data: { id: getNumber(card.id), title: cardTitle, groupId: getNumber(groupId) },
+      }),
+    );
+  }
+
   onGroupEditIconClickHandler(event) {
     const headerTitle = event.currentTarget.querySelector('.project-column-header-title');
     this.app.querySelector(`.project`).insertAdjacentHTML(
@@ -182,15 +204,24 @@ export default class ProjectView {
   }
 
   onModalCloseClickHandler(event) {
-    const modal = event.currentTarget.querySelector('.project-column-edit-modal');
+    const modal = event.currentTarget.querySelector('.modal');
     modal.remove();
   }
 
-  onModalUpdateClickHandler(event) {
-    const modal = event.currentTarget.querySelector('.project-column-edit-modal');
+  onEditColumnModalUpdateClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
     this.updateGroupEvent.trigger({
       id: getNumber(modal.id),
-      title: modal.querySelector('.project-column-edit-modal-body-input').value,
+      title: modal.querySelector('.modal-input').value,
+    });
+    modal.remove();
+  }
+
+  onEditCardModalUpdateClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
+    this.updateNoteEvent.trigger({
+      id: getNumber(modal.id),
+      title: modal.querySelector('.modal-textarea').innerText,
     });
     modal.remove();
   }
