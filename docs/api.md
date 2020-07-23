@@ -487,12 +487,13 @@ status code
 
 ### Body
 
-| Property    | Type  | Description                              |
-| ----------- | ----- | ---------------------------------------- |
-| `projectId` | `int` | 프로젝트 고유 번호                       |
-| `id`        | `int` | 노트 고유 번호                           |
-| `targetId`  | `int` | 노트가 이동할 위치의 앞 노트의 고유 번호 |
-| `groupId`   | `int` | 그룹 아이디                              |
+| Property     | Type     | Description                              |
+| ------------ | -------- | ---------------------------------------- |
+| `projectId`  | `int`    | 프로젝트 고유 번호                       |
+| `id`         | `int`    | 노트 고유 번호                           |
+| `targetId`   | `int`    | 노트가 이동할 위치의 앞 노트의 고유 번호 |
+| `groupId`    | `int`    | 그룹 아이디 (이동했다면 이동 후 그룹 아이디)     |
+| `groupTitle` | `string` | 그룹 타이틀 (이동했다면 이동 후 그룹 타이틀)     |
 
 ## Response
 
@@ -502,11 +503,13 @@ status code
 
 ## Example Response
 
+> 노트 이동 시 그룹이 변경된 경우에만 이벤트를 생성합니다.
+
 ```json
 {
   "event": {
     "id": 1,
-    "title": "Jinhyeok moved Note 이름",
+    "title": "Jinhyeok moved 노트 이름 from 이전 그룹 이름 to 이후 그룹 이름",
     "createdAt": "2020-07-22T06:03:44.000Z"
   }
 }
