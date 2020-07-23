@@ -1,5 +1,7 @@
 import { LoginModel, LoginView, LoginController } from './pages/login';
+import { MyPageModel, MyPageView, MyPageController } from './pages/mypage';
 import { ProjectModel, ProjectView, ProjectController } from './pages/project';
+import { CreatePageModel, CreatePageView, CreatePageController } from './pages/create';
 
 import './reset.css';
 import './styles.css';
@@ -9,15 +11,23 @@ const render = async () => {
     const root = document.querySelector('#App');
     const hash = location.hash.replace('#', '');
     console.log(hash);
-    switch (hash) {
-      case 'login':
-        const loginController = new LoginController(new LoginModel(), new LoginView());
-        await loginController.init(root);
-        break;
-
+    const [page, id] = hash.split('-');
+    switch (page) {
       case 'project':
         const projectController = new ProjectController(new ProjectModel(), new ProjectView());
-        await projectController.init(1, root);
+        await projectController.init(id, root);
+        break;
+      case 'mypage':
+        const myPageController = new MyPageController(new MyPageModel(), new MyPageView());
+        await myPageController.init(root);
+        break;
+      case 'create':
+        const createPageController = new CreatePageController(new CreatePageModel(), new CreatePageView());
+        await createPageController.init(root);
+        break;
+      default:
+        const loginController = new LoginController(new LoginModel(), new LoginView());
+        await loginController.init(root);
         break;
     }
   } catch (err) {

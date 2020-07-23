@@ -1,0 +1,87 @@
+.project-column {
+  min-width: 330px;
+  border-radius: 6px;
+  padding: 8px;
+  background-color: var(--grey);
+  margin-right: 16px;
+  border: 1px solid #e1e4e8;
+  height: 100%;
+}
+
+.project-column-header {
+  height: 36px;
+  padding: 8px;
+}
+
+.project-column-card {
+  border-radius: 4px;
+  margin: 3px 0px 8px;
+  padding: 8px 8px 8px 32px;
+  background-color: var(--white);
+}
+
+.project-column-card-header {
+  color: var(--blue);
+}
+
+.project-column-card-header .icon {
+  width: 20px;
+  height: 20px;
+  background-color: rosybrown;
+  margin-left: auto;
+}
+
+.project-column-card-footer-writer {
+  display: inline-block;
+  color: var(--black);
+}
+
+.project-column-form-card {
+  margin: 3px 0px 8px;
+  display: none;
+}
+
+.project-column-form-card-footer {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.project-column-form-card-footer button {
+  flex: 1;
+}
+
+.project-column-header-actions {
+  display: flex;
+}
+
+.project-column-header-edit-icon {
+  background-color: yellowgreen;
+}
+
+.project-column-header-add-icon {
+  background-color: darkgoldenrod;
+}
+
+.project-column-header-delete-icon {
+  background-color: darkred;
+}
+
+.project-column-body {
+  height: 96%;
+
+  overflow: auto;
+}
+
+.project-column-card-header-actions {
+  display: flex;
+}
+
+.project-column-card-header-edit-icon {
+  background-color: yellowgreen;
+}
+
+.project-column-card-header-delete-icon {
+  background-color: darkred;
+}

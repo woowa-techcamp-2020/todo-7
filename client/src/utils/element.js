@@ -3,6 +3,6 @@ const getChildHtml = (child) => {
   else return child;
 };
 
-export default ({ className = 'default', child = '', id }) => `
-    <div class='${className}' ${id ? `id= ${id}` : ''}>${getChildHtml(child)}</div>
+export default ({ className = 'default', child = '', id, tag = 'div' }) => `
+    <${tag} class='${className}' ${id ? `id= ${id}` : ''}>${getChildHtml(child)}</${tag}>
 `;

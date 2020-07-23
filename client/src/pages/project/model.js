@@ -1,10 +1,14 @@
 import Event from '../../utils/event';
-import api from '../../apis/project';
+import apis from '../../apis';
 
 export default class ProjectModel {
   async init(id) {
-    this.project = await api.getProject(id);
-    this.createEvents();
+    const res = await apis.getProject(id);
+    if (res.status == 200) {
+      this.project = await res.json();
+      this.createEvents();
+      return this.project.authority;
+    } else return;
   }
 
   createEvents() {
@@ -23,7 +27,7 @@ export default class ProjectModel {
   }
 
   async createNote({ title, groupId }) {
-    const { note, event } = await api.createNote({
+    const { note, event } = await apis.createNote({
       projectId: this.project.id,
       groupId,
       title,
@@ -33,7 +37,7 @@ export default class ProjectModel {
   }
 
   async createGroup({ title }) {
-    const { group, event } = await api.createGroup({
+    const { group, event } = await apis.createGroup({
       projectId: this.project.id,
       title,
     });
@@ -42,7 +46,7 @@ export default class ProjectModel {
   }
 
   async moveGroup({ id, targetId }) {
-    const { event } = await api.moveGroup({
+    const { event } = await apis.moveGroup({
       id,
       targetId,
       projectId: this.project.id,
@@ -54,7 +58,7 @@ export default class ProjectModel {
     const beforeGroup = this.findGroupByNote(id);
     const afterGroup = this.project.groups.find((group) => group.id === groupId);
 
-    const event = await api.moveNote({
+    const event = await apis.moveNote({
       id,
       targetId,
       projectId: this.project.id,
@@ -70,7 +74,7 @@ export default class ProjectModel {
   }
 
   async updateNote({ id, title }) {
-    const event = await api.updateNote({
+    const event = await apis.updateNote({
       projectId: this.project.id,
       id,
       title,
@@ -84,7 +88,7 @@ export default class ProjectModel {
   }
 
   async updateGroup({ id, title }) {
-    const event = await api.updateGroup({
+    const event = await apis.updateGroup({
       projectId: this.project.id,
       id,
       title,
@@ -99,7 +103,7 @@ export default class ProjectModel {
   }
 
   async deleteGroup({ id }) {
-    const event = await api.deleteGroup({
+    const event = await apis.deleteGroup({
       projectId: this.project.id,
       id,
     });

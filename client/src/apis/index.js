@@ -16,23 +16,36 @@ const createQuery = (data) => {
     : '';
 };
 
-export const POST = async (url = '', data) =>
-  (
-    await fetch(`${serverUrl}${url}`, {
-      body: JSON.stringify(data),
-      ...defaultOptions('POST'),
-    })
-  ).json();
+const POST = async (url = '', data) =>
+  await fetch(`${serverUrl}${url}`, {
+    body: JSON.stringify(data),
+    ...defaultOptions('POST'),
+  });
 
-export const PUT = async (url = '', data) =>
-  (
-    await fetch(`${serverUrl}${url}`, {
-      body: JSON.stringify(data),
-      ...defaultOptions('PUT'),
-    })
-  ).json();
+const PUT = async (url = '', data) =>
+  await fetch(`${serverUrl}${url}`, {
+    body: JSON.stringify(data),
+    ...defaultOptions('PUT'),
+  });
 
-export const GET = async (url = '', data) =>
-  (await fetch(`${serverUrl}${url}${createQuery(data)}`, defaultOptions('GET'))).json();
+const GET = async (url = '', data) => await fetch(`${serverUrl}${url}${createQuery(data)}`, defaultOptions('GET'));
 
-export const DELETE = async (url = '') => (await fetch(`${serverUrl}${url}`, defaultOptions('DELETE'))).json();
+const DELETE = async (url = '') => await fetch(`${serverUrl}${url}`, defaultOptions('DELETE'));
+
+export default {
+  createProject: async (data) => await POST('/projects', data),
+  createUser: async (data) => await POST('/users', data),
+  createNote: async (notes) => await (await POST(`/notes`, notes)).json(),
+  createGroup: async (groups) => await POST(`/groups`, groups),
+  login: async (data) => (await POST('/users/login', data)).status,
+  loginCheck: async () => (await GET('/users/check')).status,
+  getUsers: async () => await GET('/users'),
+  getProjects: async () => await GET('/users/projects'),
+  getProject: async (id) => await await GET(`/projects/${id}`),
+  moveNote: async (data) => await (await PUT(`/notes/move`, data)).json(),
+  moveGroup: async (data) => await (await PUT(`/groups/move`, data)).json(),
+  updateNote: async (notes) => await PUT(`/notes`, notes),
+  updateGroup: async (groups) => await PUT(`/groups`, groups),
+  deleteNote: async (data) => await DELETE(`/notes?id=${data.id}&projectId=${data.projectId}`),
+  deleteGroup: async (data) => await DELETE(`/groups?id=${data.id}&projectId=${data.projectId}`),
+};

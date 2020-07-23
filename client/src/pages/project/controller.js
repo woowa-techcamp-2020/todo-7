@@ -5,8 +5,9 @@ export default class ProjectController {
   }
 
   async init(id, root) {
-    await this.model.init(id);
-    this.view.init(this.model.getProject(1), root);
+    const authority = await this.model.init(id);
+    if (!authority) location.hash = '#login';
+    this.view.init(this.model.getProject(), root, authority == 'admin');
     this.addEventListener();
   }
 

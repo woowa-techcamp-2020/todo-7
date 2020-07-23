@@ -2,17 +2,17 @@ import Event from '../../utils/event';
 import projectPage from '../../components/templates/project';
 import card from '../../components/molecules/card';
 import modal from '../../components/molecules/modal';
-import column from '../../components/organisms/column';
+import column from '../../components/organisms/groupColumn';
 import DragAndDrop from '../../utils/dragndrop';
 import { getNumber } from '../../utils/helper';
 
 export default class ProjectView {
-  init(project, app) {
+  init(project, app, isAdmin) {
     this.project = project;
     this.app = app;
     this.render();
     this.createEvents();
-    this.addUserEventListener();
+    if (isAdmin) this.addEventListeners();
   }
 
   createEvents() {
@@ -26,7 +26,7 @@ export default class ProjectView {
     this.moveGroupEvent = new Event();
   }
 
-  addUserEventListener() {
+  addEventListeners() {
     const self = this;
     this.app.addEventListener('contextmenu', (event) => {
       event.preventDefault();
