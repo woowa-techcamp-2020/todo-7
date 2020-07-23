@@ -15,7 +15,7 @@ export default (project) =>
         className: 'project-header',
         title: element({
           className: 'project-header-title',
-          child: 'Todo-7',
+          child: project.title,
         }),
         actions: icon({
           className: 'project-header-menu-icon',

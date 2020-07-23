@@ -66,8 +66,24 @@ const projectEventColumnCard = (className, data) => [
   }),
 ];
 
+const mypageColumnCard = (className, data) => [
+  header({
+    className: `${className}-header card-header`,
+    leading: element({
+      className: `${className}-header-text`,
+      child: data.title,
+    }),
+  }),
+  element({
+    className: `${className}-footer card-footer`,
+    child: `5 hours ago`,
+  }),
+];
+
 const getCardByClassName = (className, data) => {
   switch (className) {
+    case 'mypage-column-card':
+      return mypageColumnCard(className, data);
     case 'project-column-form-card':
       return projectColumnNewCard(className);
     case 'project-column-card':
