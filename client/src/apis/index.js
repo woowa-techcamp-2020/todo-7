@@ -36,7 +36,7 @@ export default {
   createProject: async (data) => await POST('/projects', data),
   createUser: async (data) => await POST('/users', data),
   createNote: async (notes) => await (await POST(`/notes`, notes)).json(),
-  createGroup: async (groups) => await POST(`/groups`, groups),
+  createGroup: async (groups) => await (await POST(`/groups`, groups)).json(),
   login: async (data) => (await POST('/users/login', data)).status,
   loginCheck: async () => (await GET('/users/check')).status,
   getUsers: async () => await GET('/users'),
