@@ -1,12 +1,13 @@
 import element from '../../../utils/element';
+import select from '../../atoms/select';
+import label from '../../atoms/label';
 import button from '../../atoms/button';
 import textarea from '../../atoms/textarea';
 import icon from '../../atoms/icon';
 import header from '../header';
+import { getCurrentDateTime } from '../../../utils/helper';
 
 import './styles.css';
-import select from '../../atoms/select';
-import label from '../../atoms/label';
 
 const projectColumnCard = (className, data) => [
   header({
@@ -25,15 +26,15 @@ const projectColumnCard = (className, data) => [
   }),
   element({
     className: `${className}-body card-body`,
-    child: data.description,
+    child: ' ',
   }),
   element({
     className: `${className}-footer card-footer`,
     child: [
-      `Added by`,
+      ` `,
       element({
         className: `${className}-footer-writer`,
-        child: data.writer,
+        child: ` `,
       }),
     ],
   }),
@@ -70,7 +71,7 @@ const projectEventColumnCard = (className, data) => [
   }),
   element({
     className: `${className}-footer card-footer`,
-    child: data.createdAt,
+    child: getCurrentDateTime(data.createdAt),
   }),
 ];
 
@@ -99,7 +100,7 @@ const mypageColumnCard = (className, data) => {
     }),
     element({
       className: `${className}-footer card-footer`,
-      child: `5 hours ago`,
+      child: getCurrentDateTime(data.createdAt),
     }),
   ];
 };

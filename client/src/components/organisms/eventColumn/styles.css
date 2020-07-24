@@ -30,7 +30,7 @@
 }
 
 .project-event-column-card b {
-  color: blue;
+  color: var(--blue);
   font-weight: bold;
   font-size: 120%;
 }
