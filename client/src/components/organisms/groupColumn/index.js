@@ -24,9 +24,9 @@ export default ({ className, data }) =>
         actions: element({
           className: `${className}-header-actions`,
           child: [
-            icon({ className: `${className}-header-edit-icon` }),
-            icon({ className: `${className}-header-add-icon` }),
-            icon({ className: `${className}-header-delete-icon` }),
+            icon({ className: `${className}-header-edit-icon`, type: 'fa fa-pencil', areaHidden: true }),
+            icon({ className: `${className}-header-add-icon`, type: 'fa fa-plus', areaHidden: true }),
+            icon({ className: `${className}-header-delete-icon`, type: 'fa fa-trash-o', areaHidden: true }),
           ],
         }),
       }),

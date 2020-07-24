@@ -19,7 +19,7 @@ const projectColumnEditModal = (className, data) => [
         }),
         actions: element({
           className: `${className}-header-actions`,
-          child: [icon({ className: `${className}-header-icon modal-close` })],
+          child: [icon({ className: `${className}-header-icon modal-close`, type: 'fa fa-times', areaHidden: true })],
         }),
       }),
       element({
@@ -57,7 +57,7 @@ const projectColumnCardEditModal = (className, data) => [
         }),
         actions: element({
           className: `${className}-header-actions`,
-          child: [icon({ className: `${className}-header-icon modal-close` })],
+          child: [icon({ className: `${className}-header-icon modal-close`, type: 'fa fa-times', areaHidden: true })],
         }),
       }),
       element({
@@ -124,7 +124,7 @@ const projectColumnCreateModal = (className) => [
         }),
         actions: element({
           className: `${className}-header-actions`,
-          child: [icon({ className: `${className}-header-icon modal-close` })],
+          child: [icon({ className: `${className}-header-icon modal-close`, type: 'fa fa-times', areaHidden: true })],
         }),
       }),
       element({
