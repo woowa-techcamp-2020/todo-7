@@ -1,6 +1,6 @@
 /*!
- * commitVersion: 268f7c9
- * Build Date: 2020. 7. 24. 오전 10:22:44
+ * commitVersion: ebaedeb
+ * Build Date: 2020. 7. 24. 오전 10:33:23
  * Author: younho9
  * 
  */
@@ -7611,7 +7611,6 @@ var model_ProjectModel = /*#__PURE__*/function () {
 
               case 3:
                 event = _context6.sent;
-                // TODO: this.project 업데이트
                 this.updateNoteEvent.trigger({
                   id: id,
                   title: title,
@@ -7715,6 +7714,43 @@ var model_ProjectModel = /*#__PURE__*/function () {
       }
 
       return deleteGroup;
+    }()
+  }, {
+    key: "deleteNote",
+    value: function () {
+      var _deleteNote = project_model_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(_ref8) {
+        var id, event;
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                id = _ref8.id;
+                _context9.next = 3;
+                return apis.deleteNote({
+                  projectId: this.project.id,
+                  id: id
+                });
+
+              case 3:
+                event = _context9.sent;
+                this.deleteNoteEvent.trigger({
+                  id: id,
+                  event: event
+                });
+
+              case 5:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9, this);
+      }));
+
+      function deleteNote(_x9) {
+        return _deleteNote.apply(this, arguments);
+      }
+
+      return deleteNote;
     }()
   }, {
     key: "findGroupByNote",

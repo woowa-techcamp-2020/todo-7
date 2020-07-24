@@ -79,7 +79,6 @@ export default class ProjectModel {
       id,
       title,
     });
-    // TODO: this.project 업데이트
     this.updateNoteEvent.trigger({
       id,
       title,
@@ -110,6 +109,17 @@ export default class ProjectModel {
     const groupArrIdx = this.project.groups.findIndex((group) => group.id === id);
     const title = this.project.groups[groupArrIdx].title;
     this.deleteGroupEvent.trigger({
+      id,
+      event,
+    });
+  }
+
+  async deleteNote({ id }) {
+    const event = await apis.deleteNote({
+      projectId: this.project.id,
+      id,
+    });
+    this.deleteNoteEvent.trigger({
       id,
       event,
     });
