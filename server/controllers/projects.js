@@ -5,9 +5,9 @@ const UserProjectRelations = require('../models/userProjectRelations');
 
 exports.create = async (req, res) => {
   const project = await Projects.create({ title: req.body.title });
-  await Groups.create({ title: 'To do', projectId: project.id });
-  await Groups.create({ title: 'Doing', projectId: project.id });
   await Groups.create({ title: 'Done', projectId: project.id });
+  await Groups.create({ title: 'Doing', projectId: project.id });
+  await Groups.create({ title: 'To do', projectId: project.id });
   await UserProjectRelations.bulkCreate(req.body.users, project.id);
   res.send({ id: project.id });
 };
