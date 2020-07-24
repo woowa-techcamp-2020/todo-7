@@ -1684,7 +1684,11 @@ module.exports = function (METHOD_NAME, options) {
 var $ = __webpack_require__(3);
 var global = __webpack_require__(0);
 var getBuiltIn = __webpack_require__(24);
+<<<<<<< HEAD
 var IS_PURE = __webpack_require__(35);
+=======
+var IS_PURE = __webpack_require__(36);
+>>>>>>> origin/feat/add-icon
 var DESCRIPTORS = __webpack_require__(9);
 var NATIVE_SYMBOL = __webpack_require__(62);
 var USE_SYMBOL_AS_UID = __webpack_require__(78);
@@ -1994,6 +1998,68 @@ hiddenKeys[HIDDEN] = true;
 
 
 /***/ }),
+<<<<<<< HEAD
+=======
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(9);
+var propertyIsEnumerableModule = __webpack_require__(69);
+var createPropertyDescriptor = __webpack_require__(33);
+var toIndexedObject = __webpack_require__(11);
+var toPrimitive = __webpack_require__(34);
+var has = __webpack_require__(5);
+var IE8_DOM_DEFINE = __webpack_require__(70);
+
+var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+// `Object.getOwnPropertyDescriptor` method
+// https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptor
+exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+  O = toIndexedObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return nativeGetOwnPropertyDescriptor(O, P);
+  } catch (error) { /* empty */ }
+  if (has(O, P)) return createPropertyDescriptor(!propertyIsEnumerableModule.f.call(O, P), O[P]);
+};
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(9);
+var fails = __webpack_require__(2);
+var has = __webpack_require__(5);
+
+var defineProperty = Object.defineProperty;
+var cache = {};
+
+var thrower = function (it) { throw it; };
+
+module.exports = function (METHOD_NAME, options) {
+  if (has(cache, METHOD_NAME)) return cache[METHOD_NAME];
+  if (!options) options = {};
+  var method = [][METHOD_NAME];
+  var ACCESSORS = has(options, 'ACCESSORS') ? options.ACCESSORS : false;
+  var argument0 = has(options, 0) ? options[0] : thrower;
+  var argument1 = has(options, 1) ? options[1] : undefined;
+
+  return cache[METHOD_NAME] = !!method && !fails(function () {
+    if (ACCESSORS && !DESCRIPTORS) return true;
+    var O = { length: -1 };
+
+    if (ACCESSORS) defineProperty(O, 1, { enumerable: true, get: thrower });
+    else O[1] = 1;
+
+    method.call(O, argument0, argument1);
+  });
+};
+
+
+/***/ }),
+>>>>>>> origin/feat/add-icon
 /* 23 */
 /***/ (function(module, exports) {
 
@@ -2097,6 +2163,66 @@ module.exports = {
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+=======
+"use strict";
+// `Symbol.prototype.description` getter
+// https://tc39.github.io/ecma262/#sec-symbol.prototype.description
+
+var $ = __webpack_require__(3);
+var DESCRIPTORS = __webpack_require__(9);
+var global = __webpack_require__(0);
+var has = __webpack_require__(5);
+var isObject = __webpack_require__(4);
+var defineProperty = __webpack_require__(10).f;
+var copyConstructorProperties = __webpack_require__(72);
+
+var NativeSymbol = global.Symbol;
+
+if (DESCRIPTORS && typeof NativeSymbol == 'function' && (!('description' in NativeSymbol.prototype) ||
+  // Safari 12 bug
+  NativeSymbol().description !== undefined
+)) {
+  var EmptyStringDescriptionStore = {};
+  // wrap Symbol constructor for correct work with undefined description
+  var SymbolWrapper = function Symbol() {
+    var description = arguments.length < 1 || arguments[0] === undefined ? undefined : String(arguments[0]);
+    var result = this instanceof SymbolWrapper
+      ? new NativeSymbol(description)
+      // in Edge 13, String(Symbol(undefined)) === 'Symbol(undefined)'
+      : description === undefined ? NativeSymbol() : NativeSymbol(description);
+    if (description === '') EmptyStringDescriptionStore[result] = true;
+    return result;
+  };
+  copyConstructorProperties(SymbolWrapper, NativeSymbol);
+  var symbolPrototype = SymbolWrapper.prototype = NativeSymbol.prototype;
+  symbolPrototype.constructor = SymbolWrapper;
+
+  var symbolToString = symbolPrototype.toString;
+  var native = String(NativeSymbol('test')) == 'Symbol(test)';
+  var regexp = /^Symbol\((.*)\)[^)]+$/;
+  defineProperty(symbolPrototype, 'description', {
+    configurable: true,
+    get: function description() {
+      var symbol = isObject(this) ? this.valueOf() : this;
+      var string = symbolToString.call(symbol);
+      if (has(EmptyStringDescriptionStore, symbol)) return '';
+      var desc = native ? string.slice(7, -1) : string.replace(regexp, '$1');
+      return desc === '' ? undefined : desc;
+    }
+  });
+
+  $({ global: true, forced: true }, {
+    Symbol: SymbolWrapper
+  });
+}
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+>>>>>>> origin/feat/add-icon
 var $ = __webpack_require__(3);
 var from = __webpack_require__(112);
 var checkCorrectnessOfIteration = __webpack_require__(87);
@@ -5078,7 +5204,11 @@ $({ target: 'Array', proto: true, forced: ES3_STRINGS || !STRICT_METHOD }, {
 var $ = __webpack_require__(3);
 var fails = __webpack_require__(2);
 var toIndexedObject = __webpack_require__(11);
+<<<<<<< HEAD
 var nativeGetOwnPropertyDescriptor = __webpack_require__(20).f;
+=======
+var nativeGetOwnPropertyDescriptor = __webpack_require__(21).f;
+>>>>>>> origin/feat/add-icon
 var DESCRIPTORS = __webpack_require__(9);
 
 var FAILS_ON_PRIMITIVES = fails(function () { nativeGetOwnPropertyDescriptor(1); });
@@ -6859,10 +6989,14 @@ var icon_styles = __webpack_require__(143);
 // CONCATENATED MODULE: ./src/components/atoms/icon/index.js
 
 
-/* harmony default export */ var icon = (function (_ref) {
+
+/* harmony default export */ var icon = (function (_ref) // element({
+//   className: `${className} icon`,
+{
   var _ref$className = _ref.className,
       className = _ref$className === void 0 ? 'default' : _ref$className,
       _ref$type = _ref.type,
+<<<<<<< HEAD
       type = _ref$type === void 0 ? 'primary' : _ref$type;
   return utils_element({
     className: "".concat(className, " icon"),
@@ -6871,6 +7005,15 @@ var icon_styles = __webpack_require__(143);
 });
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
 var es_number_constructor = __webpack_require__(144);
+=======
+      type = _ref$type === void 0 ? 'primary' : _ref$type,
+      _ref$areaHidden = _ref.areaHidden,
+      areaHidden = _ref$areaHidden === void 0 ? false : _ref$areaHidden;
+  return "<i class='".concat(className, " ").concat(type, " icon' ").concat(areaHidden ? "area-hidden='true'" : '', "'></i>");
+}); // });
+// EXTERNAL MODULE: ./src/components/molecules/card/styles.css
+var card_styles = __webpack_require__(143);
+>>>>>>> origin/feat/add-icon
 
 // CONCATENATED MODULE: ./src/utils/helper.js
 
@@ -6914,9 +7057,13 @@ var card_projectColumnCard = function projectColumnCard(className, data) {
     actions: utils_element({
       className: "".concat(className, "-header-actions"),
       child: [icon({
-        className: "".concat(className, "-header-edit-icon")
+        className: "".concat(className, "-header-edit-icon"),
+        type: 'fa fa-pencil',
+        areaHidden: true
       }), icon({
-        className: "".concat(className, "-header-delete-icon")
+        className: "".concat(className, "-header-delete-icon"),
+        type: 'fa fa-trash-o',
+        areaHidden: true
       })]
     })
   }), utils_element({
@@ -6965,7 +7112,9 @@ var card_projectColumnCreateCard = function projectColumnCreateCard(className) {
   return [utils_element({
     className: "".concat(className, "-container"),
     child: [icon({
-      className: "".concat(className, "-header-add-icon")
+      className: "".concat(className, "-header-add-icon"),
+      type: 'fa fa-plus',
+      areaHidden: true
     }), utils_element({
       className: "".concat(className, "-body"),
       child: ["Add new column"]
@@ -7003,7 +7152,9 @@ var card_userColumnCard = function userColumnCard(className, data) {
     name: 'authority',
     options: ['admin', 'read-only']
   }), icon({
-    className: "".concat(className, "-delete-icon")
+    className: "".concat(className, "-delete-icon"),
+    type: 'fa fa-times',
+    areaHidden: true
   })];
 };
 
@@ -7865,11 +8016,17 @@ function groupColumn_arrayLikeToArray(arr, len) { if (len == null || len > arr.l
       actions: utils_element({
         className: "".concat(className, "-header-actions"),
         child: [icon({
-          className: "".concat(className, "-header-edit-icon")
+          className: "".concat(className, "-header-edit-icon"),
+          type: 'fa fa-pencil',
+          areaHidden: true
         }), icon({
-          className: "".concat(className, "-header-add-icon")
+          className: "".concat(className, "-header-add-icon"),
+          type: 'fa fa-plus',
+          areaHidden: true
         }), icon({
-          className: "".concat(className, "-header-delete-icon")
+          className: "".concat(className, "-header-delete-icon"),
+          type: 'fa fa-trash-o',
+          areaHidden: true
         })]
       })
     }), utils_element({
@@ -7930,21 +8087,17 @@ function eventColumn_arrayLikeToArray(arr, len) { if (len == null || len > arr.l
     id: "".concat(className, "-").concat(data === null || data === void 0 ? void 0 : data.id),
     child: [header({
       className: "".concat(className, "-header"),
-      leading: icon({
-        className: "".concat(className, "-header-icon")
-      }),
       title: utils_element({
         className: "".concat(className, "-header-title"),
         child: 'Menu'
       }),
       actions: icon({
-        className: "".concat(className, "-close-icon")
+        className: "".concat(className, "-close-icon"),
+        type: 'fa fa-times',
+        areaHidden: true
       })
     }), header({
       className: "".concat(className, "-header"),
-      leading: icon({
-        className: "".concat(className, "-header-activity-icon")
-      }),
       title: utils_element({
         className: "".concat(className, "-header-title"),
         child: 'Activity'
@@ -8008,7 +8161,9 @@ function project_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
         child: project.title
       }),
       actions: icon({
-        className: 'project-header-menu-icon'
+        className: 'project-header-menu-icon',
+        type: 'fa fa-bars',
+        areaHidden: true
       })
     }), utils_element({
       className: 'project-columns',
@@ -8052,7 +8207,9 @@ var modal_projectColumnEditModal = function projectColumnEditModal(className, da
       actions: utils_element({
         className: "".concat(className, "-header-actions"),
         child: [icon({
-          className: "".concat(className, "-header-icon modal-close")
+          className: "".concat(className, "-header-icon modal-close"),
+          type: 'fa fa-times',
+          areaHidden: true
         })]
       })
     }), utils_element({
@@ -8085,7 +8242,9 @@ var modal_projectColumnCardEditModal = function projectColumnCardEditModal(class
       actions: utils_element({
         className: "".concat(className, "-header-actions"),
         child: [icon({
-          className: "".concat(className, "-header-icon modal-close")
+          className: "".concat(className, "-header-icon modal-close"),
+          type: 'fa fa-times',
+          areaHidden: true
         })]
       })
     }), utils_element({
@@ -8139,7 +8298,9 @@ var modal_projectColumnCreateModal = function projectColumnCreateModal(className
       actions: utils_element({
         className: "".concat(className, "-header-actions"),
         child: [icon({
-          className: "".concat(className, "-header-icon modal-close")
+          className: "".concat(className, "-header-icon modal-close"),
+          type: 'fa fa-times',
+          areaHidden: true
         })]
       })
     }), utils_element({

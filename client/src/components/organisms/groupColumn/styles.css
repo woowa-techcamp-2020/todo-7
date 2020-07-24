@@ -49,31 +49,7 @@
   display: flex;
 }
 
-.project-column-header-edit-icon {
-  background-color: yellowgreen;
-}
-
-.project-column-header-add-icon {
-  background-color: darkgoldenrod;
-}
-
-.project-column-header-delete-icon {
-  background-color: darkred;
-}
-
 .project-column-body {
   height: 96%;
   overflow: auto;
-}
-
-.project-column-card-header-actions {
-  display: flex;
-}
-
-.project-column-card-header-edit-icon {
-  background-color: yellowgreen;
-}
-
-.project-column-card-header-delete-icon {
-  background-color: darkred;
 }
