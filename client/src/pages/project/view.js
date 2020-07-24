@@ -159,19 +159,17 @@ export default class ProjectView {
     column.querySelector('.project-column-header-counter').innerHTML = count - 1;
   }
 
-  updateCard({ id, title, event }) {
+  updateCard({ id, title }) {
     this.app
       .querySelector(`#project-column-card-${id}`)
       .querySelector('.project-column-card-header-text').innerText = title;
-    this.createEventCard(event);
   }
 
-  deleteCard({ id, event }) {
+  deleteCard({ id }) {
     this.app.querySelector(`#project-column-card-${id}`).remove();
-    this.createEventCard(event);
   }
 
-  createColumn({ group, event }) {
+  createColumn({ group }) {
     this.app.querySelector(`.project-column-create-card`).insertAdjacentHTML(
       'beforebegin',
       column({
@@ -179,17 +177,14 @@ export default class ProjectView {
         data: group,
       }),
     );
-    this.createEventCard(event);
   }
 
-  updateColumn({ id, title, event }) {
+  updateColumn({ id, title }) {
     this.app.querySelector(`#project-column-${id}`).querySelector(`.project-column-header-title`).innerText = title;
-    this.createEventCard(event);
   }
 
-  deleteColumn({ id, event }) {
+  deleteColumn({ id }) {
     this.app.querySelector(`#project-column-${id}`).remove();
-    this.createEventCard(event);
   }
 
   toggleFormCard(formCard, clear = false) {
