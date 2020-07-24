@@ -1,6 +1,6 @@
 /*!
- * commitVersion: c97e3f0
- * Build Date: 2020. 7. 24. 오전 6:42:44
+ * commitVersion: 5c0efe2
+ * Build Date: 2020. 7. 24. 오전 9:49:30
  * Author: zoomkoding
  * 
  */
@@ -5976,9 +5976,13 @@ var DELETE = /*#__PURE__*/function () {
               return POST("/groups", groups);
 
             case 2:
+              _context8.next = 4;
+              return _context8.sent.json();
+
+            case 4:
               return _context8.abrupt("return", _context8.sent);
 
-            case 3:
+            case 5:
             case "end":
               return _context8.stop();
           }
@@ -7217,52 +7221,37 @@ var ProjectController = /*#__PURE__*/function () {
   }, {
     key: "addEventListener",
     value: function addEventListener() {
-      var _this = this;
-
       this.createNoteHandler();
+      this.createGroupHandler();
       this.moveNoteHandler();
       this.moveGroupHandler();
-      this.view.updateNoteEvent.addListener(function (data) {
-        return _this.model.updateNote(data);
-      });
-      this.view.deleteNoteEvent.addListener(function (data) {
-        return _this.model.deleteNote(data);
-      });
-      this.view.createGroupEvent.addListener(function (data) {
-        return _this.model.createGroup(data);
-      });
-      this.view.updateGroupEvent.addListener(function (data) {
-        return _this.model.updateGroup(data);
-      });
-      this.view.deleteGroupEvent.addListener(function (data) {
-        return _this.model.deleteGroup(data);
-      });
-      this.model.updateNoteEvent.addListener(function (data) {
-        return _this.view.updateCard(data);
-      });
-      this.model.deleteNoteEvent.addListener(function (data) {
-        return _this.view.deleteCard(data);
-      });
-      this.model.createGroupEvent.addListener(function (data) {
-        return _this.view.createColumn(data);
-      });
-      this.model.updateGroupEvent.addListener(function (data) {
-        return _this.view.updateColumn(data);
-      });
-      this.model.deleteGroupEvent.addListener(function (data) {
-        return _this.view.deleteColumn(data);
-      });
+      this.updateNoteHandler();
+      this.updateGroupHandler();
+      this.deleteNoteHandler();
+      this.deleteGroupHandler();
     }
   }, {
     key: "createNoteHandler",
     value: function createNoteHandler() {
-      var _this2 = this;
+      var _this = this;
 
       this.view.createNoteEvent.addListener(function (data) {
-        return _this2.model.createNote(data);
+        return _this.model.createNote(data);
       });
       this.model.createNoteEvent.addListener(function (data) {
-        return [_this2.view.createNoteCard(data.note), _this2.view.createEventCard(data.event), _this2.view.updateColumnCounter(data.note.groupId)];
+        return [_this.view.createNoteCard(data.note), _this.view.createEventCard(data.event), _this.view.updateColumnCounter(data.note.groupId)];
+      });
+    }
+  }, {
+    key: "createGroupHandler",
+    value: function createGroupHandler() {
+      var _this2 = this;
+
+      this.view.createGroupEvent.addListener(function (data) {
+        return _this2.model.createGroup(data);
+      });
+      this.model.createGroupEvent.addListener(function (data) {
+        return [_this2.view.createEventCard(data.event), _this2.view.createColumn(data)];
       });
     }
   }, {
@@ -7284,6 +7273,57 @@ var ProjectController = /*#__PURE__*/function () {
 
       this.view.moveGroupEvent.addListener(function (data) {
         return _this4.model.moveGroup(data);
+      });
+      this.model.moveGroupEvent.addListener(function (data) {
+        return _this4.view.createEventCard(data);
+      });
+    }
+  }, {
+    key: "updateNoteHandler",
+    value: function updateNoteHandler() {
+      var _this5 = this;
+
+      this.view.updateNoteEvent.addListener(function (data) {
+        return _this5.model.updateNote(data);
+      });
+      this.model.updateNoteEvent.addListener(function (data) {
+        return [_this5.view.createEventCard(data.event), _this5.view.updateCard(data)];
+      });
+    }
+  }, {
+    key: "updateGroupHandler",
+    value: function updateGroupHandler() {
+      var _this6 = this;
+
+      this.view.updateGroupEvent.addListener(function (data) {
+        return _this6.model.updateGroup(data);
+      });
+      this.model.updateGroupEvent.addListener(function (data) {
+        return [_this6.view.createEventCard(data.event), _this6.view.updateColumn(data)];
+      });
+    }
+  }, {
+    key: "deleteNoteHandler",
+    value: function deleteNoteHandler() {
+      var _this7 = this;
+
+      this.view.deleteNoteEvent.addListener(function (data) {
+        return _this7.model.deleteNote(data);
+      });
+      this.model.deleteNoteEvent.addListener(function (data) {
+        return [_this7.view.createEventCard(data.event), _this7.view.deleteCard(data)];
+      });
+    }
+  }, {
+    key: "deleteGroupHandler",
+    value: function deleteGroupHandler() {
+      var _this8 = this;
+
+      this.view.deleteGroupEvent.addListener(function (data) {
+        return _this8.model.deleteGroup(data);
+      });
+      this.model.deleteGroupEvent.addListener(function (data) {
+        return [_this8.view.createEventCard(data.event), _this8.view.deleteColumn(data)];
       });
     }
   }]);
@@ -7476,8 +7516,7 @@ var model_ProjectModel = /*#__PURE__*/function () {
     key: "moveGroup",
     value: function () {
       var _moveGroup = project_model_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(_ref3) {
-        var id, targetId, _yield$apis$moveGroup, event;
-
+        var id, targetId, event;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -7491,11 +7530,10 @@ var model_ProjectModel = /*#__PURE__*/function () {
                 });
 
               case 3:
-                _yield$apis$moveGroup = _context4.sent;
-                event = _yield$apis$moveGroup.event;
+                event = _context4.sent;
                 this.moveGroupEvent.trigger(event);
 
-              case 6:
+              case 5:
               case "end":
                 return _context4.stop();
             }
@@ -8420,46 +8458,36 @@ var view_ProjectView = /*#__PURE__*/function () {
     key: "updateCard",
     value: function updateCard(_ref) {
       var id = _ref.id,
-          title = _ref.title,
-          event = _ref.event;
+          title = _ref.title;
       this.app.querySelector("#project-column-card-".concat(id)).querySelector('.project-column-card-header-text').innerText = title;
-      this.createEventCard(event);
     }
   }, {
     key: "deleteCard",
     value: function deleteCard(_ref2) {
-      var id = _ref2.id,
-          event = _ref2.event;
+      var id = _ref2.id;
       this.app.querySelector("#project-column-card-".concat(id)).remove();
-      this.createEventCard(event);
     }
   }, {
     key: "createColumn",
     value: function createColumn(_ref3) {
-      var group = _ref3.group,
-          event = _ref3.event;
+      var group = _ref3.group;
       this.app.querySelector(".project-column-create-card").insertAdjacentHTML('beforebegin', groupColumn({
         className: 'project-column',
         data: group
       }));
-      this.createEventCard(event);
     }
   }, {
     key: "updateColumn",
     value: function updateColumn(_ref4) {
       var id = _ref4.id,
-          title = _ref4.title,
-          event = _ref4.event;
+          title = _ref4.title;
       this.app.querySelector("#project-column-".concat(id)).querySelector(".project-column-header-title").innerText = title;
-      this.createEventCard(event);
     }
   }, {
     key: "deleteColumn",
     value: function deleteColumn(_ref5) {
-      var id = _ref5.id,
-          event = _ref5.event;
+      var id = _ref5.id;
       this.app.querySelector("#project-column-".concat(id)).remove();
-      this.createEventCard(event);
     }
   }, {
     key: "toggleFormCard",
