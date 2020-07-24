@@ -13,12 +13,6 @@
   padding: 8px;
 }
 
-.project-column-body {
-  height: 96%;
-
-  overflow: auto;
-}
-
 .project-column-card {
   border-radius: 4px;
   margin: 3px 0px 8px;
@@ -28,13 +22,6 @@
 
 .project-column-card-header {
   color: var(--blue);
-}
-
-.project-column-card-header .icon {
-  width: 20px;
-  height: 20px;
-  background-color: rosybrown;
-  margin-left: auto;
 }
 
 .project-column-card-footer-writer {
@@ -56,4 +43,37 @@
 
 .project-column-form-card-footer button {
   flex: 1;
+}
+
+.project-column-header-actions {
+  display: flex;
+}
+
+.project-column-header-edit-icon {
+  background-color: yellowgreen;
+}
+
+.project-column-header-add-icon {
+  background-color: darkgoldenrod;
+}
+
+.project-column-header-delete-icon {
+  background-color: darkred;
+}
+
+.project-column-body {
+  height: 96%;
+  overflow: auto;
+}
+
+.project-column-card-header-actions {
+  display: flex;
+}
+
+.project-column-card-header-edit-icon {
+  background-color: yellowgreen;
+}
+
+.project-column-card-header-delete-icon {
+  background-color: darkred;
 }

@@ -17,6 +17,7 @@ export default class ProjectModel {
     this.deleteNoteEvent = new Event();
     this.createGroupEvent = new Event();
     this.deleteGroupEvent = new Event();
+    this.updateGroupEvent = new Event();
     this.moveNoteEvent = new Event();
     this.moveGroupEvent = new Event();
   }
@@ -35,8 +36,17 @@ export default class ProjectModel {
     this.createNoteEvent.trigger({ note, event });
   }
 
+  async createGroup({ title }) {
+    const { group, event } = await apis.createGroup({
+      projectId: this.project.id,
+      title,
+    });
+    this.project.groups.unshift(group);
+    this.createGroupEvent.trigger({ group, event });
+  }
+
   async moveGroup({ id, targetId }) {
-    const { event } = await apis.moveGroup({
+    const event = await apis.moveGroup({
       id,
       targetId,
       projectId: this.project.id,
@@ -60,6 +70,58 @@ export default class ProjectModel {
       event,
       beforeColumnId: beforeGroup.id,
       afterColumnId: afterGroup.id,
+    });
+  }
+
+  async updateNote({ id, title }) {
+    const event = await apis.updateNote({
+      projectId: this.project.id,
+      id,
+      title,
+    });
+    this.updateNoteEvent.trigger({
+      id,
+      title,
+      event,
+    });
+  }
+
+  async updateGroup({ id, title }) {
+    const event = await apis.updateGroup({
+      projectId: this.project.id,
+      id,
+      title,
+    });
+    const groupArrIdx = this.project.groups.findIndex((group) => group.id === id);
+    this.project.groups[groupArrIdx].title = title;
+    this.updateGroupEvent.trigger({
+      id,
+      title,
+      event,
+    });
+  }
+
+  async deleteGroup({ id }) {
+    const event = await apis.deleteGroup({
+      projectId: this.project.id,
+      id,
+    });
+    const groupArrIdx = this.project.groups.findIndex((group) => group.id === id);
+    const title = this.project.groups[groupArrIdx].title;
+    this.deleteGroupEvent.trigger({
+      id,
+      event,
+    });
+  }
+
+  async deleteNote({ id }) {
+    const event = await apis.deleteNote({
+      projectId: this.project.id,
+      id,
+    });
+    this.deleteNoteEvent.trigger({
+      id,
+      event,
     });
   }
 

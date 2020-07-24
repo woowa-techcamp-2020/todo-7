@@ -1,4 +1,5 @@
 const Model = require('./model');
+const { stringify } = require('querystring');
 
 class Projects extends Model {
   static defaultWhere = { isActive: 1 };
@@ -17,57 +18,54 @@ class Projects extends Model {
     const queryStmt = `
       SELECT Projects.id AS 'projectId', Projects.title AS 'projectTitle', Projects.description AS 'projectDescription', 
              Groups.id AS 'groupId', Groups.title AS 'groupTitle', 
-             Notes.id AS 'noteId', Notes.title AS 'noteTitle', Notes.description AS 'noteDescription'
+             Notes.id AS 'noteId', Notes.title AS 'noteTitle', Notes.description AS 'noteDescription', Notes.isActive AS 'noteIsActive'
       FROM Projects 
       LEFT JOIN Groups ON Groups.projectId = Projects.id
       LEFT JOIN Notes ON Notes.groupId = Groups.id
       WHERE ${Object.entries(validatedWhere)
         .map((o) => `${this.name}.${o[0]}=${o[1]}`)
-        .join(' AND ')}
+        .join(' AND ')} AND Groups.isActive=1
       ORDER BY Groups.order DESC, Notes.order DESC
     `;
     const result = (await this.pool.query(queryStmt))[0];
     return this.parseData(result);
   }
 
-  static parseData(data) {
-    const project = {};
-    let prevGroupId;
-    let prevGroupTitle;
-    let prevGroupNotes = [];
+  static getProjectInfo(obj) {
+    return { id: obj.projectId, title: obj.projectTitle, description: obj.projectDescription };
+  }
 
-    data.map((obj, idx, arr) => {
-      if (idx === 0) {
-        project.id = obj.projectId;
-        project.title = obj.projectTitle;
-        project.description = obj.projectDescription;
-        project.groups = [];
-        prevGroupId = obj.groupId;
-        prevGroupTitle = obj.groupTitle;
-      }
-      if (prevGroupId !== obj.groupId) {
-        project.groups.push({
-          id: prevGroupId,
-          title: prevGroupTitle,
-          notes: prevGroupNotes.slice(0),
-        });
-        prevGroupId = obj.groupId;
-        prevGroupTitle = obj.groupTitle;
-        prevGroupNotes = [];
-      }
-      prevGroupNotes.push({
-        id: obj.noteId,
-        title: obj.noteTitle,
-        description: obj.noteDescription,
+  static getGroupInfo(obj, notes) {
+    return { id: obj.groupId, title: obj.groupTitle, notes: notes ? notes : [] };
+  }
+
+  static findUnique(inputArr, key) {
+    return inputArr.reduce((a, b) => (a.includes(b[key]) ? a : [...a, b[key]]), []);
+  }
+
+  static parseData(data) {
+    if (data.length === 0) {
+      return {};
+    }
+    const project = this.getProjectInfo(data[0]);
+
+    const dataByGroup = this.findUnique(data, 'groupId').map((value) => data.filter((row) => row['groupId'] === value));
+
+    const groups = [];
+    dataByGroup.forEach((group) => groups.push(this.getGroupInfo(group[0])));
+
+    for (let i = 0; i < groups.length; i++) {
+      data.forEach((note) => {
+        if (note.groupId === groups[i].id && note.noteIsActive) {
+          groups[i].notes.push({
+            id: note.noteId,
+            title: note.noteTitle,
+            description: note.noteDescription,
+          });
+        }
       });
-      if (arr.length === idx + 1) {
-        project.groups.push({
-          id: prevGroupId,
-          title: prevGroupTitle,
-          notes: prevGroupNotes.slice(0),
-        });
-      }
-    });
+    }
+    project.groups = groups;
 
     return project;
   }

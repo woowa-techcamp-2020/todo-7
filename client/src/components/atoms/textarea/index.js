@@ -1,10 +1,10 @@
 import './styles.css';
 
-export default ({ className, name }) => `
+export default ({ className, name, value = '' }) => `
   <div 
     class='${className} textarea'
     name='${name}'
-    role='textbox' 
-    contenteditable>
+    role='textbox'
+    contenteditable>${value}
   </div>
 `;

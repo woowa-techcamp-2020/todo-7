@@ -34,7 +34,6 @@ class Notes extends Model {
           SET \`groupId\` = ${notes.groupId}, \`order\` = a.\`maxOrder\` + 1 
           WHERE \`id\` = ${notes.id}
       `;
-    console.log(queryStmt);
     return await this.pool.query(queryStmt);
   }
 

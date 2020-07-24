@@ -13,18 +13,13 @@ export default class ProjectController {
 
   addEventListener() {
     this.createNoteHandler();
+    this.createGroupHandler();
     this.moveNoteHandler();
     this.moveGroupHandler();
-
-    this.view.updateNoteEvent.addListener((data) => this.model.updateNote(data));
-    this.view.deleteNoteEvent.addListener((data) => this.model.deleteNote(data));
-
-    this.view.createGroupEvent.addListener((data) => this.model.createGroup(data));
-    this.view.deleteGroupEvent.addListener((data) => this.model.deleteGroup(data));
-
-    this.model.deleteNoteEvent.addListener((data) => this.view.deleteCard(data));
-    this.model.createGroupEvent.addListener((data) => this.view.createColumn(data));
-    this.model.deleteGroupEvent.addListener((data) => this.view.deleteColumn(data));
+    this.updateNoteHandler();
+    this.updateGroupHandler();
+    this.deleteNoteHandler();
+    this.deleteGroupHandler();
   }
 
   createNoteHandler() {
@@ -33,6 +28,14 @@ export default class ProjectController {
       this.view.createNoteCard(data.note),
       this.view.createEventCard(data.event),
       this.view.updateColumnCounter(data.note.groupId),
+    ]);
+  }
+
+  createGroupHandler() {
+    this.view.createGroupEvent.addListener((data) => this.model.createGroup(data));
+    this.model.createGroupEvent.addListener((data) => [
+      this.view.createEventCard(data.event),
+      this.view.createColumn(data),
     ]);
   }
 
@@ -47,5 +50,38 @@ export default class ProjectController {
 
   moveGroupHandler() {
     this.view.moveGroupEvent.addListener((data) => this.model.moveGroup(data));
+    this.model.moveGroupEvent.addListener((data) => this.view.createEventCard(data));
+  }
+
+  updateNoteHandler() {
+    this.view.updateNoteEvent.addListener((data) => this.model.updateNote(data));
+    this.model.updateNoteEvent.addListener((data) => [
+      this.view.createEventCard(data.event),
+      this.view.updateCard(data),
+    ]);
+  }
+
+  updateGroupHandler() {
+    this.view.updateGroupEvent.addListener((data) => this.model.updateGroup(data));
+    this.model.updateGroupEvent.addListener((data) => [
+      this.view.createEventCard(data.event),
+      this.view.updateColumn(data),
+    ]);
+  }
+
+  deleteNoteHandler() {
+    this.view.deleteNoteEvent.addListener((data) => this.model.deleteNote(data));
+    this.model.deleteNoteEvent.addListener((data) => [
+      this.view.createEventCard(data.event),
+      this.view.deleteCard(data),
+    ]);
+  }
+
+  deleteGroupHandler() {
+    this.view.deleteGroupEvent.addListener((data) => this.model.deleteGroup(data));
+    this.model.deleteGroupEvent.addListener((data) => [
+      this.view.createEventCard(data.event),
+      this.view.deleteColumn(data),
+    ]);
   }
 }

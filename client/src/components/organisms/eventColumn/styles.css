@@ -28,3 +28,9 @@
   border-bottom: 1px solid #e1e4e8;
   padding: 16px;
 }
+
+.project-event-column-card b {
+  color: blue;
+  font-weight: bold;
+  font-size: 120%;
+}

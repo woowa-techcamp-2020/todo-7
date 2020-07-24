@@ -15,7 +15,13 @@ const projectColumnCard = (className, data) => [
       className: `${className}-header-text`,
       child: data.title,
     }),
-    actions: icon({}),
+    actions: element({
+      className: `${className}-header-actions`,
+      child: [
+        icon({ className: `${className}-header-edit-icon` }),
+        icon({ className: `${className}-header-delete-icon` }),
+      ],
+    }),
   }),
   element({
     className: `${className}-body card-body`,
@@ -64,7 +70,20 @@ const projectEventColumnCard = (className, data) => [
   }),
   element({
     className: `${className}-footer card-footer`,
-    child: `5 hours ago`,
+    child: data.createdAt,
+  }),
+];
+
+const projectColumnCreateCard = (className) => [
+  element({
+    className: `${className}-container`,
+    child: [
+      icon({ className: `${className}-header-add-icon` }),
+      element({
+        className: `${className}-body`,
+        child: [`Add new column`],
+      }),
+    ],
   }),
 ];
 
@@ -122,6 +141,8 @@ const getCardByClassName = (className, data) => {
       return projectColumnCard(className, data);
     case 'project-event-column-card':
       return projectEventColumnCard(className, data);
+    case 'project-column-create-card':
+      return projectColumnCreateCard(className);
   }
 };
 

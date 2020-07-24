@@ -15,7 +15,7 @@ export default ({ className, data }) =>
         className: `${className}-header`,
         leading: counter({
           className: `${className}-header-counter`,
-          count: data.notes.length,
+          count: data.notes ? data.notes.length : 0,
         }),
         title: element({
           className: `${className}-header-title`,
@@ -23,22 +23,33 @@ export default ({ className, data }) =>
         }),
         actions: element({
           className: `${className}-header-actions`,
-          child: icon({ className: `${className}-header-add-icon` }),
+          child: [
+            icon({ className: `${className}-header-edit-icon` }),
+            icon({ className: `${className}-header-add-icon` }),
+            icon({ className: `${className}-header-delete-icon` }),
+          ],
         }),
       }),
       element({
         className: `${className}-body`,
-        child: [
-          card({
-            className: `${className}-form-card`,
-          }),
-          ...data.notes.map((note) =>
-            card({
-              className: `${className}-card`,
-              data: note,
-            }),
-          ),
-        ],
+        child: data.notes
+          ? [
+              card({
+                className: `${className}-form-card`,
+              }),
+
+              ...data.notes.map((note) =>
+                card({
+                  className: `${className}-card`,
+                  data: note,
+                }),
+              ),
+            ]
+          : [
+              card({
+                className: `${className}-form-card`,
+              }),
+            ],
       }),
     ],
   });

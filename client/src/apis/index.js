@@ -36,6 +36,7 @@ export default {
   createProject: async (data) => await POST('/projects', data),
   createUser: async (data) => await POST('/users', data),
   createNote: async (notes) => await (await POST(`/notes`, notes)).json(),
+  createGroup: async (groups) => await (await POST(`/groups`, groups)).json(),
   login: async (data) => (await POST('/users/login', data)).status,
   loginCheck: async () => (await GET('/users/check')).status,
   getUsers: async () => await GET('/users'),
@@ -43,4 +44,8 @@ export default {
   getProject: async (id) => await await GET(`/projects/${id}`),
   moveNote: async (data) => await (await PUT(`/notes/move`, data)).json(),
   moveGroup: async (data) => await (await PUT(`/groups/move`, data)).json(),
+  updateNote: async (notes) => await (await PUT(`/notes`, notes)).json(),
+  updateGroup: async (groups) => await (await PUT(`/groups`, groups)).json(),
+  deleteNote: async (data) => await (await DELETE(`/notes?id=${data.id}&projectId=${data.projectId}`)).json(),
+  deleteGroup: async (data) => await (await DELETE(`/groups?id=${data.id}&projectId=${data.projectId}`)).json(),
 };

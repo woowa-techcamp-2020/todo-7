@@ -1,6 +1,8 @@
 import Event from '../../utils/event';
 import projectPage from '../../components/templates/project';
 import card from '../../components/molecules/card';
+import modal from '../../components/molecules/modal';
+import column from '../../components/organisms/groupColumn';
 import DragAndDrop from '../../utils/dragndrop';
 import { getNumber } from '../../utils/helper';
 
@@ -19,6 +21,7 @@ export default class ProjectView {
     this.deleteNoteEvent = new Event();
     this.createGroupEvent = new Event();
     this.deleteGroupEvent = new Event();
+    this.updateGroupEvent = new Event();
     this.moveNoteEvent = new Event();
     this.moveGroupEvent = new Event();
   }
@@ -53,12 +56,32 @@ export default class ProjectView {
   }
 
   onAppClickHandler(event, self) {
+    let foundHandler = true;
     const classList = event.target.classList;
+
     if (classList.contains('project-header-menu-icon')) {
       self.onEventColumnToggler(event, true);
     } else if (classList.contains('project-event-column-close-icon')) {
       self.onEventColumnToggler(event, false);
+    } else if (classList.contains('modal-close')) {
+      self.onModalCloseClickHandler(event);
+    } else if (classList.contains('modal')) {
+      self.onModalCloseClickHandler(event);
+    } else if (classList.contains('project-column-create-card')) {
+      self.onCreateColumnCardClickHandler(event);
+    } else if (classList.contains('project-column-create-modal-create-button')) {
+      self.onCreateColumnModalButtonClickHandler(event);
+    } else if (classList.contains('project-column-edit-modal-update-button')) {
+      self.onEditColumnModalUpdateClickHandler(event);
+    } else if (classList.contains('project-column-card-edit-modal-update-button')) {
+      self.onEditCardModalUpdateClickHandler(event);
+    } else if (classList.contains('modal-confirm')) {
+      self.onDeleteModalConfirmClickHandler(event);
+    } else {
+      foundHandler = false;
     }
+
+    if (foundHandler) event.stopImmediatePropagation();
   }
 
   onColumnClickHandler(event, self) {
@@ -67,18 +90,27 @@ export default class ProjectView {
 
     if (classList.contains('project-column-header-add-icon')) {
       self.onNoteAddIconCickHandler(event);
+    } else if (classList.contains('project-column-header-edit-icon')) {
+      self.onGroupEditIconClickHandler(event);
+    } else if (classList.contains('project-column-header-delete-icon')) {
+      self.onGroupDeleteIconClickHandler(event);
     } else if (classList.contains('project-column-form-card-add-button')) {
       self.onFormCardButtonClickHandler(event, true);
     } else if (classList.contains('project-column-form-card-cancel-button')) {
       self.onFormCardButtonClickHandler(event, false);
     } else if (classList.contains('project-column-form-card-textarea')) {
       //found handler
+    } else if (classList.contains('project-column-card-header-edit-icon')) {
+      self.onNoteEditIconClickHandler(event);
+    } else if (classList.contains('project-column-card-header-delete-icon')) {
+      self.onNoteDeleteIconClickHandler(event);
     } else {
       foundHandler = false;
     }
 
     if (foundHandler) event.stopImmediatePropagation();
   }
+
   onCardDragEndHandler(card) {
     this.moveNoteEvent.trigger({
       id: getNumber(card.id),
@@ -112,7 +144,6 @@ export default class ProjectView {
   }
 
   createEventCard(event) {
-    console.log(event);
     this.app.querySelector(`.project-event-column-body`).insertAdjacentHTML(
       'afterbegin',
       card({
@@ -128,10 +159,33 @@ export default class ProjectView {
     column.querySelector('.project-column-header-counter').innerHTML = count - 1;
   }
 
-  updateCard(data) {}
+  updateCard({ id, title }) {
+    this.app
+      .querySelector(`#project-column-card-${id}`)
+      .querySelector('.project-column-card-header-text').innerText = title;
+  }
 
-  createColumn(data) {}
-  deleteColumn(data) {}
+  deleteCard({ id }) {
+    this.app.querySelector(`#project-column-card-${id}`).remove();
+  }
+
+  createColumn({ group }) {
+    this.app.querySelector(`.project-column-create-card`).insertAdjacentHTML(
+      'beforebegin',
+      column({
+        className: 'project-column',
+        data: group,
+      }),
+    );
+  }
+
+  updateColumn({ id, title }) {
+    this.app.querySelector(`#project-column-${id}`).querySelector(`.project-column-header-title`).innerText = title;
+  }
+
+  deleteColumn({ id }) {
+    this.app.querySelector(`#project-column-${id}`).remove();
+  }
 
   toggleFormCard(formCard, clear = false) {
     formCard.style.display = formCard.style.display == 'block' ? null : 'block';
@@ -147,6 +201,105 @@ export default class ProjectView {
   onNoteAddIconCickHandler(event) {
     const formCard = event.currentTarget.querySelector('.project-column-form-card');
     this.toggleFormCard(formCard);
+  }
+
+  onNoteEditIconClickHandler(event) {
+    const groupId = event.currentTarget.id;
+    const card = event.target.closest('.project-column-card');
+    const cardTitle = card.querySelector('.project-column-card-header-text').innerText;
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-column-card-edit-modal`,
+        data: { id: getNumber(card.id), title: cardTitle, groupId: getNumber(groupId) },
+      }),
+    );
+  }
+
+  onNoteDeleteIconClickHandler(event) {
+    const card = event.target.closest('.project-column-card');
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-delete-modal`,
+        data: { id: getNumber(card.id), type: 'Note' },
+      }),
+    );
+  }
+
+  onGroupEditIconClickHandler(event) {
+    const headerTitle = event.currentTarget.querySelector('.project-column-header-title');
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-column-edit-modal`,
+        data: { id: getNumber(event.currentTarget.id), title: headerTitle.innerText },
+      }),
+    );
+  }
+
+  onGroupDeleteIconClickHandler(event) {
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-delete-modal`,
+        data: { id: getNumber(event.currentTarget.id), type: 'Column' },
+      }),
+    );
+  }
+
+  onModalCloseClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
+    modal.remove();
+  }
+
+  onCreateColumnCardClickHandler(event) {
+    this.app.querySelector(`.project`).insertAdjacentHTML(
+      'beforeend',
+      modal({
+        className: `project-column-create-modal`,
+      }),
+    );
+  }
+
+  onCreateColumnModalButtonClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
+    this.createGroupEvent.trigger({
+      title: modal.querySelector('.modal-input').value,
+    });
+    modal.remove();
+  }
+  onEditColumnModalUpdateClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
+    this.updateGroupEvent.trigger({
+      id: getNumber(modal.id),
+      title: modal.querySelector('.modal-input').value,
+    });
+    modal.remove();
+  }
+
+  onEditCardModalUpdateClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
+    this.updateNoteEvent.trigger({
+      id: getNumber(modal.id),
+      title: modal.querySelector('.modal-textarea').innerText,
+    });
+    modal.remove();
+  }
+
+  onDeleteModalConfirmClickHandler(event) {
+    const modal = event.currentTarget.querySelector('.modal');
+    const type = modal.querySelector('.modal-description > b').innerText;
+    if (type === 'Column') {
+      this.deleteGroupEvent.trigger({
+        id: getNumber(modal.id),
+      });
+    } else if (type === 'Note') {
+      this.deleteNoteEvent.trigger({
+        id: getNumber(modal.id),
+      });
+    }
+    modal.remove();
   }
 
   onFormCardButtonClickHandler(event, isAdd) {
