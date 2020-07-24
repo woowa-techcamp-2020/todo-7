@@ -46,7 +46,7 @@ export default class ProjectModel {
   }
 
   async moveGroup({ id, targetId }) {
-    const { event } = await apis.moveGroup({
+    const event = await apis.moveGroup({
       id,
       targetId,
       projectId: this.project.id,

@@ -51,5 +51,6 @@ export default class ProjectController {
 
   moveGroupHandler() {
     this.view.moveGroupEvent.addListener((data) => this.model.moveGroup(data));
+    this.model.moveGroupEvent.addListener((data) => this.view.createEventCard(data));
   }
 }
