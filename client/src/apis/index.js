@@ -44,8 +44,8 @@ export default {
   getProject: async (id) => await await GET(`/projects/${id}`),
   moveNote: async (data) => await (await PUT(`/notes/move`, data)).json(),
   moveGroup: async (data) => await (await PUT(`/groups/move`, data)).json(),
-  updateNote: async (notes) => await PUT(`/notes`, notes),
-  updateGroup: async (groups) => await PUT(`/groups`, groups),
-  deleteNote: async (data) => await DELETE(`/notes?id=${data.id}&projectId=${data.projectId}`),
-  deleteGroup: async (data) => await DELETE(`/groups?id=${data.id}&projectId=${data.projectId}`),
+  updateNote: async (notes) => await (await PUT(`/notes`, notes)).json(),
+  updateGroup: async (groups) => await (await PUT(`/groups`, groups)).json(),
+  deleteNote: async (data) => await (await DELETE(`/notes?id=${data.id}&projectId=${data.projectId}`)).json(),
+  deleteGroup: async (data) => await (await DELETE(`/groups?id=${data.id}&projectId=${data.projectId}`)).json(),
 };
