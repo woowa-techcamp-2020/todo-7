@@ -5,7 +5,7 @@ exports.create = async (req, res) => {
   const group = await Groups.create(req.body);
   const event = await Events.create({
     projectId: req.body.projectId,
-    title: `created column ${req.body.title}`,
+    title: `${req.user.nickname} created column ${req.body.title}`,
   });
   res.send({ group, event });
 };
@@ -20,7 +20,7 @@ exports.update = async (req, res) => {
   await Groups.update(req.body);
   const event = await Events.create({
     projectId: req.body.projectId,
-    title: `updated column ${req.body.title}`,
+    title: `${req.user.nickname} updated column ${req.body.title}`,
   });
   res.send(event);
 };
@@ -30,7 +30,7 @@ exports.move = async (req, res) => {
   await Groups.move(req.body);
   const event = await Events.create({
     projectId: req.body.projectId,
-    title: `moved column ${group.title}`,
+    title: `${req.user.nickname} moved column ${group.title}`,
   });
   res.send(event);
 };
@@ -40,7 +40,7 @@ exports.delete = async (req, res) => {
   await Groups.delete(parseInt(req.query.id));
   const event = await Events.create({
     projectId: parseInt(req.query.projectId),
-    title: `deleted column ${group.title}`,
+    title: `${req.user.nickname} deleted column ${group.title}`,
   });
   res.send(event);
 };
