@@ -6,3 +6,4 @@ exports.wrapBacktick = (input) => {
   }
   return input.map((str) => '`' + str + '`');
 };
+exports.wrapBold = (input) => '<b>' + input + '</b>';

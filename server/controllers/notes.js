@@ -1,11 +1,12 @@
 const Notes = require('../models/notes');
 const Events = require('../models/events');
+const { wrapBold } = require('../utils/helper');
 
 exports.create = async (req, res) => {
   const note = await Notes.create(req.body);
   const event = await Events.create({
     projectId: req.body.projectId,
-    title: `${req.user.nickname} created card ${req.body.title}`,
+    title: `${wrapBold(req.user.nickname)} created card ${wrapBold(req.body.title)}`,
   });
   res.send({ note, event });
 };
@@ -20,7 +21,7 @@ exports.update = async (req, res) => {
   await Notes.update(req.body);
   const event = await Events.create({
     projectId: req.body.projectId,
-    title: `${req.user.nickname} updated card ${req.body.title}`,
+    title: `${wrapBold(req.user.nickname)} updated card ${wrapBold(req.body.title)}`,
   });
   res.send(event);
 };
@@ -33,7 +34,9 @@ exports.move = async (req, res) => {
   } else {
     const event = await Events.create({
       projectId: req.body.projectId,
-      title: `${req.user.nickname} moved card ${note.title} from ${note.groupTitle} to ${req.body.groupTitle}`,
+      title: `${wrapBold(req.user.nickname)} moved card ${wrapBold(note.title)} from ${wrapBold(
+        note.groupTitle,
+      )} to ${wrapBold(req.body.groupTitle)}`,
     });
     res.send(event);
   }
@@ -44,7 +47,7 @@ exports.delete = async (req, res) => {
   await Notes.delete(parseInt(req.query.id));
   const event = await Events.create({
     projectId: parseInt(req.query.projectId),
-    title: `${req.user.nickname} deleted card ${note.title}`,
+    title: `${wrapBold(req.user.nickname)} deleted card ${wrapBold(note.title)}`,
   });
   res.send(event);
 };
