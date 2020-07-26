@@ -19,6 +19,8 @@ export default (project) =>
         }),
         actions: icon({
           className: 'project-header-menu-icon',
+          type: 'fa fa-bars',
+          areaHidden: true,
         }),
       }),
       element({

@@ -1,6 +1,6 @@
 /*!
- * commitVersion: ebaedeb
- * Build Date: 2020. 7. 24. 오전 10:33:23
+ * commitVersion: 2bf55e8
+ * Build Date: 2020. 7. 24. 오후 1:54:43
  * Author: younho9
  * 
  */
@@ -258,18 +258,6 @@ if (!TO_STRING_TAG_SUPPORT) {
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var fails = __webpack_require__(2);
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !fails(function () {
-  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
-});
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 var $ = __webpack_require__(3);
@@ -334,10 +322,22 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
 
 
 /***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(2);
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !fails(function () {
+  return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
+});
+
+
+/***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var IE8_DOM_DEFINE = __webpack_require__(70);
 var anObject = __webpack_require__(6);
 var toPrimitive = __webpack_require__(34);
@@ -376,7 +376,7 @@ module.exports = function (it) {
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var definePropertyModule = __webpack_require__(10);
 var createPropertyDescriptor = __webpack_require__(33);
 
@@ -1579,7 +1579,7 @@ module.exports = function (argument) {
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var defineProperty = __webpack_require__(10).f;
 
 var FunctionPrototype = Function.prototype;
@@ -1626,7 +1626,7 @@ var $ = __webpack_require__(3);
 var global = __webpack_require__(0);
 var getBuiltIn = __webpack_require__(24);
 var IS_PURE = __webpack_require__(36);
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var NATIVE_SYMBOL = __webpack_require__(62);
 var USE_SYMBOL_AS_UID = __webpack_require__(78);
 var fails = __webpack_require__(2);
@@ -1938,7 +1938,7 @@ hiddenKeys[HIDDEN] = true;
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var propertyIsEnumerableModule = __webpack_require__(69);
 var createPropertyDescriptor = __webpack_require__(33);
 var toIndexedObject = __webpack_require__(11);
@@ -1964,7 +1964,7 @@ exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnProper
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var fails = __webpack_require__(2);
 var has = __webpack_require__(5);
 
@@ -2102,7 +2102,7 @@ module.exports = {
 // https://tc39.github.io/ecma262/#sec-symbol.prototype.description
 
 var $ = __webpack_require__(3);
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var global = __webpack_require__(0);
 var has = __webpack_require__(5);
 var isObject = __webpack_require__(4);
@@ -3210,7 +3210,7 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var fails = __webpack_require__(2);
 var createElement = __webpack_require__(55);
 
@@ -4462,7 +4462,7 @@ module.exports = {
 /* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var definePropertyModule = __webpack_require__(10);
 var anObject = __webpack_require__(6);
 var objectKeys = __webpack_require__(63);
@@ -4651,7 +4651,7 @@ module.exports = function (target, src, options) {
 var getBuiltIn = __webpack_require__(24);
 var definePropertyModule = __webpack_require__(10);
 var wellKnownSymbol = __webpack_require__(1);
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 
 var SPECIES = wellKnownSymbol('species');
 
@@ -5079,7 +5079,7 @@ var $ = __webpack_require__(3);
 var fails = __webpack_require__(2);
 var toIndexedObject = __webpack_require__(11);
 var nativeGetOwnPropertyDescriptor = __webpack_require__(21).f;
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 
 var FAILS_ON_PRIMITIVES = fails(function () { nativeGetOwnPropertyDescriptor(1); });
 var FORCED = !DESCRIPTORS || FAILS_ON_PRIMITIVES;
@@ -5098,7 +5098,7 @@ $({ target: 'Object', stat: true, forced: FORCED, sham: !DESCRIPTORS }, {
 /***/ (function(module, exports, __webpack_require__) {
 
 var $ = __webpack_require__(3);
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var ownKeys = __webpack_require__(73);
 var toIndexedObject = __webpack_require__(11);
 var getOwnPropertyDescriptorModule = __webpack_require__(21);
@@ -5273,7 +5273,7 @@ module.exports = {
 
 "use strict";
 
-var DESCRIPTORS = __webpack_require__(8);
+var DESCRIPTORS = __webpack_require__(9);
 var global = __webpack_require__(0);
 var isForced = __webpack_require__(61);
 var redefine = __webpack_require__(16);
@@ -5699,7 +5699,7 @@ var Event = /*#__PURE__*/function () {
 
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
-var es_array_concat = __webpack_require__(9);
+var es_array_concat = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__(105);
@@ -6196,9 +6196,13 @@ var DELETE = /*#__PURE__*/function () {
               return PUT("/notes", notes);
 
             case 2:
+              _context16.next = 4;
+              return _context16.sent.json();
+
+            case 4:
               return _context16.abrupt("return", _context16.sent);
 
-            case 3:
+            case 5:
             case "end":
               return _context16.stop();
           }
@@ -6222,9 +6226,13 @@ var DELETE = /*#__PURE__*/function () {
               return PUT("/groups", groups);
 
             case 2:
+              _context17.next = 4;
+              return _context17.sent.json();
+
+            case 4:
               return _context17.abrupt("return", _context17.sent);
 
-            case 3:
+            case 5:
             case "end":
               return _context17.stop();
           }
@@ -6248,9 +6256,13 @@ var DELETE = /*#__PURE__*/function () {
               return DELETE("/notes?id=".concat(data.id, "&projectId=").concat(data.projectId));
 
             case 2:
+              _context18.next = 4;
+              return _context18.sent.json();
+
+            case 4:
               return _context18.abrupt("return", _context18.sent);
 
-            case 3:
+            case 5:
             case "end":
               return _context18.stop();
           }
@@ -6274,9 +6286,13 @@ var DELETE = /*#__PURE__*/function () {
               return DELETE("/groups?id=".concat(data.id, "&projectId=").concat(data.projectId));
 
             case 2:
+              _context19.next = 4;
+              return _context19.sent.json();
+
+            case 4:
               return _context19.abrupt("return", _context19.sent);
 
-            case 3:
+            case 5:
             case "end":
               return _context19.stop();
           }
@@ -6827,16 +6843,18 @@ var icon_styles = __webpack_require__(142);
 // CONCATENATED MODULE: ./src/components/atoms/icon/index.js
 
 
-/* harmony default export */ var icon = (function (_ref) {
+
+/* harmony default export */ var icon = (function (_ref) // element({
+//   className: `${className} icon`,
+{
   var _ref$className = _ref.className,
       className = _ref$className === void 0 ? 'default' : _ref$className,
       _ref$type = _ref.type,
-      type = _ref$type === void 0 ? 'primary' : _ref$type;
-  return utils_element({
-    className: "".concat(className, " icon"),
-    child: "<i class='".concat(type, "'></i>")
-  });
-});
+      type = _ref$type === void 0 ? 'primary' : _ref$type,
+      _ref$areaHidden = _ref.areaHidden,
+      areaHidden = _ref$areaHidden === void 0 ? false : _ref$areaHidden;
+  return "<i class='".concat(className, " ").concat(type, " icon' ").concat(areaHidden ? "area-hidden='true'" : '', "'></i>");
+}); // });
 // EXTERNAL MODULE: ./src/components/molecules/card/styles.css
 var card_styles = __webpack_require__(143);
 
@@ -6879,9 +6897,13 @@ var card_projectColumnCard = function projectColumnCard(className, data) {
     actions: utils_element({
       className: "".concat(className, "-header-actions"),
       child: [icon({
-        className: "".concat(className, "-header-edit-icon")
+        className: "".concat(className, "-header-edit-icon"),
+        type: 'fa fa-pencil',
+        areaHidden: true
       }), icon({
-        className: "".concat(className, "-header-delete-icon")
+        className: "".concat(className, "-header-delete-icon"),
+        type: 'fa fa-trash-o',
+        areaHidden: true
       })]
     })
   }), utils_element({
@@ -6930,7 +6952,9 @@ var card_projectColumnCreateCard = function projectColumnCreateCard(className) {
   return [utils_element({
     className: "".concat(className, "-container"),
     child: [icon({
-      className: "".concat(className, "-header-add-icon")
+      className: "".concat(className, "-header-add-icon"),
+      type: 'fa fa-plus',
+      areaHidden: true
     }), utils_element({
       className: "".concat(className, "-body"),
       child: ["Add new column"]
@@ -6968,7 +6992,9 @@ var card_userColumnCard = function userColumnCard(className, data) {
     name: 'authority',
     options: ['admin', 'read-only']
   }), icon({
-    className: "".concat(className, "-delete-icon")
+    className: "".concat(className, "-delete-icon"),
+    type: 'fa fa-times',
+    areaHidden: true
   })];
 };
 
@@ -7840,11 +7866,17 @@ function groupColumn_arrayLikeToArray(arr, len) { if (len == null || len > arr.l
       actions: utils_element({
         className: "".concat(className, "-header-actions"),
         child: [icon({
-          className: "".concat(className, "-header-edit-icon")
+          className: "".concat(className, "-header-edit-icon"),
+          type: 'fa fa-pencil',
+          areaHidden: true
         }), icon({
-          className: "".concat(className, "-header-add-icon")
+          className: "".concat(className, "-header-add-icon"),
+          type: 'fa fa-plus',
+          areaHidden: true
         }), icon({
-          className: "".concat(className, "-header-delete-icon")
+          className: "".concat(className, "-header-delete-icon"),
+          type: 'fa fa-trash-o',
+          areaHidden: true
         })]
       })
     }), utils_element({
@@ -7905,21 +7937,17 @@ function eventColumn_arrayLikeToArray(arr, len) { if (len == null || len > arr.l
     id: "".concat(className, "-").concat(data === null || data === void 0 ? void 0 : data.id),
     child: [header({
       className: "".concat(className, "-header"),
-      leading: icon({
-        className: "".concat(className, "-header-icon")
-      }),
       title: utils_element({
         className: "".concat(className, "-header-title"),
         child: 'Menu'
       }),
       actions: icon({
-        className: "".concat(className, "-close-icon")
+        className: "".concat(className, "-close-icon"),
+        type: 'fa fa-times',
+        areaHidden: true
       })
     }), header({
       className: "".concat(className, "-header"),
-      leading: icon({
-        className: "".concat(className, "-header-activity-icon")
-      }),
       title: utils_element({
         className: "".concat(className, "-header-title"),
         child: 'Activity'
@@ -7983,7 +8011,9 @@ function project_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
         child: project.title
       }),
       actions: icon({
-        className: 'project-header-menu-icon'
+        className: 'project-header-menu-icon',
+        type: 'fa fa-bars',
+        areaHidden: true
       })
     }), utils_element({
       className: 'project-columns',
@@ -8027,7 +8057,9 @@ var modal_projectColumnEditModal = function projectColumnEditModal(className, da
       actions: utils_element({
         className: "".concat(className, "-header-actions"),
         child: [icon({
-          className: "".concat(className, "-header-icon modal-close")
+          className: "".concat(className, "-header-icon modal-close"),
+          type: 'fa fa-times',
+          areaHidden: true
         })]
       })
     }), utils_element({
@@ -8060,7 +8092,9 @@ var modal_projectColumnCardEditModal = function projectColumnCardEditModal(class
       actions: utils_element({
         className: "".concat(className, "-header-actions"),
         child: [icon({
-          className: "".concat(className, "-header-icon modal-close")
+          className: "".concat(className, "-header-icon modal-close"),
+          type: 'fa fa-times',
+          areaHidden: true
         })]
       })
     }), utils_element({
@@ -8114,7 +8148,9 @@ var modal_projectColumnCreateModal = function projectColumnCreateModal(className
       actions: utils_element({
         className: "".concat(className, "-header-actions"),
         child: [icon({
-          className: "".concat(className, "-header-icon modal-close")
+          className: "".concat(className, "-header-icon modal-close"),
+          type: 'fa fa-times',
+          areaHidden: true
         })]
       })
     }), utils_element({

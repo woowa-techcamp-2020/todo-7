@@ -35,6 +35,7 @@
   border-top: none;
   flex-direction: row;
 }
+
 .create-page-column-card-header {
   line-height: unset;
   min-height: unset;
@@ -42,6 +43,10 @@
 
 .create-page-column-card-select {
   margin-right: 10px;
+}
+
+.create-page-column-card-delete-icon {
+  width: 14px;
 }
 
 .create-page-column-header {
