@@ -32,33 +32,26 @@ export default class ProjectView {
       event.preventDefault();
       return false;
     });
-    this.app.addEventListener('click', (event) => this.onAppClickHandler(event, this));
-
+    this.app.addEventListener('mousedown', (event) => this.onAppClickHandler(event, this));
+    this.app.addEventListener('keyup', (event) => this.onFormCardTypeHandler(event, this));
     new DragAndDrop({
-      container: this.app.querySelector('.project'),
+      container: this.app,
       parentSelector: '.project-column-body',
       childSelector: '.project-column-card',
       onDragEnd: (card) => self.onCardDragEndHandler(card),
     });
 
     new DragAndDrop({
-      container: this.app.querySelector('.project'),
+      container: this.app,
       parentSelector: '.project-existing-columns',
       childSelector: '.project-column',
       onDragEnd: (column) => self.onColumnDragEndHandler(column),
-    });
-
-    const columns = document.querySelectorAll('.project-column');
-    columns.forEach((column) => {
-      column.addEventListener('mousedown', (event) => this.onColumnClickHandler(event, this));
-      column.addEventListener('keyup', (event) => this.onFormCardTypeHandler(event, this));
     });
   }
 
   onAppClickHandler(event, self) {
     let foundHandler = true;
     const classList = event.target.classList;
-
     if (classList.contains('project-header-menu-icon')) {
       self.onEventColumnToggler(event, true);
     } else if (classList.contains('project-event-column-close-icon')) {
@@ -77,18 +70,7 @@ export default class ProjectView {
       self.onEditCardModalUpdateClickHandler(event);
     } else if (classList.contains('modal-confirm')) {
       self.onDeleteModalConfirmClickHandler(event);
-    } else {
-      foundHandler = false;
-    }
-
-    if (foundHandler) event.stopImmediatePropagation();
-  }
-
-  onColumnClickHandler(event, self) {
-    let foundHandler = true;
-    const classList = event.target.classList;
-
-    if (classList.contains('project-column-header-add-icon')) {
+    } else if (classList.contains('project-column-header-add-icon')) {
       self.onNoteAddIconCickHandler(event);
     } else if (classList.contains('project-column-header-edit-icon')) {
       self.onGroupEditIconClickHandler(event);
@@ -98,12 +80,11 @@ export default class ProjectView {
       self.onFormCardButtonClickHandler(event, true);
     } else if (classList.contains('project-column-form-card-cancel-button')) {
       self.onFormCardButtonClickHandler(event, false);
-    } else if (classList.contains('project-column-form-card-textarea')) {
-      //found handler
     } else if (classList.contains('project-column-card-header-edit-icon')) {
       self.onNoteEditIconClickHandler(event);
     } else if (classList.contains('project-column-card-header-delete-icon')) {
       self.onNoteDeleteIconClickHandler(event);
+    } else if (classList.contains('project-column-form-card-textarea')) {
     } else {
       foundHandler = false;
     }
@@ -170,8 +151,8 @@ export default class ProjectView {
   }
 
   createColumn({ group }) {
-    this.app.querySelector(`.project-column-create-card`).insertAdjacentHTML(
-      'beforebegin',
+    this.app.querySelector(`.project-existing-columns`).insertAdjacentHTML(
+      'beforeend',
       column({
         className: 'project-column',
         data: group,
@@ -199,12 +180,13 @@ export default class ProjectView {
   }
 
   onNoteAddIconCickHandler(event) {
-    const formCard = event.currentTarget.querySelector('.project-column-form-card');
+    const column = event.target.closest('.project-column');
+    const formCard = column.querySelector('.project-column-form-card');
     this.toggleFormCard(formCard);
   }
 
   onNoteEditIconClickHandler(event) {
-    const groupId = event.currentTarget.id;
+    const groupId = event.target.closest('.project-column').id;
     const card = event.target.closest('.project-column-card');
     const cardTitle = card.querySelector('.project-column-card-header-text').innerText;
     this.app.querySelector(`.project`).insertAdjacentHTML(
@@ -228,28 +210,30 @@ export default class ProjectView {
   }
 
   onGroupEditIconClickHandler(event) {
-    const headerTitle = event.currentTarget.querySelector('.project-column-header-title');
+    const column = event.target.closest('.project-column');
+    const headerTitle = column.querySelector('.project-column-header-title');
     this.app.querySelector(`.project`).insertAdjacentHTML(
       'beforeend',
       modal({
         className: `project-column-edit-modal`,
-        data: { id: getNumber(event.currentTarget.id), title: headerTitle.innerText },
+        data: { id: getNumber(column.id), title: headerTitle.innerText },
       }),
     );
   }
 
   onGroupDeleteIconClickHandler(event) {
+    const column = event.target.closest('.project-column');
     this.app.querySelector(`.project`).insertAdjacentHTML(
       'beforeend',
       modal({
         className: `project-delete-modal`,
-        data: { id: getNumber(event.currentTarget.id), type: 'Column' },
+        data: { id: getNumber(column.id), type: 'Column' },
       }),
     );
   }
 
   onModalCloseClickHandler(event) {
-    const modal = event.currentTarget.querySelector('.modal');
+    const modal = event.target.closest('.modal');
     modal.remove();
   }
 
@@ -263,14 +247,14 @@ export default class ProjectView {
   }
 
   onCreateColumnModalButtonClickHandler(event) {
-    const modal = event.currentTarget.querySelector('.modal');
+    const modal = event.target.closest('.modal');
     this.createGroupEvent.trigger({
       title: modal.querySelector('.modal-input').value,
     });
     modal.remove();
   }
   onEditColumnModalUpdateClickHandler(event) {
-    const modal = event.currentTarget.querySelector('.modal');
+    const modal = event.target.closest('.modal');
     this.updateGroupEvent.trigger({
       id: getNumber(modal.id),
       title: modal.querySelector('.modal-input').value,
@@ -279,7 +263,7 @@ export default class ProjectView {
   }
 
   onEditCardModalUpdateClickHandler(event) {
-    const modal = event.currentTarget.querySelector('.modal');
+    const modal = event.target.closest('.modal');
     this.updateNoteEvent.trigger({
       id: getNumber(modal.id),
       title: modal.querySelector('.modal-textarea').innerText,
@@ -288,7 +272,7 @@ export default class ProjectView {
   }
 
   onDeleteModalConfirmClickHandler(event) {
-    const modal = event.currentTarget.querySelector('.modal');
+    const modal = event.target.closest('.modal');
     const type = modal.querySelector('.modal-description > b').innerText;
     if (type === 'Column') {
       this.deleteGroupEvent.trigger({
@@ -303,7 +287,8 @@ export default class ProjectView {
   }
 
   onFormCardButtonClickHandler(event, isAdd) {
-    const formCard = event.currentTarget.querySelector('.project-column-form-card');
+    const column = event.target.closest('.project-column');
+    const formCard = column.querySelector('.project-column-form-card');
     if (isAdd) {
       this.createNoteEvent.trigger({
         title: formCard.firstElementChild.innerHTML,
@@ -314,10 +299,10 @@ export default class ProjectView {
   }
 
   onFormCardTypeHandler(event) {
-    const { target, currentTarget } = event;
-    if (target.className == 'project-column-form-card-textarea textarea') {
-      const addButton = currentTarget.querySelector('.project-column-form-card-add-button');
-      addButton.disabled = target.innerHTML.length == 0;
+    const column = event.target.closest('.project-column');
+    if (event.target.className == 'project-column-form-card-textarea textarea') {
+      const addButton = column.querySelector('.project-column-form-card-add-button');
+      addButton.disabled = event.target.innerHTML.length == 0;
     }
   }
 }
