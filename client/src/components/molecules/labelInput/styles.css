@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-leading {
+  flex: none;
+  margin-right: 10px;
+}
+
+.header-title {
+  flex: none;
+}
+
+.header-actions {
+  margin-left: auto;
+}
+
+.page-header {
+  height: 58px;
+  line-height: 58px;
+  color: var(--white);
+  font-size: 20px;
+  padding: 0 16px 0 16px;
+  background-color: var(--black);
+}

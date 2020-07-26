@@ -1,0 +1,24 @@
+.login-label-input .label {
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.login-label-input .input {
+  height: 32px;
+  line-height: 32px;
+  padding: 5px 12px;
+  margin: 5px 0 15px;
+}
+
+.login-failure-label {
+  display: none;
+  font-size: 11px;
+  color: var(--red);
+  margin: 0 0 15px;
+}
+
+.login-column {
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  padding: 20px;
+}

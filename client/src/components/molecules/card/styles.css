@@ -1,0 +1,25 @@
+.card {
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid #e1e4e8;
+}
+
+.card-header {
+  min-height: 20px;
+  align-items: baseline;
+}
+
+.card-body {
+  flex: none;
+  font-weight: 600;
+  font-size: 90%;
+  margin-bottom: 10px;
+}
+
+.card-footer {
+  margin-top: auto;
+  display: block;
+  color: darkgrey;
+  font-weight: 500;
+  font-size: 90%;
+}

@@ -1,0 +1,10 @@
+.column-header {
+  font-size: 16px;
+  font-weight: 600;
+  height: 55px;
+  padding: 16px;
+  background-color: rgb(246, 248, 250);
+  border: 1px solid #e1e4e8;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
