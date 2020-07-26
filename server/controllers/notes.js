@@ -4,7 +4,7 @@ const { wrapBold } = require('../utils/helper');
 
 exports.create = async (req, res) => {
   const note = await Notes.create(req.body);
-  note.createdAt = new Date.now();
+  note.createdAt = new Date();
   const event = await Events.create({
     projectId: req.body.projectId,
     title: `${wrapBold(req.user.nickname)} created card ${wrapBold(req.body.title)}`,
