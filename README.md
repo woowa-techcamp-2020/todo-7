@@ -72,6 +72,14 @@ todo-7
     └── utils
 ```
 
+### 데이터베이스 설계
+
+![database tables](https://user-images.githubusercontent.com/48426991/87879928-a8570800-ca28-11ea-8142-2614c005f762.png)
+
+### API 문서
+
+[API 문서](./docs/api.md)
+
 ## 설치 가이드
 
 ### 프로젝트 가져오기
@@ -131,13 +139,6 @@ npm start
 - [2주차 Daily Scrum](https://github.com/woowa-techcamp-2020/todo-7/wiki/2%EC%A3%BC%EC%B0%A8-Daily-Scrum)
 - [2주차 Daily Wrap Up](https://github.com/woowa-techcamp-2020/todo-7/wiki/2%EC%A3%BC%EC%B0%A8-Wrap-Up)
 
-### 👮‍♂️ Rules
-
-- [그라운드 룰](https://github.com/woowa-techcamp-2020/todo-7/wiki/%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C-%EB%A3%B0)
-- [개발 룰](https://github.com/woowa-techcamp-2020/todo-7/wiki/%EA%B0%9C%EB%B0%9C-%EB%A3%B0)
-
-## 산출물
-
 ### 🛠 Tech 세미나
 
 > 팀 프로젝트를 진행하며 학습하고, 학습한 내용을 함께 공유하였습니다.
@@ -146,10 +147,7 @@ npm start
 - [Webpack & Babel 함께 학습하기](docs/tech-seminar/webpack%20babel%20함께%20학습하기.pdf)
 - [어렵지 않게 css 레이아웃 잡기](https://zoomkoding.github.io/web/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BA%A0%ED%94%84/2020/07/14/css-layout.html)
 
-### 데이터베이스 설계
+### 👮‍♂️ Rules
 
-![database tables](https://user-images.githubusercontent.com/48426991/87879928-a8570800-ca28-11ea-8142-2614c005f762.png)
-
-### API 문서
-
-[API 문서](./docs/api.md)
+- [그라운드 룰](https://github.com/woowa-techcamp-2020/todo-7/wiki/%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C-%EB%A3%B0)
+- [개발 룰](https://github.com/woowa-techcamp-2020/todo-7/wiki/%EA%B0%9C%EB%B0%9C-%EB%A3%B0)
