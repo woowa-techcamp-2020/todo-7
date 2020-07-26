@@ -5,7 +5,7 @@
 
 > 우아한테크캠프 2번째 팀 프로젝트 - 7조 정진혁, 추연호
 
-## Authors
+## 🖋 Authors
 
 - [zoomkoding](https://github.com/zoomKoding)
 - [younho9](https://github.com/younho9)
@@ -18,7 +18,7 @@
 
 [추가 예정]()
 
-## 적용한 기술
+## 👨‍💻 적용한 기술
 
 - MVC 패턴
 - Atomic 디자인
