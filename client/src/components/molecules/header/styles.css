@@ -8,12 +8,11 @@
 }
 
 .header-leading {
-  flex: none;
   margin-right: 10px;
 }
 
 .header-title {
-  flex: none;
+  max-width: 230px;
 }
 
 .header-actions {

@@ -1,5 +1,5 @@
 .project-column {
-  min-width: 330px;
+  width: 330px;
   border-radius: 6px;
   padding: 8px;
   background-color: var(--grey);
@@ -14,6 +14,7 @@
 }
 
 .project-column-card {
+  width: 100%;
   border-radius: 4px;
   margin: 3px 0px 8px;
   padding: 8px 8px 8px 32px;
@@ -22,6 +23,10 @@
 
 .project-column-card-header {
   color: var(--blue);
+}
+
+.project-column-card-header-text {
+  word-wrap: break-word;
 }
 
 .project-column-card-footer-writer {

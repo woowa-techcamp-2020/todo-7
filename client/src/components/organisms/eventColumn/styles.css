@@ -15,15 +15,15 @@
   background-color: var(--grey);
   height: 45px;
   line-height: 45px;
+  width: 100%;
 }
 
 .project-event-column-body {
   height: 100%;
-  overflow: auto;
 }
 
 .project-event-column-card {
-  height: 86px;
+  min-height: 86px;
   border: none;
   border-bottom: 1px solid #e1e4e8;
   padding: 16px;
@@ -33,4 +33,13 @@
   color: var(--blue);
   font-weight: bold;
   font-size: 120%;
+}
+
+.project-event-column-card-header .header-title {
+  max-width: 330px;
+}
+
+.project-event-column-card-header-text {
+  width: 100%;
+  word-wrap: break-word;
 }
