@@ -43,7 +43,7 @@ export default class ProjectView {
 
     new DragAndDrop({
       container: this.app.querySelector('.project'),
-      parentSelector: '.project-columns',
+      parentSelector: '.project-existing-columns',
       childSelector: '.project-column',
       onDragEnd: (column) => self.onColumnDragEndHandler(column),
     });

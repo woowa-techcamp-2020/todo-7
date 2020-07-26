@@ -26,12 +26,17 @@ export default (project) =>
       element({
         className: 'project-columns',
         child: [
-          ...project.groups.map((group) =>
-            groupColumn({
-              className: 'project-column',
-              data: group,
-            }),
-          ),
+          element({
+            className: 'project-existing-columns',
+            child: [
+              ...project.groups.map((group) =>
+                groupColumn({
+                  className: 'project-column',
+                  data: group,
+                }),
+              ),
+            ],
+          }),
           card({
             className: 'project-column-create-card',
           }),
