@@ -1,39 +1,37 @@
 import element from '../../../utils/element';
+import select from '../../atoms/select';
+import label from '../../atoms/label';
 import button from '../../atoms/button';
 import textarea from '../../atoms/textarea';
 import icon from '../../atoms/icon';
 import header from '../header';
+import { getCurrentDateTime } from '../../../utils/helper';
 
 import './styles.css';
-import select from '../../atoms/select';
-import label from '../../atoms/label';
 
 const projectColumnCard = (className, data) => [
   header({
     className: `${className}-header card-header`,
-    leading: element({
+    title: element({
       className: `${className}-header-text`,
       child: data.title,
     }),
-    actions: element({
-      className: `${className}-header-actions`,
-      child: [
-        icon({ className: `${className}-header-edit-icon`, type: 'fa fa-pencil', areaHidden: true }),
-        icon({ className: `${className}-header-delete-icon`, type: 'fa fa-trash-o', areaHidden: true }),
-      ],
-    }),
+    actions: [
+      icon({ className: `${className}-header-edit-icon`, type: 'fa fa-pencil', areaHidden: true }),
+      icon({ className: `${className}-header-delete-icon`, type: 'fa fa-trash-o', areaHidden: true }),
+    ],
   }),
   element({
     className: `${className}-body card-body`,
-    child: data.description,
+    child: ' ',
   }),
   element({
     className: `${className}-footer card-footer`,
     child: [
-      `Added by`,
+      getCurrentDateTime(data.createdAt),
       element({
         className: `${className}-footer-writer`,
-        child: data.writer,
+        child: ` `,
       }),
     ],
   }),
@@ -63,14 +61,14 @@ const projectColumnNewCard = (className) => [
 const projectEventColumnCard = (className, data) => [
   header({
     className: `${className}-header card-header`,
-    leading: element({
+    title: element({
       className: `${className}-header-text`,
       child: data.title,
     }),
   }),
   element({
     className: `${className}-footer card-footer`,
-    child: data.createdAt,
+    child: getCurrentDateTime(data.createdAt),
   }),
 ];
 
@@ -92,14 +90,14 @@ const mypageColumnCard = (className, data) => {
   return [
     header({
       className: `${className}-header card-header`,
-      leading: element({
+      title: element({
         className: `${className}-header-text`,
         child: data.title,
       }),
     }),
     element({
       className: `${className}-footer card-footer`,
-      child: `5 hours ago`,
+      child: getCurrentDateTime(data.createdAt),
     }),
   ];
 };
@@ -109,7 +107,7 @@ const userColumnCard = (className, data) => {
   return [
     header({
       className: `${className}-header card-header`,
-      leading: element({
+      title: element({
         className: `${className}-header-text`,
         child: data.nickname,
       }),

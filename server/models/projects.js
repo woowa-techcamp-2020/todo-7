@@ -18,7 +18,7 @@ class Projects extends Model {
     const queryStmt = `
       SELECT Projects.id AS 'projectId', Projects.title AS 'projectTitle', Projects.description AS 'projectDescription', 
              Groups.id AS 'groupId', Groups.title AS 'groupTitle', 
-             Notes.id AS 'noteId', Notes.title AS 'noteTitle', Notes.description AS 'noteDescription', Notes.isActive AS 'noteIsActive'
+             Notes.id AS 'noteId', Notes.title AS 'noteTitle', Notes.description AS 'noteDescription', Notes.isActive AS 'noteIsActive', Notes.createdAt AS 'noteCreatedAt'
       FROM Projects 
       LEFT JOIN Groups ON Groups.projectId = Projects.id
       LEFT JOIN Notes ON Notes.groupId = Groups.id
@@ -61,6 +61,7 @@ class Projects extends Model {
             id: note.noteId,
             title: note.noteTitle,
             description: note.noteDescription,
+            createdAt: note.noteCreatedAt,
           });
         }
       });
