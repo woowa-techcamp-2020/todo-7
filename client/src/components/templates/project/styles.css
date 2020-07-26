@@ -24,6 +24,10 @@
   margin-left: 5px;
 }
 
+.project-header .header-title {
+  max-width: 350px;
+}
+
 .project-header-menu-icon {
   margin-left: auto;
 }
