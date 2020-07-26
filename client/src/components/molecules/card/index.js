@@ -31,7 +31,7 @@ const projectColumnCard = (className, data) => [
   element({
     className: `${className}-footer card-footer`,
     child: [
-      ` `,
+      getCurrentDateTime(data.createdAt),
       element({
         className: `${className}-footer-writer`,
         child: ` `,
