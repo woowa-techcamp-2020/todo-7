@@ -129,7 +129,7 @@ npm start
 
 > 팀 프로젝트를 진행하며 학습하고, 학습한 내용을 함께 공유하였습니다.
 
-- [Express의 미들웨어와 블로그공부법](docs/tech-seminar/ExpressANDZoomkoding.pdf)
+- [Express의 미들웨어와 블로그 공부법](docs/tech-seminar/ExpressANDZoomkoding.pdf)
 - [Webpack & Babel 함께 학습하기](docs/tech-seminar/webpack%20babel%20함께%20학습하기.pdf)
 - [어렵지 않게 css 레이아웃 잡기](https://zoomkoding.github.io/web/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BA%A0%ED%94%84/2020/07/14/css-layout.html)
 
