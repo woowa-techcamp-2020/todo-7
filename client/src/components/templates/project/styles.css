@@ -32,7 +32,7 @@
   margin-left: auto;
 }
 
-.project-column-create-card {
+.project-column-create-card.card {
   min-width: 330px;
   height: 160px;
   display: flex;
@@ -43,12 +43,16 @@
   background-color: var(--white);
 }
 
-.project-column-create-card-container {
+.project-column-create-card.card-container {
   display: flex;
 }
 
-.project-column-create-card-header-add-icon {
+.project-column-create-card.card-header-add-icon {
   margin-right: 8px;
+}
+
+.project-column-create-card.card-body {
+  margin-bottom: 0px;
 }
 
 @media (max-width: 544px) {

@@ -74,11 +74,11 @@ const projectEventColumnCard = (className, data) => [
 
 const projectColumnCreateCard = (className) => [
   element({
-    className: `${className}-container`,
+    className: `${className} card-container`,
     child: [
-      icon({ className: `${className}-header-add-icon`, type: 'fa fa-plus', areaHidden: true }),
+      icon({ className: `${className} card-add-icon`, type: 'fa fa-plus', areaHidden: true }),
       element({
-        className: `${className}-body`,
+        className: `${className} card-body`,
         child: [`Add new column`],
       }),
     ],
