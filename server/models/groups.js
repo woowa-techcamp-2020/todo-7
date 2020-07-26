@@ -13,7 +13,8 @@ class Groups extends Model {
       updatedAt: { dataType: 'datetime', required: false },
     });
   }
-  static generateOrderSubQueryStmt = (data) => `, (SELECT COALESCE(MAX(\`order\`),0) FROM Groups t WHERE t.projectId = ${data.projectId}) + 1`;
+  static generateOrderSubQueryStmt = (data) =>
+    `, (SELECT COALESCE(MAX(\`order\`),0) FROM Groups t WHERE t.projectId = ${data.projectId}) + 1`;
 
   static async move(groups) {
     const queryStmt =
@@ -32,6 +33,12 @@ class Groups extends Model {
           WHERE \`id\` = ${groups.id}
       `;
     return await this.pool.query(queryStmt);
+  }
+
+  static async create(input) {
+    const group = await super.create(input);
+    group.notes = [];
+    return group;
   }
 }
 

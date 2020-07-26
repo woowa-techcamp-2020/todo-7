@@ -41,7 +41,7 @@ export default class ProjectModel {
       projectId: this.project.id,
       title,
     });
-    this.project.groups.unshift(group);
+    this.project.groups.push(group);
     this.createGroupEvent.trigger({ group, event });
   }
 
