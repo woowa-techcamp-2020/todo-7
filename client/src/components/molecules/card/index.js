@@ -12,17 +12,14 @@ import './styles.css';
 const projectColumnCard = (className, data) => [
   header({
     className: `${className}-header card-header`,
-    leading: element({
+    title: element({
       className: `${className}-header-text`,
       child: data.title,
     }),
-    actions: element({
-      className: `${className}-header-actions`,
-      child: [
-        icon({ className: `${className}-header-edit-icon`, type: 'fa fa-pencil', areaHidden: true }),
-        icon({ className: `${className}-header-delete-icon`, type: 'fa fa-trash-o', areaHidden: true }),
-      ],
-    }),
+    actions: [
+      icon({ className: `${className}-header-edit-icon`, type: 'fa fa-pencil', areaHidden: true }),
+      icon({ className: `${className}-header-delete-icon`, type: 'fa fa-trash-o', areaHidden: true }),
+    ],
   }),
   element({
     className: `${className}-body card-body`,
@@ -64,7 +61,7 @@ const projectColumnNewCard = (className) => [
 const projectEventColumnCard = (className, data) => [
   header({
     className: `${className}-header card-header`,
-    leading: element({
+    title: element({
       className: `${className}-header-text`,
       child: data.title,
     }),
@@ -93,7 +90,7 @@ const mypageColumnCard = (className, data) => {
   return [
     header({
       className: `${className}-header card-header`,
-      leading: element({
+      title: element({
         className: `${className}-header-text`,
         child: data.title,
       }),
@@ -110,7 +107,7 @@ const userColumnCard = (className, data) => {
   return [
     header({
       className: `${className}-header card-header`,
-      leading: element({
+      title: element({
         className: `${className}-header-text`,
         child: data.nickname,
       }),
