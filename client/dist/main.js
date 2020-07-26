@@ -1,6 +1,6 @@
 /*!
- * commitVersion: 2bf55e8
- * Build Date: 2020-7-24 1:51:57 ├F10: PM┤
+ * commitVersion: c7ea54f
+ * Build Date: 2020-7-26 10:50:38 ├F10: PM┤
  * Author: zoomkoding
  * 
  */
@@ -340,7 +340,7 @@ module.exports = !fails(function () {
 var DESCRIPTORS = __webpack_require__(9);
 var IE8_DOM_DEFINE = __webpack_require__(70);
 var anObject = __webpack_require__(6);
-var toPrimitive = __webpack_require__(33);
+var toPrimitive = __webpack_require__(31);
 
 var nativeDefineProperty = Object.defineProperty;
 
@@ -378,7 +378,7 @@ module.exports = function (it) {
 
 var DESCRIPTORS = __webpack_require__(9);
 var definePropertyModule = __webpack_require__(10);
-var createPropertyDescriptor = __webpack_require__(32);
+var createPropertyDescriptor = __webpack_require__(30);
 
 module.exports = DESCRIPTORS ? function (object, key, value) {
   return definePropertyModule.f(object, key, createPropertyDescriptor(1, value));
@@ -395,7 +395,7 @@ module.exports = DESCRIPTORS ? function (object, key, value) {
 "use strict";
 
 var $ = __webpack_require__(3);
-var IS_PURE = __webpack_require__(35);
+var IS_PURE = __webpack_require__(33);
 var global = __webpack_require__(0);
 var getBuiltIn = __webpack_require__(24);
 var NativePromise = __webpack_require__(117);
@@ -404,7 +404,7 @@ var redefineAll = __webpack_require__(118);
 var setToStringTag = __webpack_require__(50);
 var setSpecies = __webpack_require__(119);
 var isObject = __webpack_require__(4);
-var aFunction = __webpack_require__(36);
+var aFunction = __webpack_require__(34);
 var anInstance = __webpack_require__(120);
 var classof = __webpack_require__(15);
 var inspectSource = __webpack_require__(57);
@@ -417,7 +417,7 @@ var promiseResolve = __webpack_require__(123);
 var hostReportErrors = __webpack_require__(124);
 var newPromiseCapabilityModule = __webpack_require__(96);
 var perform = __webpack_require__(125);
-var InternalStateModule = __webpack_require__(34);
+var InternalStateModule = __webpack_require__(32);
 var isForced = __webpack_require__(61);
 var wellKnownSymbol = __webpack_require__(1);
 var V8_VERSION = __webpack_require__(66);
@@ -1529,7 +1529,7 @@ var createNonEnumerableProperty = __webpack_require__(12);
 var has = __webpack_require__(5);
 var setGlobal = __webpack_require__(56);
 var inspectSource = __webpack_require__(57);
-var InternalStateModule = __webpack_require__(34);
+var InternalStateModule = __webpack_require__(32);
 
 var getInternalState = InternalStateModule.get;
 var enforceInternalState = InternalStateModule.enforce;
@@ -1622,9 +1622,9 @@ module.exports = function (argument) {
 
 var DESCRIPTORS = __webpack_require__(9);
 var propertyIsEnumerableModule = __webpack_require__(69);
-var createPropertyDescriptor = __webpack_require__(32);
+var createPropertyDescriptor = __webpack_require__(30);
 var toIndexedObject = __webpack_require__(11);
-var toPrimitive = __webpack_require__(33);
+var toPrimitive = __webpack_require__(31);
 var has = __webpack_require__(5);
 var IE8_DOM_DEFINE = __webpack_require__(70);
 
@@ -1684,11 +1684,7 @@ module.exports = function (METHOD_NAME, options) {
 var $ = __webpack_require__(3);
 var global = __webpack_require__(0);
 var getBuiltIn = __webpack_require__(24);
-<<<<<<< HEAD
-var IS_PURE = __webpack_require__(35);
-=======
-var IS_PURE = __webpack_require__(36);
->>>>>>> origin/feat/add-icon
+var IS_PURE = __webpack_require__(33);
 var DESCRIPTORS = __webpack_require__(9);
 var NATIVE_SYMBOL = __webpack_require__(62);
 var USE_SYMBOL_AS_UID = __webpack_require__(78);
@@ -1699,8 +1695,8 @@ var isObject = __webpack_require__(4);
 var anObject = __webpack_require__(6);
 var toObject = __webpack_require__(19);
 var toIndexedObject = __webpack_require__(11);
-var toPrimitive = __webpack_require__(33);
-var createPropertyDescriptor = __webpack_require__(32);
+var toPrimitive = __webpack_require__(31);
+var createPropertyDescriptor = __webpack_require__(30);
 var nativeObjectCreate = __webpack_require__(49);
 var objectKeys = __webpack_require__(63);
 var getOwnPropertyNamesModule = __webpack_require__(46);
@@ -1719,7 +1715,7 @@ var wellKnownSymbol = __webpack_require__(1);
 var wrappedWellKnownSymbolModule = __webpack_require__(80);
 var defineWellKnownSymbol = __webpack_require__(81);
 var setToStringTag = __webpack_require__(50);
-var InternalStateModule = __webpack_require__(34);
+var InternalStateModule = __webpack_require__(32);
 var $forEach = __webpack_require__(25).forEach;
 
 var HIDDEN = sharedKey('hidden');
@@ -1998,68 +1994,6 @@ hiddenKeys[HIDDEN] = true;
 
 
 /***/ }),
-<<<<<<< HEAD
-=======
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var DESCRIPTORS = __webpack_require__(9);
-var propertyIsEnumerableModule = __webpack_require__(69);
-var createPropertyDescriptor = __webpack_require__(33);
-var toIndexedObject = __webpack_require__(11);
-var toPrimitive = __webpack_require__(34);
-var has = __webpack_require__(5);
-var IE8_DOM_DEFINE = __webpack_require__(70);
-
-var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-
-// `Object.getOwnPropertyDescriptor` method
-// https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptor
-exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
-  O = toIndexedObject(O);
-  P = toPrimitive(P, true);
-  if (IE8_DOM_DEFINE) try {
-    return nativeGetOwnPropertyDescriptor(O, P);
-  } catch (error) { /* empty */ }
-  if (has(O, P)) return createPropertyDescriptor(!propertyIsEnumerableModule.f.call(O, P), O[P]);
-};
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var DESCRIPTORS = __webpack_require__(9);
-var fails = __webpack_require__(2);
-var has = __webpack_require__(5);
-
-var defineProperty = Object.defineProperty;
-var cache = {};
-
-var thrower = function (it) { throw it; };
-
-module.exports = function (METHOD_NAME, options) {
-  if (has(cache, METHOD_NAME)) return cache[METHOD_NAME];
-  if (!options) options = {};
-  var method = [][METHOD_NAME];
-  var ACCESSORS = has(options, 'ACCESSORS') ? options.ACCESSORS : false;
-  var argument0 = has(options, 0) ? options[0] : thrower;
-  var argument1 = has(options, 1) ? options[1] : undefined;
-
-  return cache[METHOD_NAME] = !!method && !fails(function () {
-    if (ACCESSORS && !DESCRIPTORS) return true;
-    var O = { length: -1 };
-
-    if (ACCESSORS) defineProperty(O, 1, { enumerable: true, get: thrower });
-    else O[1] = 1;
-
-    method.call(O, argument0, argument1);
-  });
-};
-
-
-/***/ }),
->>>>>>> origin/feat/add-icon
 /* 23 */
 /***/ (function(module, exports) {
 
@@ -2163,66 +2097,6 @@ module.exports = {
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-=======
-"use strict";
-// `Symbol.prototype.description` getter
-// https://tc39.github.io/ecma262/#sec-symbol.prototype.description
-
-var $ = __webpack_require__(3);
-var DESCRIPTORS = __webpack_require__(9);
-var global = __webpack_require__(0);
-var has = __webpack_require__(5);
-var isObject = __webpack_require__(4);
-var defineProperty = __webpack_require__(10).f;
-var copyConstructorProperties = __webpack_require__(72);
-
-var NativeSymbol = global.Symbol;
-
-if (DESCRIPTORS && typeof NativeSymbol == 'function' && (!('description' in NativeSymbol.prototype) ||
-  // Safari 12 bug
-  NativeSymbol().description !== undefined
-)) {
-  var EmptyStringDescriptionStore = {};
-  // wrap Symbol constructor for correct work with undefined description
-  var SymbolWrapper = function Symbol() {
-    var description = arguments.length < 1 || arguments[0] === undefined ? undefined : String(arguments[0]);
-    var result = this instanceof SymbolWrapper
-      ? new NativeSymbol(description)
-      // in Edge 13, String(Symbol(undefined)) === 'Symbol(undefined)'
-      : description === undefined ? NativeSymbol() : NativeSymbol(description);
-    if (description === '') EmptyStringDescriptionStore[result] = true;
-    return result;
-  };
-  copyConstructorProperties(SymbolWrapper, NativeSymbol);
-  var symbolPrototype = SymbolWrapper.prototype = NativeSymbol.prototype;
-  symbolPrototype.constructor = SymbolWrapper;
-
-  var symbolToString = symbolPrototype.toString;
-  var native = String(NativeSymbol('test')) == 'Symbol(test)';
-  var regexp = /^Symbol\((.*)\)[^)]+$/;
-  defineProperty(symbolPrototype, 'description', {
-    configurable: true,
-    get: function description() {
-      var symbol = isObject(this) ? this.valueOf() : this;
-      var string = symbolToString.call(symbol);
-      if (has(EmptyStringDescriptionStore, symbol)) return '';
-      var desc = native ? string.slice(7, -1) : string.replace(regexp, '$1');
-      return desc === '' ? undefined : desc;
-    }
-  });
-
-  $({ global: true, forced: true }, {
-    Symbol: SymbolWrapper
-  });
-}
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
->>>>>>> origin/feat/add-icon
 var $ = __webpack_require__(3);
 var from = __webpack_require__(112);
 var checkCorrectnessOfIteration = __webpack_require__(87);
@@ -2246,8 +2120,8 @@ $({ target: 'Array', stat: true, forced: INCORRECT_ITERATION }, {
 
 var toIndexedObject = __webpack_require__(11);
 var addToUnscopables = __webpack_require__(65);
-var Iterators = __webpack_require__(39);
-var InternalStateModule = __webpack_require__(34);
+var Iterators = __webpack_require__(37);
+var InternalStateModule = __webpack_require__(32);
 var defineIterator = __webpack_require__(88);
 
 var ARRAY_ITERATOR = 'Array Iterator';
@@ -2305,7 +2179,7 @@ addToUnscopables('entries');
 "use strict";
 
 var charAt = __webpack_require__(98).charAt;
-var InternalStateModule = __webpack_require__(34);
+var InternalStateModule = __webpack_require__(32);
 var defineIterator = __webpack_require__(88);
 
 var STRING_ITERATOR = 'String Iterator';
@@ -2341,43 +2215,6 @@ defineIterator(String, 'String', function (iterated) {
 "use strict";
 
 var $ = __webpack_require__(3);
-var forEach = __webpack_require__(104);
-
-// `Array.prototype.forEach` method
-// https://tc39.github.io/ecma262/#sec-array.prototype.foreach
-$({ target: 'Array', proto: true, forced: [].forEach != forEach }, {
-  forEach: forEach
-});
-
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(0);
-var DOMIterables = __webpack_require__(103);
-var forEach = __webpack_require__(104);
-var createNonEnumerableProperty = __webpack_require__(12);
-
-for (var COLLECTION_NAME in DOMIterables) {
-  var Collection = global[COLLECTION_NAME];
-  var CollectionPrototype = Collection && Collection.prototype;
-  // some Chrome versions have non-configurable methods on DOMTokenList
-  if (CollectionPrototype && CollectionPrototype.forEach !== forEach) try {
-    createNonEnumerableProperty(CollectionPrototype, 'forEach', forEach);
-  } catch (error) {
-    CollectionPrototype.forEach = forEach;
-  }
-}
-
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__(3);
 var $map = __webpack_require__(25).map;
 var arrayMethodHasSpeciesSupport = __webpack_require__(53);
 var arrayMethodUsesToLength = __webpack_require__(21);
@@ -2397,7 +2234,7 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -2411,7 +2248,7 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(4);
@@ -2431,7 +2268,7 @@ module.exports = function (input, PREFERRED_STRING) {
 
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var NATIVE_WEAK_MAP = __webpack_require__(108);
@@ -2498,14 +2335,14 @@ module.exports = {
 
 
 /***/ }),
-/* 35 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = false;
 
 
 /***/ }),
-/* 36 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -2516,7 +2353,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 37 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2573,7 +2410,7 @@ if (DESCRIPTORS && typeof NativeSymbol == 'function' && (!('description' in Nati
 
 
 /***/ }),
-/* 38 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var defineWellKnownSymbol = __webpack_require__(81);
@@ -2584,14 +2421,14 @@ defineWellKnownSymbol('iterator');
 
 
 /***/ }),
-/* 39 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 
 /***/ }),
-/* 40 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2647,7 +2484,7 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 
 
 /***/ }),
-/* 41 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2679,7 +2516,7 @@ if (NOT_GENERIC || INCORRECT_NAME) {
 
 
 /***/ }),
-/* 42 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(0);
@@ -2713,6 +2550,43 @@ for (var COLLECTION_NAME in DOMIterables) {
         CollectionPrototype[METHOD_NAME] = ArrayIteratorMethods[METHOD_NAME];
       }
     }
+  }
+}
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__(3);
+var forEach = __webpack_require__(104);
+
+// `Array.prototype.forEach` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.foreach
+$({ target: 'Array', proto: true, forced: [].forEach != forEach }, {
+  forEach: forEach
+});
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(0);
+var DOMIterables = __webpack_require__(103);
+var forEach = __webpack_require__(104);
+var createNonEnumerableProperty = __webpack_require__(12);
+
+for (var COLLECTION_NAME in DOMIterables) {
+  var Collection = global[COLLECTION_NAME];
+  var CollectionPrototype = Collection && Collection.prototype;
+  // some Chrome versions have non-configurable methods on DOMTokenList
+  if (CollectionPrototype && CollectionPrototype.forEach !== forEach) try {
+    createNonEnumerableProperty(CollectionPrototype, 'forEach', forEach);
+  } catch (error) {
+    CollectionPrototype.forEach = forEach;
   }
 }
 
@@ -2905,7 +2779,7 @@ module.exports = function (it, TAG, STATIC) {
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var aFunction = __webpack_require__(36);
+var aFunction = __webpack_require__(34);
 
 // optional / simple context binding
 module.exports = function (fn, that, length) {
@@ -2937,9 +2811,9 @@ module.exports = function (fn, that, length) {
 
 "use strict";
 
-var toPrimitive = __webpack_require__(33);
+var toPrimitive = __webpack_require__(31);
 var definePropertyModule = __webpack_require__(10);
-var createPropertyDescriptor = __webpack_require__(32);
+var createPropertyDescriptor = __webpack_require__(30);
 
 module.exports = function (object, key, value) {
   var propertyKey = toPrimitive(key);
@@ -3121,7 +2995,7 @@ module.exports = store.inspectSource;
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var IS_PURE = __webpack_require__(35);
+var IS_PURE = __webpack_require__(33);
 var store = __webpack_require__(71);
 
 (module.exports = function (key, value) {
@@ -3553,7 +3427,7 @@ module.exports = function (iterator, fn, value, ENTRIES) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var wellKnownSymbol = __webpack_require__(1);
-var Iterators = __webpack_require__(39);
+var Iterators = __webpack_require__(37);
 
 var ITERATOR = wellKnownSymbol('iterator');
 var ArrayPrototype = Array.prototype;
@@ -3569,7 +3443,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(86);
-var Iterators = __webpack_require__(39);
+var Iterators = __webpack_require__(37);
 var wellKnownSymbol = __webpack_require__(1);
 
 var ITERATOR = wellKnownSymbol('iterator');
@@ -3671,8 +3545,8 @@ var setToStringTag = __webpack_require__(50);
 var createNonEnumerableProperty = __webpack_require__(12);
 var redefine = __webpack_require__(16);
 var wellKnownSymbol = __webpack_require__(1);
-var IS_PURE = __webpack_require__(35);
-var Iterators = __webpack_require__(39);
+var IS_PURE = __webpack_require__(33);
+var Iterators = __webpack_require__(37);
 var IteratorsCore = __webpack_require__(89);
 
 var IteratorPrototype = IteratorsCore.IteratorPrototype;
@@ -3764,7 +3638,7 @@ var getPrototypeOf = __webpack_require__(90);
 var createNonEnumerableProperty = __webpack_require__(12);
 var has = __webpack_require__(5);
 var wellKnownSymbol = __webpack_require__(1);
-var IS_PURE = __webpack_require__(35);
+var IS_PURE = __webpack_require__(33);
 
 var ITERATOR = wellKnownSymbol('iterator');
 var BUGGY_SAFARI_ITERATORS = false;
@@ -3865,7 +3739,7 @@ module.exports = getBuiltIn('navigator', 'userAgent') || '';
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(6);
-var aFunction = __webpack_require__(36);
+var aFunction = __webpack_require__(34);
 var wellKnownSymbol = __webpack_require__(1);
 
 var SPECIES = wellKnownSymbol('species');
@@ -4007,7 +3881,7 @@ module.exports = /(iphone|ipod|ipad).*applewebkit/i.test(userAgent);
 
 "use strict";
 
-var aFunction = __webpack_require__(36);
+var aFunction = __webpack_require__(34);
 
 var PromiseCapability = function (C) {
   var resolve, reject;
@@ -4690,9 +4564,9 @@ module.exports = function from(arrayLike /* , mapfn = undefined, thisArg = undef
 
 var IteratorPrototype = __webpack_require__(89).IteratorPrototype;
 var create = __webpack_require__(49);
-var createPropertyDescriptor = __webpack_require__(32);
+var createPropertyDescriptor = __webpack_require__(30);
 var setToStringTag = __webpack_require__(50);
-var Iterators = __webpack_require__(39);
+var Iterators = __webpack_require__(37);
 
 var returnThis = function () { return this; };
 
@@ -5204,11 +5078,7 @@ $({ target: 'Array', proto: true, forced: ES3_STRINGS || !STRICT_METHOD }, {
 var $ = __webpack_require__(3);
 var fails = __webpack_require__(2);
 var toIndexedObject = __webpack_require__(11);
-<<<<<<< HEAD
 var nativeGetOwnPropertyDescriptor = __webpack_require__(20).f;
-=======
-var nativeGetOwnPropertyDescriptor = __webpack_require__(21).f;
->>>>>>> origin/feat/add-icon
 var DESCRIPTORS = __webpack_require__(9);
 
 var FAILS_ON_PRIMITIVES = fails(function () { nativeGetOwnPropertyDescriptor(1); });
@@ -5277,7 +5147,7 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
 /* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var aFunction = __webpack_require__(36);
+var aFunction = __webpack_require__(34);
 var toObject = __webpack_require__(19);
 var IndexedObject = __webpack_require__(43);
 var toLength = __webpack_require__(17);
@@ -5392,7 +5262,7 @@ var redefine = __webpack_require__(16);
 var has = __webpack_require__(5);
 var classof = __webpack_require__(15);
 var inheritIfRequired = __webpack_require__(145);
-var toPrimitive = __webpack_require__(33);
+var toPrimitive = __webpack_require__(31);
 var fails = __webpack_require__(2);
 var create = __webpack_require__(49);
 var getOwnPropertyNames = __webpack_require__(46).f;
@@ -5670,10 +5540,10 @@ __webpack_require__.r(__webpack_exports__);
 var es_symbol = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.description.js
-var es_symbol_description = __webpack_require__(37);
+var es_symbol_description = __webpack_require__(35);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.iterator.js
-var es_symbol_iterator = __webpack_require__(38);
+var es_symbol_iterator = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.from.js
 var es_array_from = __webpack_require__(26);
@@ -5682,7 +5552,7 @@ var es_array_from = __webpack_require__(26);
 var es_array_iterator = __webpack_require__(27);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
-var es_array_slice = __webpack_require__(40);
+var es_array_slice = __webpack_require__(38);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__(18);
@@ -5697,7 +5567,7 @@ var es_promise = __webpack_require__(13);
 var es_regexp_exec = __webpack_require__(67);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
-var es_regexp_to_string = __webpack_require__(41);
+var es_regexp_to_string = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
 var es_string_iterator = __webpack_require__(28);
@@ -5709,7 +5579,7 @@ var es_string_replace = __webpack_require__(99);
 var es_string_split = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
-var web_dom_collections_iterator = __webpack_require__(42);
+var web_dom_collections_iterator = __webpack_require__(40);
 
 // EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__(14);
@@ -5788,10 +5658,10 @@ var LoginController = /*#__PURE__*/function () {
 
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
-var es_array_for_each = __webpack_require__(29);
+var es_array_for_each = __webpack_require__(41);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
-var web_dom_collections_for_each = __webpack_require__(30);
+var web_dom_collections_for_each = __webpack_require__(42);
 
 // CONCATENATED MODULE: ./src/utils/event.js
 
@@ -5838,7 +5708,7 @@ var es_array_filter = __webpack_require__(105);
 var es_array_join = __webpack_require__(129);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
-var es_array_map = __webpack_require__(31);
+var es_array_map = __webpack_require__(29);
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
 var es_object_get_own_property_descriptor = __webpack_require__(130);
@@ -6990,30 +6860,17 @@ var icon_styles = __webpack_require__(143);
 
 
 
-/* harmony default export */ var icon = (function (_ref) // element({
-//   className: `${className} icon`,
-{
+/* harmony default export */ var icon = (function (_ref) {
   var _ref$className = _ref.className,
       className = _ref$className === void 0 ? 'default' : _ref$className,
       _ref$type = _ref.type,
-<<<<<<< HEAD
-      type = _ref$type === void 0 ? 'primary' : _ref$type;
-  return utils_element({
-    className: "".concat(className, " icon"),
-    child: "<i class='".concat(type, "'></i>")
-  });
-});
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
-var es_number_constructor = __webpack_require__(144);
-=======
       type = _ref$type === void 0 ? 'primary' : _ref$type,
       _ref$areaHidden = _ref.areaHidden,
       areaHidden = _ref$areaHidden === void 0 ? false : _ref$areaHidden;
   return "<i class='".concat(className, " ").concat(type, " icon' ").concat(areaHidden ? "area-hidden='true'" : '', "'></i>");
-}); // });
-// EXTERNAL MODULE: ./src/components/molecules/card/styles.css
-var card_styles = __webpack_require__(143);
->>>>>>> origin/feat/add-icon
+});
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
+var es_number_constructor = __webpack_require__(144);
 
 // CONCATENATED MODULE: ./src/utils/helper.js
 
@@ -7050,28 +6907,25 @@ var card_styles = __webpack_require__(148);
 var card_projectColumnCard = function projectColumnCard(className, data) {
   return [header({
     className: "".concat(className, "-header card-header"),
-    leading: utils_element({
+    title: utils_element({
       className: "".concat(className, "-header-text"),
       child: data.title
     }),
-    actions: utils_element({
-      className: "".concat(className, "-header-actions"),
-      child: [icon({
-        className: "".concat(className, "-header-edit-icon"),
-        type: 'fa fa-pencil',
-        areaHidden: true
-      }), icon({
-        className: "".concat(className, "-header-delete-icon"),
-        type: 'fa fa-trash-o',
-        areaHidden: true
-      })]
-    })
+    actions: [icon({
+      className: "".concat(className, "-header-edit-icon"),
+      type: 'fa fa-pencil',
+      areaHidden: true
+    }), icon({
+      className: "".concat(className, "-header-delete-icon"),
+      type: 'fa fa-trash-o',
+      areaHidden: true
+    })]
   }), utils_element({
     className: "".concat(className, "-body card-body"),
     child: ' '
   }), utils_element({
     className: "".concat(className, "-footer card-footer"),
-    child: [" ", utils_element({
+    child: [getCurrentDateTime(data.createdAt), utils_element({
       className: "".concat(className, "-footer-writer"),
       child: " "
     })]
@@ -7098,7 +6952,7 @@ var card_projectColumnNewCard = function projectColumnNewCard(className) {
 var card_projectEventColumnCard = function projectEventColumnCard(className, data) {
   return [header({
     className: "".concat(className, "-header card-header"),
-    leading: utils_element({
+    title: utils_element({
       className: "".concat(className, "-header-text"),
       child: data.title
     })
@@ -7110,13 +6964,13 @@ var card_projectEventColumnCard = function projectEventColumnCard(className, dat
 
 var card_projectColumnCreateCard = function projectColumnCreateCard(className) {
   return [utils_element({
-    className: "".concat(className, "-container"),
+    className: "".concat(className, " card-container"),
     child: [icon({
-      className: "".concat(className, "-header-add-icon"),
+      className: "".concat(className, " card-add-icon"),
       type: 'fa fa-plus',
       areaHidden: true
     }), utils_element({
-      className: "".concat(className, "-body"),
+      className: "".concat(className, " card-body"),
       child: ["Add new column"]
     })]
   })];
@@ -7126,7 +6980,7 @@ var card_mypageColumnCard = function mypageColumnCard(className, data) {
   console.log(data);
   return [header({
     className: "".concat(className, "-header card-header"),
-    leading: utils_element({
+    title: utils_element({
       className: "".concat(className, "-header-text"),
       child: data.title
     })
@@ -7140,7 +6994,7 @@ var card_userColumnCard = function userColumnCard(className, data) {
   console.log(data);
   return [header({
     className: "".concat(className, "-header card-header"),
-    leading: utils_element({
+    title: utils_element({
       className: "".concat(className, "-header-text"),
       child: data.nickname
     })
@@ -7668,7 +7522,7 @@ var model_ProjectModel = /*#__PURE__*/function () {
                 _yield$apis$createGro = _context3.sent;
                 group = _yield$apis$createGro.group;
                 event = _yield$apis$createGro.event;
-                this.project.groups.unshift(group);
+                this.project.groups.push(group);
                 this.createGroupEvent.trigger({
                   group: group,
                   event: event
@@ -8130,7 +7984,6 @@ var project_styles = __webpack_require__(156);
 
 
 
-
 function project_toConsumableArray(arr) { return project_arrayWithoutHoles(arr) || project_iterableToArray(arr) || project_unsupportedIterableToArray(arr) || project_nonIterableSpread(); }
 
 function project_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -8167,14 +8020,17 @@ function project_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
       })
     }), utils_element({
       className: 'project-columns',
-      child: [].concat(project_toConsumableArray(project.groups.map(function (group) {
-        return groupColumn({
-          className: 'project-column',
-          data: group
-        });
-      })), [molecules_card({
+      child: [utils_element({
+        className: 'project-existing-columns',
+        child: project_toConsumableArray(project.groups.map(function (group) {
+          return groupColumn({
+            className: 'project-column',
+            data: group
+          });
+        }))
+      }), molecules_card({
         className: 'project-column-create-card'
-      })])
+      })]
     }), eventColumn({
       className: 'project-event-column',
       data: project.events
@@ -8490,9 +8346,6 @@ var DragAndDrop = /*#__PURE__*/function () {
 
 
 // CONCATENATED MODULE: ./src/pages/project/view.js
-
-
-
 function project_view_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function project_view_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -8543,11 +8396,14 @@ var view_ProjectView = /*#__PURE__*/function () {
         event.preventDefault();
         return false;
       });
-      this.app.addEventListener('click', function (event) {
+      this.app.addEventListener('mousedown', function (event) {
         return _this.onAppClickHandler(event, _this);
       });
+      this.app.addEventListener('keyup', function (event) {
+        return _this.onFormCardTypeHandler(event, _this);
+      });
       new DragAndDrop({
-        container: this.app.querySelector('.project'),
+        container: this.app,
         parentSelector: '.project-column-body',
         childSelector: '.project-column-card',
         onDragEnd: function onDragEnd(card) {
@@ -8555,21 +8411,12 @@ var view_ProjectView = /*#__PURE__*/function () {
         }
       });
       new DragAndDrop({
-        container: this.app.querySelector('.project'),
-        parentSelector: '.project-columns',
+        container: this.app,
+        parentSelector: '.project-existing-columns',
         childSelector: '.project-column',
         onDragEnd: function onDragEnd(column) {
           return self.onColumnDragEndHandler(column);
         }
-      });
-      var columns = document.querySelectorAll('.project-column');
-      columns.forEach(function (column) {
-        column.addEventListener('mousedown', function (event) {
-          return _this.onColumnClickHandler(event, _this);
-        });
-        column.addEventListener('keyup', function (event) {
-          return _this.onFormCardTypeHandler(event, _this);
-        });
       });
     }
   }, {
@@ -8596,19 +8443,7 @@ var view_ProjectView = /*#__PURE__*/function () {
         self.onEditCardModalUpdateClickHandler(event);
       } else if (classList.contains('modal-confirm')) {
         self.onDeleteModalConfirmClickHandler(event);
-      } else {
-        foundHandler = false;
-      }
-
-      if (foundHandler) event.stopImmediatePropagation();
-    }
-  }, {
-    key: "onColumnClickHandler",
-    value: function onColumnClickHandler(event, self) {
-      var foundHandler = true;
-      var classList = event.target.classList;
-
-      if (classList.contains('project-column-header-add-icon')) {
+      } else if (classList.contains('project-column-header-add-icon')) {
         self.onNoteAddIconCickHandler(event);
       } else if (classList.contains('project-column-header-edit-icon')) {
         self.onGroupEditIconClickHandler(event);
@@ -8618,12 +8453,11 @@ var view_ProjectView = /*#__PURE__*/function () {
         self.onFormCardButtonClickHandler(event, true);
       } else if (classList.contains('project-column-form-card-cancel-button')) {
         self.onFormCardButtonClickHandler(event, false);
-      } else if (classList.contains('project-column-form-card-textarea')) {//found handler
       } else if (classList.contains('project-column-card-header-edit-icon')) {
         self.onNoteEditIconClickHandler(event);
       } else if (classList.contains('project-column-card-header-delete-icon')) {
         self.onNoteDeleteIconClickHandler(event);
-      } else {
+      } else if (classList.contains('project-column-form-card-textarea')) {} else {
         foundHandler = false;
       }
 
@@ -8693,7 +8527,7 @@ var view_ProjectView = /*#__PURE__*/function () {
     key: "createColumn",
     value: function createColumn(_ref3) {
       var group = _ref3.group;
-      this.app.querySelector(".project-column-create-card").insertAdjacentHTML('beforebegin', groupColumn({
+      this.app.querySelector(".project-existing-columns").insertAdjacentHTML('beforeend', groupColumn({
         className: 'project-column',
         data: group
       }));
@@ -8727,13 +8561,14 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onNoteAddIconCickHandler",
     value: function onNoteAddIconCickHandler(event) {
-      var formCard = event.currentTarget.querySelector('.project-column-form-card');
+      var column = event.target.closest('.project-column');
+      var formCard = column.querySelector('.project-column-form-card');
       this.toggleFormCard(formCard);
     }
   }, {
     key: "onNoteEditIconClickHandler",
     value: function onNoteEditIconClickHandler(event) {
-      var groupId = event.currentTarget.id;
+      var groupId = event.target.closest('.project-column').id;
       var card = event.target.closest('.project-column-card');
       var cardTitle = card.querySelector('.project-column-card-header-text').innerText;
       this.app.querySelector(".project").insertAdjacentHTML('beforeend', molecules_modal({
@@ -8760,11 +8595,12 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onGroupEditIconClickHandler",
     value: function onGroupEditIconClickHandler(event) {
-      var headerTitle = event.currentTarget.querySelector('.project-column-header-title');
+      var column = event.target.closest('.project-column');
+      var headerTitle = column.querySelector('.project-column-header-title');
       this.app.querySelector(".project").insertAdjacentHTML('beforeend', molecules_modal({
         className: "project-column-edit-modal",
         data: {
-          id: getNumber(event.currentTarget.id),
+          id: getNumber(column.id),
           title: headerTitle.innerText
         }
       }));
@@ -8772,10 +8608,11 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onGroupDeleteIconClickHandler",
     value: function onGroupDeleteIconClickHandler(event) {
+      var column = event.target.closest('.project-column');
       this.app.querySelector(".project").insertAdjacentHTML('beforeend', molecules_modal({
         className: "project-delete-modal",
         data: {
-          id: getNumber(event.currentTarget.id),
+          id: getNumber(column.id),
           type: 'Column'
         }
       }));
@@ -8783,7 +8620,7 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onModalCloseClickHandler",
     value: function onModalCloseClickHandler(event) {
-      var modal = event.currentTarget.querySelector('.modal');
+      var modal = event.target.closest('.modal');
       modal.remove();
     }
   }, {
@@ -8796,7 +8633,7 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onCreateColumnModalButtonClickHandler",
     value: function onCreateColumnModalButtonClickHandler(event) {
-      var modal = event.currentTarget.querySelector('.modal');
+      var modal = event.target.closest('.modal');
       this.createGroupEvent.trigger({
         title: modal.querySelector('.modal-input').value
       });
@@ -8805,7 +8642,7 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onEditColumnModalUpdateClickHandler",
     value: function onEditColumnModalUpdateClickHandler(event) {
-      var modal = event.currentTarget.querySelector('.modal');
+      var modal = event.target.closest('.modal');
       this.updateGroupEvent.trigger({
         id: getNumber(modal.id),
         title: modal.querySelector('.modal-input').value
@@ -8815,7 +8652,7 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onEditCardModalUpdateClickHandler",
     value: function onEditCardModalUpdateClickHandler(event) {
-      var modal = event.currentTarget.querySelector('.modal');
+      var modal = event.target.closest('.modal');
       this.updateNoteEvent.trigger({
         id: getNumber(modal.id),
         title: modal.querySelector('.modal-textarea').innerText
@@ -8825,7 +8662,7 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onDeleteModalConfirmClickHandler",
     value: function onDeleteModalConfirmClickHandler(event) {
-      var modal = event.currentTarget.querySelector('.modal');
+      var modal = event.target.closest('.modal');
       var type = modal.querySelector('.modal-description > b').innerText;
 
       if (type === 'Column') {
@@ -8843,7 +8680,8 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onFormCardButtonClickHandler",
     value: function onFormCardButtonClickHandler(event, isAdd) {
-      var formCard = event.currentTarget.querySelector('.project-column-form-card');
+      var column = event.target.closest('.project-column');
+      var formCard = column.querySelector('.project-column-form-card');
 
       if (isAdd) {
         this.createNoteEvent.trigger({
@@ -8857,12 +8695,11 @@ var view_ProjectView = /*#__PURE__*/function () {
   }, {
     key: "onFormCardTypeHandler",
     value: function onFormCardTypeHandler(event) {
-      var target = event.target,
-          currentTarget = event.currentTarget;
+      var column = event.target.closest('.project-column');
 
-      if (target.className == 'project-column-form-card-textarea textarea') {
-        var addButton = currentTarget.querySelector('.project-column-form-card-add-button');
-        addButton.disabled = target.innerHTML.length == 0;
+      if (event.target.className == 'project-column-form-card-textarea textarea') {
+        var addButton = column.querySelector('.project-column-form-card-add-button');
+        addButton.disabled = event.target.innerHTML.length == 0;
       }
     }
   }]);
