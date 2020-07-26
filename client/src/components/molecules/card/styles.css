@@ -6,6 +6,7 @@
 
 .card-header {
   min-height: 20px;
+  align-items: baseline;
 }
 
 .card-body {
