@@ -1,6 +1,6 @@
 /*!
- * commitVersion: c7ea54f
- * Build Date: 2020-7-26 10:50:38 ├F10: PM┤
+ * commitVersion: 782e6ff
+ * Build Date: 2020. 8. 9. 오후 3:26:58
  * Author: zoomkoding
  * 
  */
@@ -5753,7 +5753,7 @@ var defaultOptions = function defaultOptions(method) {
   };
 };
 
-var serverUrl = 'http://localhost:3000';
+var serverUrl = '';
 
 var createQuery = function createQuery(data) {
   return data ? '?' + Object.keys(data).map(function (k) {
