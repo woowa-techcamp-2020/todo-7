@@ -1,6 +1,6 @@
 const path = require('path');
+const childProcess = require('child_process');
 const webpack = require('webpack');
-const banner = require('./banner');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -28,7 +28,15 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.BannerPlugin(banner),
+    new webpack.BannerPlugin({
+      banner: () => {
+        const commit = childProcess.execSync('git rev-parse --short HEAD');
+        const user = childProcess.execSync('git config user.name');
+        const date = new Date().toLocaleString();
+
+        return `commitVersion: ${commit}` + `Build Date: ${date}\n` + `Author: ${user}`;
+      },
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
