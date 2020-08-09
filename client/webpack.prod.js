@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -52,7 +52,26 @@ module.exports = {
     }),
   ],
   optimization: {
-    usedExports: true,
-    minimizer: [new OptimizeCssAssetsPlugin()],
+    minimizer: [
+      new TerserPlugin({
+        extractComments: {
+          condition: true,
+          filename: (fileData) => {
+            return `${fileData.filename}.LICENSE.txt${fileData.query}`;
+          },
+          banner: (commentsFile) => {
+            return `My custom banner about license information ${commentsFile}`;
+          },
+        },
+        terserOptions: {
+          output: {
+            comments: false,
+          },
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
+    ],
   },
 };
