@@ -1,10 +1,10 @@
 const path = require('path');
+const childProcess = require('child_process');
 const webpack = require('webpack');
-const banner = require('./banner');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -30,8 +30,10 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.BannerPlugin(banner),
     new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       templateParameters: {
@@ -39,12 +41,37 @@ module.exports = {
       },
       hash: true,
     }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
+    new webpack.BannerPlugin({
+      banner: () => {
+        const commit = childProcess.execSync('git rev-parse --short HEAD');
+        const user = childProcess.execSync('git config user.name');
+        const date = new Date().toLocaleString();
+
+        return `commitVersion: ${commit}` + `Build Date: ${date}\n` + `Author: ${user}`;
+      },
     }),
   ],
   optimization: {
-    usedExports: true,
-    minimizer: [new OptimizeCssAssetsPlugin()],
+    minimizer: [
+      new TerserPlugin({
+        extractComments: {
+          condition: true,
+          filename: (fileData) => {
+            return `${fileData.filename}.LICENSE.txt${fileData.query}`;
+          },
+          banner: (commentsFile) => {
+            return `My custom banner about license information ${commentsFile}`;
+          },
+        },
+        terserOptions: {
+          output: {
+            comments: false,
+          },
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
+    ],
   },
 };
