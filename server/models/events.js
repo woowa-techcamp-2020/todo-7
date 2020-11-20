@@ -1,4 +1,5 @@
 const Model = require('./model');
+const { wrapBacktick } = require('../utils/helper');
 
 class Events extends Model {
   static init() {
@@ -21,6 +22,7 @@ class Events extends Model {
         .join(' AND ')}
       ORDER BY Events.id DESC;
     `;
+    console.log(queryStmt);
     const result = (await this.pool.query(queryStmt))[0];
     return result;
   }

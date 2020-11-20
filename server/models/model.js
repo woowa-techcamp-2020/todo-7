@@ -56,7 +56,7 @@ class Model {
     const validatedWhere = this.validate({ ...where, ...this.defaultWhere });
     const queryStmt = `
       SELECT ${attributes === '*' ? '*' : wrapBacktick(attributes)} 
-      FROM ${this.name}
+      FROM ${wrapBacktick(this.name)}
       ${
         !isEmpty(validatedWhere)
           ? `WHERE ${Object.entries(validatedWhere)
@@ -71,7 +71,7 @@ class Model {
 
   static generateCreateQueryStmt = function (input) {
     const queryStmt = `
-      INSERT INTO ${this.name} (
+      INSERT INTO ${wrapBacktick(this.name)} (
         ${wrapBacktick(Object.keys(input))} 
         ${!this.attributes.order ? '' : ', `order`'}
       )
@@ -100,7 +100,7 @@ class Model {
 
   static generateDeleteQueryStmt = function (id) {
     const queryStmt = `
-      UPDATE ${this.name}
+      UPDATE \`${this.name}\`
       SET isActive = 0
       WHERE id = ${id}
     `;
@@ -109,17 +109,20 @@ class Model {
 
   static findOne = async function (attributes, where) {
     const queryStmt = this.generateFindQueryStmt(true, attributes, where);
+    console.log(queryStmt);
     return (await this.pool.query(queryStmt))[0][0];
   };
 
   static findAll = async function (attributes, where) {
     const queryStmt = this.generateFindQueryStmt(false, attributes, where);
+    console.log(queryStmt);
     return (await this.pool.query(queryStmt))[0];
   };
 
   static create = async function (input) {
     const validatedInput = this.validate(input);
     const queryStmt = this.generateCreateQueryStmt(validatedInput);
+    console.log(queryStmt);
     return {
       id: (await this.pool.query(queryStmt))[0].insertId,
       ...input,
@@ -130,12 +133,14 @@ class Model {
     if (!input.id) throw this.validationError;
     const validatedInput = this.validate(input);
     const queryStmt = this.generateUpdateQueryStmt(validatedInput);
+    console.log(queryStmt);
     return await this.pool.query(queryStmt);
   };
 
   static delete = async function (id) {
     if (!id) throw this.validationError;
     const queryStmt = this.generateDeleteQueryStmt(id);
+    console.log(queryStmt);
     return await this.pool.query(queryStmt);
   };
 }

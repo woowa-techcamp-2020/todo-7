@@ -23,6 +23,7 @@ class Users extends Model {
       ON Projects.id = UserProjectRelations.projectId
       WHERE UserProjectRelations.userId = ${id};
     `;
+    console.log(queryStmt);
     return (await this.pool.query(queryStmt))[0];
   };
 }

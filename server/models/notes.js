@@ -14,7 +14,8 @@ class Notes extends Model {
       updatedAt: { dataType: 'datetime', required: false },
     });
   }
-  static generateOrderSubQueryStmt = (data) => `, (SELECT COALESCE(MAX(\`order\`),0) FROM Notes t WHERE t.groupId = ${data.groupId}) + 1`;
+  static generateOrderSubQueryStmt = (data) =>
+    `, (SELECT COALESCE(MAX(\`order\`),0) FROM Notes t WHERE t.groupId = ${data.groupId}) + 1`;
 
   static async move(notes) {
     const queryStmt =
@@ -34,15 +35,18 @@ class Notes extends Model {
           SET \`groupId\` = ${notes.groupId}, \`order\` = a.\`maxOrder\` + 1 
           WHERE \`id\` = ${notes.id}
       `;
+    console.log(queryStmt);
     return await this.pool.query(queryStmt);
   }
 
   static async findTitleAndGroupTitleById(id) {
     const queryStmt = `
-      SELECT Notes.title AS title, Groups.title AS groupTitle 
-      FROM Notes INNER JOIN Groups ON Notes.groupId = Groups.id 
+      SELECT Notes.title AS title, \`Groups\`.title AS groupTitle 
+      FROM Notes INNER JOIN \`Groups\` ON Notes.groupId = \`Groups\`.id 
       WHERE Notes.id = ${id};
     `;
+    console.log(queryStmt);
+
     return (await this.pool.query(queryStmt))[0][0];
   }
 }
