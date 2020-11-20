@@ -5,7 +5,7 @@ const defaultOptions = (method) => ({
   },
 });
 
-const serverUrl = '';
+const serverUrl = '/api';
 
 const createQuery = (data) => {
   return data
